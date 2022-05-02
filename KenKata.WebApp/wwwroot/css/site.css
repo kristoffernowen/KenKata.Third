@@ -1,0 +1,117 @@
+/* general */
+
+.no-border {
+    border: none;
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.navbar-container {
+    width: 1125px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-turquoise {
+    color: #20D3C2 !important;
+}
+
+
+/* navbar */
+
+#navbarTop {
+    background-color: #20D3C2;
+}
+
+#navbarTop a, #navbarTop select, #navbarTop option {
+    text-decoration: none;
+    color: white;
+    border: none;
+}
+
+#navbarMiddle {
+    height: 100px;
+}
+
+#kenKataLogo {
+    width: 160px;
+    height: 23px;
+}
+
+#searchDiv {
+    border-radius: 9999px;
+    border: 1px solid gray;
+}
+
+#searchDiv input {
+    border: none;
+    margin: 0.5rem;
+}
+
+#searchDiv i {
+    color: white;
+    margin-right: 0.5rem;
+    ;
+}
+
+#navbarMyAccountDiv i {
+    margin-left: 2rem;
+}
+
+#navbarMyAccountDiv a {
+    color: black;
+    text-decoration: none;
+}
+
+#navbarBottom {
+    border: 1px solid lightgray;
+}
+
+.navbarBottomDiv {
+    display: flex;
+    align-items: center;
+}
+
+#navbarBottom a {
+    color: black;
+    text-decoration: none;
+}
+
+#navbarBottom select {
+    border: none;
+    background-color: #20D3C2;
+    color: white;
+}
+
+#navbarSpecialOffer {
+    border-radius: 9999px;
+    background-color: #20D3C2;
+    color: white !important;
+    padding: 0.2rem 1.5rem;
+    margin: 10px 0;
+}
+
+#newCustomerSpecialOffer .background {
+    background-color: #292F51;
+}
+
+#newCustomer30Div {
+    height: 250px;
+    width: 350px;
+}
+
+#newCustomerSpecialOffer h1 {
+    display: inline-block;
+    color: white;
+}
+
+#newCustomer30Div a {
+    border-radius: 9999px;
+    text-decoration: none;
+    color: #20D3C2;
+    font-weight: 700;
+    background-color: white;
+    padding: 0.5rem 1rem;
+}
