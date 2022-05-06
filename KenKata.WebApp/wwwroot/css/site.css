@@ -1,0 +1,242 @@
+/* general */
+
+.no-border {
+    border: none;
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.navbar-container {
+    width: 1125px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.ken-container {
+    width: 1125px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-turquoise {
+    color: #20D3C2 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.white-button {
+    border-radius: 30px;
+    border: none;
+    width: 154px;
+    height: 54px;
+    background-color: #ffffff;
+    color: #20D3C2;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+    .white-button:hover {
+        background-color: #20D3C2;
+        color: white;
+    }
+
+
+/* navbar */
+
+#navbarTop {
+    background-color: #20D3C2;
+}
+
+#navbarTop a, #navbarTop select, #navbarTop option {
+    text-decoration: none;
+    color: white;
+    border: none;
+}
+
+#navbarMiddle {
+    height: 100px;
+}
+
+#kenKataLogo {
+    width: 160px;
+    height: 23px;
+}
+
+#searchDiv {
+    border-radius: 9999px;
+    border: 1px solid gray;
+}
+
+#searchDiv input {
+    border: none;
+    margin: 0.5rem;
+}
+
+#searchDiv i {
+    color: white;
+    margin-right: 0.5rem;
+    ;
+}
+
+#navbarMyAccountDiv i {
+    margin-left: 2rem;
+}
+
+#navbarMyAccountDiv a {
+    color: black;
+    text-decoration: none;
+}
+
+#navbarBottom {
+    border: 1px solid lightgray;
+}
+
+.navbarBottomDiv {
+    display: flex;
+    align-items: center;
+}
+
+#navbarBottom a {
+    color: black;
+    text-decoration: none;
+}
+
+#navbarBottom select {
+    border: none;
+    background-color: #20D3C2;
+    color: white;
+}
+
+#navbarSpecialOffer {
+    border-radius: 9999px;
+    background-color: #20D3C2;
+    color: white !important;
+    padding: 0.2rem 1.5rem;
+    margin: 10px 0;
+}
+
+#newCustomerSpecialOffer .background {
+    background-color: #292F51;
+}
+
+#newCustomer30Div {
+    height: 250px;
+    width: 350px;
+}
+
+#newCustomerSpecialOffer h1 {
+    display: inline-block;
+    color: white;
+}
+
+#newCustomer30Div a {
+    border-radius: 9999px;
+    text-decoration: none;
+    color: #20D3C2;
+    font-weight: 700;
+    background-color: white;
+    padding: 0.5rem 1rem;
+}
+
+
+
+/*SHOPPING-BANNER*/
+#shopping-banner {
+    height: auto;
+    width: auto;
+    background-color: #EEEEEE;
+}
+
+    #shopping-banner .shopping-banner-items {
+        height: 600px;
+        width: 100%;
+    }
+
+        #shopping-banner .shopping-banner-items img {
+            width: auto;
+            height: 100%;
+        }
+
+        #shopping-banner .shopping-banner-items .shopping-banner-items-text {
+            margin-left: 5px;
+        }
+
+            #shopping-banner .shopping-banner-items .shopping-banner-items-text h1 {
+                font-size: 60px;
+                max-width: 350px;
+                margin-bottom: 30px;
+            }
+
+            #shopping-banner .shopping-banner-items .shopping-banner-items-text p {
+                font-size: 16px;
+                max-width: 500px;
+                padding-right: 20px;
+            }
+
+
+
+/* FOOTER */
+#footer {
+    height: auto;
+    width: auto;
+}
+
+    #footer p {
+        font-size: 14px;
+        color: #ffffff;
+    }
+
+        #footer p a {
+            color: #FFFFFF;
+        }
+
+            #footer p a:hover {
+                color: #20D3C2;
+            }
+
+    #footer .box {
+        width: 100%;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        margin: 15px;
+    }
+
+    #footer .footer-brands {
+        background-color: #FFFFFF;
+    }
+
+        #footer .footer-brands .footer-1 {
+            height: 285px;
+        }
+
+    #footer .footer-content {
+        border-top: #20D3C2 5px solid;
+        background-color: #0E153D;
+    }
+
+        #footer .footer-content .footer-2 {
+            height: 452px;
+        }
+
+            #footer .footer-content .footer-2 p {
+                padding-right: 50px;
+            }
+
+    #footer .footer-bottom {
+        background-color: #080C24;
+        border-top: solid 3px white;
+    }
+
+        #footer .footer-bottom .footer-3 {
+            height: 80px;
+        }
+
+.single-line {
+    border-bottom: solid 1px black;
+    width: 110%;
+}
