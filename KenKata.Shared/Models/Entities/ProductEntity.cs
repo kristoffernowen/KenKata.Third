@@ -18,10 +18,14 @@ namespace KenKata.Shared.Models.Entities
 
         [Required]
         [Column(TypeName = "nvarchar(max)")]
-        public string Description { get; set; }
+        public string Description { get; set; } 
+
+        [Required]
+        [Column(TypeName = "nvarchar(50)")]
+        public string Color { get; set; } 
 
         [Required]
         [Column(TypeName = "money")]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } 
     }
 }

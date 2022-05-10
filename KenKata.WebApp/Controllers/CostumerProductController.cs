@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KenKata.Shared.Models.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KenKata.WebApp.Controllers
 {
@@ -6,7 +7,7 @@ namespace KenKata.WebApp.Controllers
     {
         public async Task<IActionResult> GetAll()
         {
-
+            
             return View();
         }
     }
