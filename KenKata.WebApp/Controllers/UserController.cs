@@ -42,10 +42,12 @@ namespace KenKata.WebApp.Controllers
                         UserName = model.UserName
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
+
+
                 
             }
 
-            return View(model);
+            return View();
         }
     }
 }
