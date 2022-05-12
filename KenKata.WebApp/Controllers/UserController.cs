@@ -34,8 +34,6 @@ namespace KenKata.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                // I think _userManager.CreateAsync will check so that duplicates are not made, otherwise it must be implemented  Kristoffer
-                
                     var user = new IdentityUser
                     {
                         Email = model.Email,
@@ -43,11 +41,14 @@ namespace KenKata.WebApp.Controllers
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
 
+                    if (result.Succeeded)
+                        return RedirectToAction("Index");
 
-                
+                    return Conflict("Registration failed");
+
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
