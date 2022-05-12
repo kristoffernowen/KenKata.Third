@@ -240,3 +240,19 @@ a {
     border-bottom: solid 1px black;
     width: 110%;
 }
+
+/* My Account */
+
+.grey-banner-bg {
+    background-color: #50546E;
+    width: 100%;
+    height: 140px;
+}
+
+.grey-banner-bg h1 {
+    font-size: 32px;
+}
+
+.grey-banner-bg span {
+    font-size: 21px;
+}

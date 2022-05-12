@@ -39,7 +39,7 @@ namespace KenKata.WebApp.Controllers
                     var user = new IdentityUser
                     {
                         Email = model.Email,
-                        UserName = model.Email
+                        UserName = model.UserName
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
                 

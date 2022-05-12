@@ -4,7 +4,9 @@ namespace KenKata.Shared.Models
 {
     public class RegisterUserModel
     {
-        [Key]
+        
+        public string UserName { get; set; }
+        
         [Required]
         [EmailAddress(ErrorMessage = "Email must be valid")]
         public string Email { get; set; } = string.Empty;
