@@ -10,7 +10,7 @@ namespace KenKata.WebApp.Service
     {
         Task<IEnumerable<ProductEntity>> GetAll();
         //Task<Bool> CreateAsync(ProductModelForm form);
-        //Task<ProductModel> ReadAsync(int productId);
+        Task<ProductModel> Get(int productId);
         //Task<ProductModel> UpdateAsync();
         //Task DeleteAsync(int productId);
     }
@@ -22,6 +22,22 @@ namespace KenKata.WebApp.Service
         public ProductService(SqlContext sqlContext)
         {
             _sqlContext = sqlContext;
+        }
+
+        public async Task<ProductModel> Get(int productId)
+        {
+            var product = new ProductModel();
+            var productEntity = await _sqlContext.Products.FirstOrDefaultAsync(x=>x.Id == productId);
+            if(productEntity != null)
+            {
+                product.Id = productEntity.Id;
+                product.Name = productEntity.Name;
+                product.Description = productEntity.Description;
+                product.Color= productEntity.Color;
+                product.Price = productEntity.Price;
+            }
+
+            return product;
         }
 
         public async Task<IEnumerable<ProductEntity>> GetAll()

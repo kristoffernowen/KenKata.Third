@@ -8,6 +8,10 @@ namespace KenKata.Shared.Models
 {
     public class ProductModel
     {
+        public ProductModel()
+        {
+        }
+
         public ProductModel(int id, string name, string description, string color, decimal price)
         {
             Id = id;
@@ -19,18 +23,12 @@ namespace KenKata.Shared.Models
 
         public int Id { get; set; }
 
-        //[Display(Name = "Name")]
-        //[Required(ErrorMessage = "This field is required")]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } 
 
-        //[Display(Name = "Description")]
-        //[Required(ErrorMessage = "This field is required")]
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; } 
         public string Color { get; set; }
 
-        //[Display(Name = "Price")]
-        //[Required(ErrorMessage = "This field is required")]
         public decimal Price { get; set; }
-        //public string ErrorM { get; set; } = "";
+
     }
 }

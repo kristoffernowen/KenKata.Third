@@ -13,14 +13,14 @@ namespace KenKata.WebApp.Controllers
             _productService = productService;
         }
 
-        //[Authorize(Roles = "admin")]
+        
         [Route("Products")]
         [HttpGet]
         public async Task<IActionResult> Products()
         {
-            var _product = await _productService.GetAll();
+            var _products = await _productService.GetAll();
 
-            return View(_product);
+            return View(_products);
         }
         //[Authorize(Roles = "admin")]
         [Route("Create")]
