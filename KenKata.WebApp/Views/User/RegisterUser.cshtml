@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model KenKata.Shared.Models.RegisterUserModel
+
+<form  asp-action="RegisterUser" class="m-3 w-100 my-account-form-bg pt-3 ps-4 pe-3">
+
+    <h2 class=" mb-4">Register</h2>
+    <p class="mb-4">Registering for this site allows you to access your order status and history. Just fill in the fields below, and we’ll get a new account set up for you in no time.
+        We will only ask you for information necessary to make the purchase process faster and easier.</p>
+
+    <div class="p-0  mb-4 ">
+        <label asp-for="UserName"></label><span class="text-turquoise">*</span><br>
+        <input asp-for="UserName" type="text" class="formcontrol w-100 no-borderpy-2">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="p-0 mb-4">
+        <label>Email address</label><span class="text-turquoise">*</span><br>
+        <input asp-for="Email" type="text" class="formcontrol w-100 no-border py-2">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="p-0">
+        <label>Password</label><span class="text-turquoise">*</span><br>
+        <input asp-for="Password" type="password" class="formcontrol w-100 no-border mb-4 py-2">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    
+    <div asp-validation-summary="All" class="text-white bg-secondary"></div>
+
+    <span class="mb-4">Your personal data will be used to support your experience throughout this website, to manage access to your account,
+        and for other purposes described in our </span><a href="" class="text-turquoise">privacy policy.</a><br>
+
+    <button type="submit" class="mt-4 mb-4 text-white bg-turquoise no-border my-account-button w-100 py-2">Register</button>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

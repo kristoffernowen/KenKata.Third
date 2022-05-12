@@ -10,11 +10,13 @@ namespace KenKata.WebApp.Controllers
     {
         private readonly SqlContext _sqlContext;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UserController(SqlContext sqlContext, UserManager<IdentityUser> userManager)
+        public UserController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _sqlContext = sqlContext;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -32,20 +34,36 @@ namespace KenKata.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserModel model)
         {
+            var roles = _sqlContext.Roles.Any();
+
+            if (roles == false)
+            {
+                await _roleManager.CreateAsync(new IdentityRole("admin"));
+                await _roleManager.CreateAsync(new IdentityRole("customer"));
+            }
+
+
             if (ModelState.IsValid)
             {
-                // I think _userManager.CreateAsync will check so that duplicates are not made, otherwise it must be implemented  Kristoffer
-                
                     var user = new IdentityUser
                     {
                         Email = model.Email,
-                        UserName = model.Email
+                        UserName = model.UserName
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
-                
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "customer");
+
+                        return RedirectToAction("Index");
+                    }
+
+                    return Conflict("Registration failed");
+
             }
 
-            return View(model);
+            return RedirectToAction("Index");
         }
     }
 }
