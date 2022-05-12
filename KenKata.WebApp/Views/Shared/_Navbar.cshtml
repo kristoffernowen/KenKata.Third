@@ -35,7 +35,17 @@
                         <i class="fa-solid fa-magnifying-glass text-dark"></i>
                 </div>
                 <div class="d-flex justify-content-between" id="navbarMyAccountDiv">
-                    <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
+                    @if (_signInManager.IsSignedIn(User))
+                    {
+                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>I'm in!</span></a>
+                        <a asp-controller="User" asp-action="SignOut">Log Out</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
+                    }
+                    
+
                     <a href=""><i class="fa-solid fa-heart"></i></a>
                     <a><i class="fa-solid fa-shuffle"></i></a>
                     <a> <i class="fa-solid fa-lock"></i></a>
