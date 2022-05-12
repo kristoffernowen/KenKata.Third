@@ -25,6 +25,10 @@
     color: #20D3C2 !important;
 }
 
+.bg-turquoise {
+    background-color: #20D3C2;
+}
+
 a {
     text-decoration: none;
 }
@@ -255,4 +259,12 @@ a {
 
 .grey-banner-bg span {
     font-size: 21px;
+}
+
+.my-account-form-bg {
+    background-color: #F6F6F6;
+}
+
+.my-account-button {
+    border-radius: 9999px;
 }
