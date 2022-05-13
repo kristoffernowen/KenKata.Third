@@ -8,11 +8,8 @@ namespace KenKata.WebApp.Service
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductEntity>> GetAll();
-        //Task<Bool> CreateAsync(ProductModelForm form);
-        Task<ProductModel> Get(int productId);
-        //Task<ProductModel> UpdateAsync();
-        //Task DeleteAsync(int productId);
+        Task<IEnumerable<ProductEntity>> GetAll();       
+        Task<ProductModel> Get(int productId);      
     }
 
     public class ProductService : IProductService
@@ -56,7 +53,7 @@ namespace KenKata.WebApp.Service
             }
             //REMOVE END
             return await _sqlContext.Products.ToListAsync();
-        }
+        }      
     }
-
+    
 }

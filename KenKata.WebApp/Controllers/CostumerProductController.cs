@@ -11,12 +11,12 @@ namespace KenKata.WebApp.Controllers
         public CostumerProductController(IProductService productService)
         {
             _productService = productService;
-        }
+        }        
         public async Task<IActionResult> GetAll()
         {
             var products = await _productService.GetAll();
             
             return View(products);
-        }
+        }  
     }
 }
