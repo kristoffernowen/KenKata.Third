@@ -9,7 +9,9 @@ namespace KenKata.WebApp.Service
     public interface IProductService
     {
         Task<IEnumerable<ProductEntity>> GetAll();       
-        Task<ProductModel> Get(int productId);      
+        Task<ProductModel> Get(int productId);
+        Task<Result> Create(ProductModelForm form);
+        Task<Result> Update(int productId, ProductModelForm model);
     }
 
     public class ProductService : IProductService
@@ -53,7 +55,53 @@ namespace KenKata.WebApp.Service
             }
             //REMOVE END
             return await _sqlContext.Products.ToListAsync();
-        }      
+        }
+
+        public async Task<Result> Create(ProductModelForm form)
+        {
+            var ProductNameExist = _sqlContext.Products.FirstOrDefaultAsync(x => x.Name == form.Name);
+            if (ProductNameExist == null)
+            {
+                var productEntity = new ProductEntity
+                {
+                    Name = form.Name,
+                    Description = form.
+                    Description,
+                    Color = form.Color,
+                    Price = form.Price
+                };
+                _sqlContext.Products.Add(productEntity);
+                await _sqlContext.SaveChangesAsync();
+                return new Result { Success = true };
+            }
+            return new Result { Success = false };
+
+        }
+
+
+
+        public async Task<Result> Update(int productId, ProductModelForm model)
+        {
+            var product = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
+
+            if (product != null)
+            {
+                product.Name = model.Name;
+                product.Description = model.Description;
+                product.Color = model.Color;
+                product.Price = model.Price;
+                _sqlContext.Update(product);
+                await _sqlContext.SaveChangesAsync();
+                return new Result { Success = true };
+            }
+
+            return new Result { Success = false };
+        }
     }
-    
+
+    public class Result
+    {
+        public bool Success { get; set; } = false;
+    }
+
 }
