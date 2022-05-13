@@ -1,5 +1,6 @@
 ﻿using KenKata.Shared.Models;
 using KenKata.WebApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,15 @@ namespace KenKata.WebApp.Controllers
     {
         private readonly SqlContext _sqlContext;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public UserController(SqlContext sqlContext, UserManager<IdentityUser> userManager)
+        public UserController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager)
         {
             _sqlContext = sqlContext;
             _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -32,20 +37,83 @@ namespace KenKata.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserModel model)
         {
+            var roles = _sqlContext.Roles.Any();
+
+            if (roles == false)
+            {
+                await _roleManager.CreateAsync(new IdentityRole("admin"));
+                await _roleManager.CreateAsync(new IdentityRole("customer"));
+            }
+
+
             if (ModelState.IsValid)
             {
-                // I think _userManager.CreateAsync will check so that duplicates are not made, otherwise it must be implemented  Kristoffer
-                
                     var user = new IdentityUser
                     {
                         Email = model.Email,
-                        UserName = model.Email
+                        UserName = model.UserName
                     };
                     var result = await _userManager.CreateAsync(user, model.Password);
-                
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "customer");
+
+                        return RedirectToAction("Index");
+                    }
+
+                    return Conflict("Registration failed");
+
             }
 
-            return View(model);
+            return RedirectToAction("Index");
         }
+
+        public IActionResult SignIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignIn(SignInUserModel model)
+        {
+            var user = new IdentityUser();
+
+            if (model.UserNameOrEmail.Contains("@"))
+            {
+                user = await _sqlContext.Users.FirstOrDefaultAsync(x => x.Email == model.UserNameOrEmail);
+
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+                    if (result.Succeeded)
+                        return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                user.UserName = model.UserNameOrEmail;
+
+                var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, false, false);
+
+                if (result.Succeeded)
+                    return RedirectToAction("Index", "Home");
+            }
+             
+
+            return RedirectToAction("Index");
+        }
+
+        public new async Task<IActionResult> SignOut()
+        {
+            if (_signInManager.IsSignedIn(User))
+                await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

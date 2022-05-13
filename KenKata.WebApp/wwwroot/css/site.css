@@ -25,6 +25,10 @@
     color: #20D3C2 !important;
 }
 
+.bg-turquoise {
+    background-color: #20D3C2;
+}
+
 a {
     text-decoration: none;
 }
@@ -80,7 +84,7 @@ a {
 #searchDiv i {
     color: white;
     margin-right: 0.5rem;
-    ;
+    
 }
 
 #navbarMyAccountDiv i {
@@ -90,6 +94,10 @@ a {
 #navbarMyAccountDiv a {
     color: black;
     text-decoration: none;
+}
+
+#navbarMyAccountDiv a:hover {
+    color: #20D3C2;
 }
 
 #navbarBottom {
@@ -178,6 +186,77 @@ a {
                 padding-right: 20px;
             }
 
+/*All products */
+#AllProducts p, #AllProducts h5, #AllProducts h6 {
+    color: #ffffff;
+}
+
+#AllProducts .col {
+    height: 290px;
+    width: 270px;
+}
+
+#AllProducts .card {
+    height: inherit;
+    position: relative;
+}
+
+    #AllProducts .card:hover .card-top {
+        position: absolute;
+        z-index: 1;
+    }
+
+    #AllProducts .card:hover .card-body {
+        z-index: 2;
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        background-color: #0e153ddf;
+    }
+
+        #AllProducts .card:hover .card-body .card-menu {
+            align-self: flex-end;
+            height: 136px;
+            width: 31px;
+            border-radius: 30px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+            #AllProducts .card:hover .card-body .card-menu img {
+                padding: 5px;
+            }
+
+        #AllProducts .card:hover .card-body .card-info .card-subtitle {
+            display: block;
+        }
+
+        #AllProducts .card:hover .card-body .card-info .card-text {
+            display: block;
+        }
+
+    #AllProducts .card .card-body {
+        height: 46px;
+        background-color: #0E153D;
+    }
+
+        #AllProducts .card .card-body .card-menu {
+            display: none;
+        }
+
+        #AllProducts .card .card-body .card-subtitle {
+            display: none;
+        }
+
+        #AllProducts .card .card-body .card-text {
+            display: none;
+        }
+
 
 
 /* FOOTER */
@@ -239,4 +318,28 @@ a {
 .single-line {
     border-bottom: solid 1px black;
     width: 110%;
+}
+
+/* My Account */
+
+.grey-banner-bg {
+    background-color: #50546E;
+    width: 100%;
+    height: 140px;
+}
+
+.grey-banner-bg h1 {
+    font-size: 32px;
+}
+
+.grey-banner-bg span {
+    font-size: 21px;
+}
+
+.my-account-form-bg {
+    background-color: #F6F6F6;
+}
+
+.my-account-button {
+    border-radius: 9999px;
 }
