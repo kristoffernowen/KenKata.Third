@@ -1,4 +1,5 @@
 using KenKata.WebApp.Data;
+using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
     x.Password.RequiredLength = 8;
     x.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<SqlContext>();
-
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.ConfigureApplicationCookie(x =>
 {
     x.LoginPath = "/authentication/signin";
