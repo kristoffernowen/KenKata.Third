@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-between" id="navbarMyAccountDiv">
                     @if (_signInManager.IsSignedIn(User))
                     {
-                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>I'm in!</span></a>
+                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>@User.Identity.Name </span></a>
                         <a asp-controller="User" asp-action="SignOut">Log Out</a>
                     }
                     else
