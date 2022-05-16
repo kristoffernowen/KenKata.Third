@@ -26,6 +26,11 @@ namespace KenKata.Shared.Models.Entities
 
         [Required]
         [Column(TypeName = "money")]
-        public decimal Price { get; set; } 
+        public decimal Price { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        public CategoryEntity Category { get; set; }
     }
 }
