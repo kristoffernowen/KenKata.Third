@@ -73,6 +73,7 @@ namespace KenKata.WebApp.Controllers
                 Description = product.Description,
                 Price = product.Price,
                 Color = product.Color,
+                ImgUrl = product.ImgUrl,
                 
             };
             return View(Model);

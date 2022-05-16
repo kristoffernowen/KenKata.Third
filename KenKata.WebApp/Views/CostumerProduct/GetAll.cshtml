@@ -7,13 +7,13 @@
 
 <div id="AllProducts">
     <div class="ken-container">
-        <div class="row row-cols-3 g-4 justify-content-center">
+        <div class="row row-cols-3 g-4 justify-content-center mt-3">
         @foreach (var product in Model)
         {
             <div class="col">
                 <div class="card shadow">
-                    <div class="card-top d-flex justify-content-center m-4">
-                        <img src="/images/Banner-thumb.png" class="card-img-top" alt="...">
+                    <div class="card-top d-flex justify-content-center m-2">
+                        <img src="@product.ImgUrl" class="card-img-top" alt="...">
                     </div>
                     <div class="card-body">
                             <div class="card-menu">

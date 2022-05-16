@@ -26,6 +26,10 @@ namespace KenKata.Shared.Models
         [Display(Name = "color")]
         [Required(ErrorMessage = "This field is required")]
         public string Color { get; set; } = "";
+
+        [Display(Name = "Image Url")]
+        [Required]
+        public string ImgUrl { get; set; } = "";
         public string ErrorM { get; set; } = "";
     }
 }

@@ -29,8 +29,12 @@ namespace KenKata.Shared.Models.Entities
         public decimal Price { get; set; }
 
         [Required]
-        public int CategoryId { get; set; }
+        [Column(TypeName = "nvarchar(max)")]
+        public string ImgUrl { get; set; }
 
-        public CategoryEntity Category { get; set; }
+        //[Required]
+        //public int CategoryId { get; set; }
+
+        //public CategoryEntity Category { get; set; }
     }
 }
