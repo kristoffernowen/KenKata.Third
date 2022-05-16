@@ -6,10 +6,7 @@ namespace KenKata.WebApp.Controllers
 {
     public class AdminProductController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
         private readonly IProductService _productService;
 
         public AdminProductController(IProductService productService)
@@ -17,10 +14,12 @@ namespace KenKata.WebApp.Controllers
             _productService = productService;
         }
 
+
+
         //[Authorize(Roles = "admin")]
-        [Route("Products")]
+        //[Route("Products")]
         [HttpGet]
-        public async Task<IActionResult> Products()
+        public async Task<IActionResult> Index()
         {
             var _products = await _productService.GetAll();
 
@@ -46,7 +45,7 @@ namespace KenKata.WebApp.Controllers
 
                 if (productResult.Success)
                 {
-                    return RedirectToAction("Products", "AdminProduct");
+                    return RedirectToAction("Index", "AdminProduct");
                 }
                 else
                 {
@@ -88,14 +87,14 @@ namespace KenKata.WebApp.Controllers
 
             if (result.Success)
             {
-                return RedirectToAction("Products", "AdminProduct");
+                return RedirectToAction("Index", "AdminProduct");
             }
             else
                 model.ErrorM = "Pleace fill in all fields";
             return View(model);
         }
         ////[Authorize(Roles = "admin")]
-        //[HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productService.Get(id);
