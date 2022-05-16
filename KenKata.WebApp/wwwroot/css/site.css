@@ -49,6 +49,15 @@ a {
         color: white;
     }
 
+.darkblue-banner-bg {
+    background-color: #292F51;
+    width: 100%;
+    height: 140px;
+}
+
+.bg-darkblue {
+    background-color: #292F51;
+}
 
 /* navbar */
 
@@ -126,10 +135,6 @@ a {
     color: white !important;
     padding: 0.2rem 1.5rem;
     margin: 10px 0;
-}
-
-#newCustomerSpecialOffer .background {
-    background-color: #292F51;
 }
 
 #newCustomer30Div {
@@ -343,3 +348,4 @@ a {
 .my-account-button {
     border-radius: 9999px;
 }
+
