@@ -17,7 +17,7 @@ namespace KenKata.WebApp.Controllers
 
 
         //[Authorize(Roles = "admin")]
-        //[Route("Products")]
+        [Route("admin/products")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -26,7 +26,7 @@ namespace KenKata.WebApp.Controllers
             return View(_products);
         }
         //[Authorize(Roles = "admin")]
-        [Route("Create")]
+        [Route("admin/Product/Create")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -35,7 +35,7 @@ namespace KenKata.WebApp.Controllers
         }
 
         ////[Authorize(Roles = "admin")]
-        //[Route("Create")]
+        [Route("admin/Product/Create")]
         [HttpPost]
         public async Task<IActionResult> Create(ProductModelForm model)
         {
@@ -66,12 +66,14 @@ namespace KenKata.WebApp.Controllers
         {
             var product = await _productService.Get(id);
 
-            var Model = new ProductModel()
+            var Model = new ProductModelForm()
             {
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Price = product.Price
+                Price = product.Price,
+                Color = product.Color,
+                
             };
             return View(Model);
 
@@ -104,6 +106,26 @@ namespace KenKata.WebApp.Controllers
             }
             else
                 return View(NotFound());
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _productService.Get(id);
+            return View(product);
+
+        }
+        //[Authorize(Roles = "admin")]
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmd(int id)
+        {
+            var result = await _productService.Delete(id);
+            if (result.Success)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(NotFound());
+            
+
         }
     }
 }

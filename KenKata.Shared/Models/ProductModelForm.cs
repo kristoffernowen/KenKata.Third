@@ -9,7 +9,7 @@ namespace KenKata.Shared.Models
 {
     public class ProductModelForm
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "This field is required")]
@@ -22,6 +22,7 @@ namespace KenKata.Shared.Models
         [Display(Name = "Price")]
         [Required(ErrorMessage = "This field is required")]
         public decimal Price { get; set; }
+
         [Display(Name = "color")]
         [Required(ErrorMessage = "This field is required")]
         public string Color { get; set; } = "";

@@ -12,6 +12,7 @@ namespace KenKata.WebApp.Service
         Task<ProductModel> Get(int productId);
         Task<Result> Create(ProductModelForm form);
         Task<Result> Update(int productId, ProductModelForm model);
+        Task<Result> Delete(int productId);
     }
 
     public class ProductService : IProductService
@@ -59,7 +60,7 @@ namespace KenKata.WebApp.Service
 
         public async Task<Result> Create(ProductModelForm form)
         {
-            var ProductNameExist = _sqlContext.Products.FirstOrDefaultAsync(x => x.Name == form.Name);
+            var ProductNameExist = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Name == form.Name);
             if (ProductNameExist == null)
             {
                 var productEntity = new ProductEntity
@@ -96,6 +97,18 @@ namespace KenKata.WebApp.Service
             }
 
             return new Result { Success = false };
+        }
+
+        public async Task<Result> Delete(int productId)
+        {
+            var p = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            if (p != null)
+            {
+                _sqlContext.Remove(p);
+                await _sqlContext.SaveChangesAsync();
+                return new Result { Success=true};
+            }
+            return new Result { Success=false };
         }
     }
 
