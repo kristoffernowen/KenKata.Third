@@ -29,6 +29,10 @@
     background-color: #20D3C2;
 }
 
+.bg-lightgrey {
+    background-color: #EEEEEE;
+}
+
 a {
     text-decoration: none;
 }
@@ -53,6 +57,14 @@ a {
     background-color: #292F51;
     width: 100%;
     height: 140px;
+}
+
+.darkblue-banner-bg span {
+    font-size: 16px;
+}
+
+.darkblue-banner-bg h1 {
+    font-size: 16px;
 }
 
 .bg-darkblue {
@@ -261,6 +273,13 @@ a {
         #AllProducts .card .card-body .card-text {
             display: none;
         }
+
+/* ProductDetails */
+
+#productDetailsBigImg {
+    height: 445px;
+    width: 425px;
+}
 
 
 

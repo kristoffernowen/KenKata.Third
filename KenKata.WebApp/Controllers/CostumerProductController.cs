@@ -17,6 +17,13 @@ namespace KenKata.WebApp.Controllers
             var products = await _productService.GetAll();
             
             return View(products);
-        }  
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productService.Get(id);
+
+            return View(product);
+        }
     }
 }

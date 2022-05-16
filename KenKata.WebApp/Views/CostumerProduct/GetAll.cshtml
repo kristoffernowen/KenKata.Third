@@ -43,7 +43,7 @@
                             <a asp-action="" asp-controller=""asp-route-id=""> <img src="/images/Cart icon.svg"></a>
                         </div>
                         <div class="card-info">
-                            <a asp-action="Details" asp-controller="CostumerProduct"asp-route-id="@product.Id">
+                            <a asp-controller="CostumerProduct"  asp-action="Details" asp-route-id="@product.Id">
                             <h5 class="card-title">@product.Name</h5>
                             <h6 class="card-subtitle">$ @product.Price</h6>
                             </a>
