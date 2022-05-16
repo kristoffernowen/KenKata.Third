@@ -115,5 +115,10 @@ namespace KenKata.WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
     }
 }
