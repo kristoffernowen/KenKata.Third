@@ -26,13 +26,26 @@
             <img src="~/images/DetailsShoesTop.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
             <img src="~/images/DetailsShoeSecond.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
             <img src="~/images/DetailsShoesThird.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
-            <img src="~/images/DetailsShoeFourth.svg" class="bg-lightgrey" asp-append-version="true"/>
+            <img src="/images/DetailsShoeFourth.svg" class="bg-lightgrey" asp-append-version="true"/>
         </div>
     </div>
     <div class="w-50">
         <h2 class="text-turquoise mb-3">@Model.Name</h2>
-        <p>@Model.Description</p>
-        <p class="mt-3">@Model.Price</p>
+        <p class="mb-3 pb-3 border-lightgrey-bottom">@Model.Description</p>
+        <h2 class="my-3  text-turquoise">$@Model.Price</h2>
+        <div class="d-flex mb-3">
+            <div class="me-4 d-flex">
+                <button id="details-button-minus" class="border-lightgrey bg-white px-2">-</button>
+                <p class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</p>
+                <button id="details-button-plus" class="bg-turquoise text-white no-border px-2">+</button>
+            </div>
+            <button class="button-turquoise-halfcircleend px-4"><i id="productDetailsCart" class="fa-solid fa-cart-shopping pe-2"></i> Add to cart</button>
+        </div>
+        <div>
+            <span>Category:</span>
+            <span class="text-turquoise">Model category here</span>
+        </div>
     </div>
+    
 </div>
 

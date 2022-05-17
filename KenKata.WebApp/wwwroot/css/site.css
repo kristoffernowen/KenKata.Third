@@ -37,6 +37,13 @@ a {
     text-decoration: none;
 }
 
+.button-turquoise-halfcircleend {
+    border-radius: 9999px;
+    border: none;
+    background-color: #20D3C2;
+    color: white;
+}
+
 .white-button {
     border-radius: 30px;
     border: none;
@@ -69,6 +76,14 @@ a {
 
 .bg-darkblue {
     background-color: #292F51;
+}
+
+.border-lightgrey-bottom {
+    border-bottom: 1px solid lightgrey;
+}
+
+.border-lightgrey {
+    border: 1px solid lightgrey;
 }
 
 /* navbar */
@@ -122,7 +137,7 @@ a {
 }
 
 #navbarBottom {
-    border: 1px solid lightgray;
+    border-top: 1px solid lightgray;
 }
 
 .navbarBottomDiv {
@@ -281,7 +296,19 @@ a {
     width: 425px;
 }
 
+#productDetailsCart {
+    color: white;
+}
 
+#details-button-minus {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#details-button-plus {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
 /* FOOTER */
 #footer {
