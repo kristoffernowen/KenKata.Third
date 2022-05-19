@@ -10,5 +10,7 @@ namespace KenKata.Shared.Models.Entities
         [Required]
         [Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
+
+        public ICollection<ProductEntity> products { get; set; }
     }
 }

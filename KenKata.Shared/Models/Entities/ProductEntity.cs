@@ -32,9 +32,9 @@ namespace KenKata.Shared.Models.Entities
         [Column(TypeName = "nvarchar(max)")]
         public string ImgUrl { get; set; }
 
-        //[Required]
-        //public int CategoryId { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
 
-        //public CategoryEntity Category { get; set; }
+        public CategoryEntity Category { get; set; }
     }
 }
