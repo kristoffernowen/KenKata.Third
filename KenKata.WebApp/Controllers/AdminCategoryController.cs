@@ -38,7 +38,7 @@ namespace KenKata.WebApp.Controllers
         }
 
         ////[Authorize(Roles = "admin")]
-        [Route("admin/Product/Create")]
+        [Route("admin/Category/Create")]
         [HttpPost]
         public async Task<IActionResult> Create(CategoryModelForm model)
         {
@@ -61,7 +61,7 @@ namespace KenKata.WebApp.Controllers
         }
         ////[Authorize(Roles = "admin")]
         [HttpGet]
-        [Route("Edit/{id}")]
+        [Route("category/Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.Get(id);
@@ -79,7 +79,7 @@ namespace KenKata.WebApp.Controllers
         }
         ////[Authorize(Roles = "admin")]
         ////[ValidateAntiForgeryToken]
-        [Route("edit/{id}")]
+        [Route("category/edit/{id}")]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CategoryModelForm model)
         {

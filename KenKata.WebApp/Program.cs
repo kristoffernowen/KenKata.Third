@@ -17,6 +17,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
     x.Password.RequireDigit = true;
 }).AddEntityFrameworkStores<SqlContext>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.ConfigureApplicationCookie(x =>
 {
     x.LoginPath = "/authentication/signin";
