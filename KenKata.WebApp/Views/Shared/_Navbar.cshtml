@@ -37,18 +37,34 @@
                 <div class="d-flex justify-content-between" id="navbarMyAccountDiv">
                     @if (_signInManager.IsSignedIn(User))
                     {
-                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>@User.Identity.Name </span></a>
-                        <a asp-controller="User" asp-action="SignOut">Log Out</a>
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                @User.Identity.Name
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" asp-controller="User" asp-action="SignOut">Sign out</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+
+                      /*  <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>@User.Identity.Name </span></a> */
+                        
                     }
                     else
                     {
-                        <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
+                        <div class="pt-2">
+                            <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
+                        </div>
                     }
                     
 
-                    <a href=""><i class="fa-solid fa-heart"></i></a>
-                    <a><i class="fa-solid fa-shuffle"></i></a>
-                    <a> <i class="fa-solid fa-lock"></i></a>
+                    <div class="d-flex justify-content-between pt-2">
+                        <a href=""><i class="fa-solid fa-heart"></i></a>
+                        <a><i class="fa-solid fa-shuffle"></i></a>
+                        <a> <i class="fa-solid fa-lock"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
