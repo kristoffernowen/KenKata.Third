@@ -1,4 +1,5 @@
 ﻿using KenKata.Shared.Models;
+using KenKata.Shared.Models.Entities;
 using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,13 @@ namespace KenKata.WebApp.Controllers
     {
         
         private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public AdminProductController(IProductService productService)
+
+        public AdminProductController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
 
@@ -22,26 +26,41 @@ namespace KenKata.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var _products = await _productService.GetAll();
+            
 
             return View(_products);
         }
+
+
         //[Authorize(Roles = "admin")]
         [Route("admin/Product/Create")]
         [HttpGet]
-        public IActionResult Create()
+        public async Task <IActionResult> Create()
         {
+
             var model = new ProductModelForm();
+
+            var list = new List<CategoryEntity>();
+            var categoryList = await _categoryService.GetAll();
+
+            foreach (var category in categoryList)
+            {
+                list.Add(category);
+            }
+            model.categoryList = list;
+            
+                
             return View(model);
         }
 
         ////[Authorize(Roles = "admin")]
         [Route("admin/Product/Create")]
         [HttpPost]
-        public async Task<IActionResult> Create(ProductModelForm model)
+        public async Task<IActionResult> Create(ProductModelForm model,int CategorySelected)
         {
             if (ModelState.IsValid)
             {
-                var productResult = await _productService.Create(model);
+                var productResult = await _productService.Create(model, CategorySelected);
 
                 if (productResult.Success)
                 {
@@ -64,6 +83,14 @@ namespace KenKata.WebApp.Controllers
         [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
+            var list = new List<CategoryEntity>();
+            var categoryList = await _categoryService.GetAll();
+
+            foreach (var category in categoryList)
+            {
+                list.Add(category);
+            }
+
             var product = await _productService.Get(id);
 
             var Model = new ProductModelForm()
@@ -74,6 +101,7 @@ namespace KenKata.WebApp.Controllers
                 Price = product.Price,
                 Color = product.Color,
                 ImgUrl = product.ImgUrl,
+                categoryList=list
                 
             };
             return View(Model);
