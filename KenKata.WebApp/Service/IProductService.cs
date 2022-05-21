@@ -13,6 +13,7 @@ namespace KenKata.WebApp.Service
         Task<Result> Create(ProductModelForm form,int category);
         Task<Result> Update(int productId, ProductModelForm model);
         Task<Result> Delete(int productId);
+        Task<IEnumerable<ProductModel>> GetProductByCategory(int CategoryId);
     }
 
     public class ProductService : IProductService
@@ -139,6 +140,26 @@ namespace KenKata.WebApp.Service
                 return new Result { Success=true};
             }
             return new Result { Success=false };
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetProductByCategory(int CategoryId)
+        {
+            var list = new List<ProductModel>();
+
+            foreach(var product in await _sqlContext.Products.Where(x => x.CategoryId == CategoryId).Include(x=>x.Category).ToListAsync())
+            {
+                list.Add(new ProductModel(
+                    product.Id,
+                    product.Name,
+                    product.Description,
+                    product.Color,
+                    product.Price,
+                    product.ImgUrl,
+                    product.Category.Name
+                    ));
+            } 
+
+            return list;
         }
     }
 
