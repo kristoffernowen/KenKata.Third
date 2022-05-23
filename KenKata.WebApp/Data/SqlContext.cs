@@ -14,6 +14,7 @@ namespace KenKata.WebApp.Data
 
         public virtual DbSet<IdentityUser> Users { get; set; }
         public virtual DbSet<ProductEntity> Products { get; set; }
+
         public virtual DbSet<CategoryEntity> Categories { get; set; }
     }
 }

@@ -1,0 +1,51 @@
+﻿@model KenKata.Shared.Models.ProductModel
+
+<div class="darkblue-banner-bg mb-5">
+    <div class="ken-container d-flex justify-content-between align-items-center h-100">
+        <div class="d-flex">
+            <h1 class="text-turquoise">Home </h1>
+            <h1 class="text-white">&nbsp; / &nbsp;</h1>
+            <h1 class="text-turquoise">Shop </h1>
+            <h1 class="text-white">&nbsp; / &nbsp;</h1>
+            <h1 class="text-turquoise">Category </h1>
+            <h1 class="text-white">&nbsp; / &nbsp;</h1>
+            <h1 class="text-white">@Model.Name </h1>
+        </div>
+        <div><a class="text-turquoise"><span>Back to shop</span></a></div>
+    </div>
+</div>
+
+
+
+<div class="ken-container d-flex mt-5">
+    <div class="d-flex w-50">
+        <div>
+            <img src="~/images/DetailsShoesBig.svg" id="productDetailsBigImg" asp-append-version="true" alt="Product image" class="bg-lightgrey me-3"/>
+        </div>
+        <div class="h-100 d-flex flex-column justify-content-between">
+            <img src="~/images/DetailsShoesTop.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
+            <img src="~/images/DetailsShoeSecond.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
+            <img src="~/images/DetailsShoesThird.svg" class="bg-lightgrey mb-1" asp-append-version="true"/>
+            <img src="/images/DetailsShoeFourth.svg" class="bg-lightgrey" asp-append-version="true"/>
+        </div>
+    </div>
+    <div class="w-50">
+        <h2 class="text-turquoise mb-3">@Model.Name</h2>
+        <p class="mb-3 pb-3 border-lightgrey-bottom">@Model.Description</p>
+        <h2 class="my-3  text-turquoise">$@Model.Price</h2>
+        <div class="d-flex mb-3">
+            <div class="me-4 d-flex">
+                <button id="details-button-minus" class="border-lightgrey bg-white px-2">-</button>
+                <p class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</p>
+                <button id="details-button-plus" class="bg-turquoise text-white no-border px-2">+</button>
+            </div>
+            <button class="button-turquoise-halfcircleend px-4"><i id="productDetailsCart" class="fa-solid fa-cart-shopping pe-2"></i> Add to cart</button>
+        </div>
+        <div>
+            <span>Category:</span>
+            <span class="text-turquoise">Model category here</span>
+        </div>
+    </div>
+    
+</div>
+

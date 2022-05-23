@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220512081423_productAdded")]
-    partial class productAdded
+    [Migration("20220513121721_maythirteen")]
+    partial class maythirteen
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

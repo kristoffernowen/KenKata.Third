@@ -35,27 +35,18 @@ namespace KenKata.WebApp.Controllers
                 var product = await _productService.GetProductByCategory(id);
                 return View(product);
             }
-                     
         }
 
-        //[Route("ListC")]
-        //public async Task<ActionResult> ListCategories(int category)
-        //{
-        //    var list = new List<CategoryModel>();
-        //    var categorys = await _categoryService.GetAll();
-        //    foreach (var items in categorys)
-        //    {
-        //        list.Add(new CategoryModel(
-        //            items.Id,
-        //            items.Name
-        //            ));
-        //    }
+        
 
+       
 
-        //    ViewBag.Category = new SelectList(list,"Id","Name");
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productService.Get(id);
 
-        //    return View();
-        //}
+            return View(product);
+        }
 
     }
 }

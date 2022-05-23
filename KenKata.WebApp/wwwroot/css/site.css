@@ -29,8 +29,19 @@
     background-color: #20D3C2;
 }
 
+.bg-lightgrey {
+    background-color: #EEEEEE;
+}
+
 a {
     text-decoration: none;
+}
+
+.button-turquoise-halfcircleend {
+    border-radius: 9999px;
+    border: none;
+    background-color: #20D3C2;
+    color: white;
 }
 
 .white-button {
@@ -49,6 +60,31 @@ a {
         color: white;
     }
 
+.darkblue-banner-bg {
+    background-color: #292F51;
+    width: 100%;
+    height: 140px;
+}
+
+.darkblue-banner-bg span {
+    font-size: 16px;
+}
+
+.darkblue-banner-bg h1 {
+    font-size: 16px;
+}
+
+.bg-darkblue {
+    background-color: #292F51;
+}
+
+.border-lightgrey-bottom {
+    border-bottom: 1px solid lightgrey;
+}
+
+.border-lightgrey {
+    border: 1px solid lightgrey;
+}
 
 /* navbar */
 
@@ -101,7 +137,7 @@ a {
 }
 
 #navbarBottom {
-    border: 1px solid lightgray;
+    border-top: 1px solid lightgray;
 }
 
 .navbarBottomDiv {
@@ -126,10 +162,6 @@ a {
     color: white !important;
     padding: 0.2rem 1.5rem;
     margin: 10px 0;
-}
-
-#newCustomerSpecialOffer .background {
-    background-color: #292F51;
 }
 
 #newCustomer30Div {
@@ -349,7 +381,26 @@ a {
             display: none;
         }*/
 
+/* ProductDetails */
 
+#productDetailsBigImg {
+    height: 445px;
+    width: 425px;
+}
+
+#productDetailsCart {
+    color: white;
+}
+
+#details-button-minus {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#details-button-plus {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
 /* FOOTER */
 #footer {
@@ -435,3 +486,4 @@ a {
 .my-account-button {
     border-radius: 9999px;
 }
+
