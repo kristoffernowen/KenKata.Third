@@ -208,6 +208,98 @@ a {
 
     #AllProducts .card:hover .card-body {
         z-index: 2;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        background-color: #0e153ddf;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+
+        #AllProducts .card:hover .card-body .card-menu {
+            align-self: flex-end;
+            height: 136px;
+            width: 31px;
+            border-radius: 30px;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.4s ease-in-out;
+            
+        }
+        #AllProducts .card:hover .card-body .card-menu a{
+            padding-bottom:5px;
+        }
+
+
+        #AllProducts .card:hover .card-body .card-info .card-subtitle {
+            display: block;
+        }
+
+        #AllProducts .card:hover .card-body .card-info .card-text {
+            display: block;
+        }
+
+    #AllProducts .card .card-top {
+        background-color: #ffffff;
+        height: 220px;
+        max-height: 220px;
+        width: auto;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    #AllProducts .card .card-body {
+        height: 36px;
+        background-color: #0E153D;
+        border-bottom-right-radius:5px;
+        border-bottom-left-radius:5px;
+    }
+
+        #AllProducts .card .card-body .card-menu {
+            display: none;
+        }
+
+        #AllProducts .card .card-body .card-subtitle {
+            display: none;
+        }
+
+        #AllProducts .card .card-body .card-text {
+            display: none;
+        }
+.instock {
+    height: 21px;
+    width: 21px;
+    background-color: #82D8C6;
+    border-radius: 50%;
+}
+
+/*#AllProducts p, #AllProducts h5, #AllProducts h6 {
+    color: #ffffff;
+}
+
+#AllProducts .col {
+    height: 290px;
+    width: 270px;
+}
+
+#AllProducts .card {
+    height: inherit;
+    position: relative;
+}
+
+    #AllProducts .card:hover .card-top {
+        position: absolute;
+        z-index: 1;
+    }
+
+    #AllProducts .card:hover .card-body {
+        z-index: 2;
         height: inherit;
         display: flex;
         flex-direction: column;
@@ -255,7 +347,7 @@ a {
 
         #AllProducts .card .card-body .card-text {
             display: none;
-        }
+        }*/
 
 
 

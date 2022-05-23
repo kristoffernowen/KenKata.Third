@@ -26,6 +26,15 @@ namespace KenKata.Shared.Models.Entities
 
         [Required]
         [Column(TypeName = "money")]
-        public decimal Price { get; set; } 
+        public decimal Price { get; set; }
+
+        [Required]
+        [Column(TypeName = "nvarchar(max)")]
+        public string ImgUrl { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        public CategoryEntity Category { get; set; }
     }
 }
