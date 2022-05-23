@@ -24,16 +24,30 @@ namespace KenKata.WebApp.Controllers
         //if category id is passed in return product in the category
         public async Task<IActionResult> GetAll(int id = -0)
         {
+            
             if (id == -0)
             {
+                var categorys = await _categoryService.GetAll();
                 var products = await _productService.GetAll();
 
-                return View(products);
+                var model = new GetAllViewModel()
+                {
+                    category = categorys,
+                    product = products,
+                };
+
+                return View(model);
             }
             else
             {
-                var product = await _productService.GetProductByCategory(id);
-                return View(product);
+                var categorys = await _categoryService.GetAll();
+                var productByCategory = await _productService.GetProductByCategory(id);
+                var model = new GetAllViewModel()
+                {
+                    category = categorys,
+                    product = productByCategory,
+                };
+                return View(model);
             }
         }
 

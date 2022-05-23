@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KenKata.Shared.Models.ProductModel>
+﻿@model KenKata.Shared.Models.GetAllViewModel
 
 @{
     ViewData["Title"] = "GetAll";
@@ -24,39 +24,52 @@
 
 
 
+
 <div id="AllProducts">
     <div class="ken-container">
-        <div class="row row-cols-3 g-4 justify-content-center mt-3">
-        @foreach (var product in Model)
-        {
-            <div class="col">
-                <div class="card">
-                    <div class="card-top d-flex justify-content-center m-2">
-                        <img src="@product.ImgUrl" class="card-img-top" alt="@product.Name">
-                    </div>
-                    <div class="card-body">
-                         <div class="card-menu">
-                             <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
-                            <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
-                            <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
-                            <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        <div class="d-flex">
+            <div id="ProductFilter">
+                @foreach (var category in Model.category)
+                {
+                    <h3>@category.Name</h3>
+                }
+            </div>
+            <div>
+                <div class="row row-cols-3 g-4 justify-content-center mt-3">
+                    @foreach (var product in Model.product)
+                    {
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-top d-flex justify-content-center m-2">
+                                    <img src="@product.ImgUrl" class="card-img-top" alt="@product.ImgUrl">
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-menu">
+                                        <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
+                                        <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
+                                        <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
+                                        <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                                    </div>
+                                    <div class="card-info">
+                                        <a asp-controller="CostumerProduct" asp-action="Details" asp-route-id="@product.Id">
+                                            <h5 class="card-title">@product.Name</h5>
+                                            <h6 class="card-subtitle">$ @product.Price</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-info">
-                            <a asp-controller="CostumerProduct"  asp-action="Details" asp-route-id="@product.Id">
-                            <h5 class="card-title">@product.Name</h5>
-                            <h6 class="card-subtitle">$ @product.Price</h6>
-                            </a>
-                        </div> 
-                    </div>
+                    }
+
                 </div>
             </div>
-        }
         </div>
+
     </div>
 </div>
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
