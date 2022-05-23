@@ -67,11 +67,22 @@
         </div>
         <div id="navbarBottom" >
             <div class="navbar-container d-flex justify-content-between">
-                <select name="" id="">
-                    <option value="">
-                        Browse Categories
-                    </option>
-                </select>
+                <div class="dropdown-center">
+                    <a class="dropdown-toggle " href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
+                       Browse Categories
+                    </a>
+
+                    <ul class="dropdown-menu bg-turquoise " aria-labelledby="dropdownMenuLink2">
+                        
+                        
+                        @foreach (var category in await _categoryService.GetAll())
+                        {
+                            <li><a class="dropdown-item text-dark" asp-controller="CostumerProduct" asp-action="GetAll" asp-route-id="@category.Id" >@category.Name</a></li>
+                        }
+
+                        
+                    </ul>
+                </div>
                 <div class="navbarBottomDiv">
                     <a asp-controller="Home" asp-action="Index">Home</a>
                 </div>
