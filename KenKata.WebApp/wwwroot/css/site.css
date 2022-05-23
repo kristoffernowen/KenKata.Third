@@ -150,10 +150,17 @@ a {
     text-decoration: none;
 }
 
-#navbarBottom select {
+#navbarBottom .dropdown-center a {
+    color: white;
+}
+
+#navbarBottom .dropdown-center {
+    display: flex;
+    align-items: center;
     border: none;
     background-color: #20D3C2;
     color: white;
+    padding: 0 10px 0 10px;
 }
 
 #navbarSpecialOffer {
