@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KenKata.Shared.Models.Entities.ProductEntity>
+﻿@model IEnumerable<KenKata.Shared.Models.ProductModel>
 
 @{
     ViewData["Title"] = "GetAll";
@@ -26,21 +26,20 @@
 
 <div id="AllProducts">
     <div class="ken-container">
-        <div class="row row-cols-3 g-4 justify-content-center">
+        <div class="row row-cols-3 g-4 justify-content-center mt-3">
         @foreach (var product in Model)
         {
             <div class="col">
-                <div class="card shadow">
-                    <div class="card-top d-flex justify-content-center m-4">
-                        <img src="/images/Banner-thumb.png" class="card-img-top" alt="...">
+                <div class="card">
+                    <div class="card-top d-flex justify-content-center m-2">
+                        <img src="@product.ImgUrl" class="card-img-top" alt="@product.Name">
                     </div>
                     <div class="card-body">
-                            <div class="card-menu">
-                            <img src="/images/Color.svg">
-                            <a asp-action="" asp-controller=""asp-route-id=""><img src="/images/Heart icon.svg"></a>
-                            <a asp-action="" asp-controller=""asp-route-id=""><img src="/images/Compare icon.svg"></a>
-                            <a asp-action="" asp-controller=""asp-route-id=""><img src="/images/Search icon.svg"></a>
-                            <a asp-action="" asp-controller=""asp-route-id=""> <img src="/images/Cart icon.svg"></a>
+                         <div class="card-menu">
+                             <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
+                            <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
+                            <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
+                            <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
                         </div>
                         <div class="card-info">
                             <a asp-controller="CostumerProduct"  asp-action="Details" asp-route-id="@product.Id">
@@ -56,3 +55,8 @@
     </div>
 </div>
 
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}
