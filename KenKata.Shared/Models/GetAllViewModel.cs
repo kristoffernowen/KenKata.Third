@@ -29,7 +29,15 @@ namespace KenKata.Shared.Models
             this.category = category;
         }
 
-        public IEnumerable<ProductModel> product { get; set; } = null!;
-        public IEnumerable<CategoryEntity> category { get; set; } = null!;
+        public GetAllViewModel(IEnumerable<ProductModel> product, IEnumerable<CategoryEntity> category, int selectedCategoryId)
+        {
+            this.product = product;
+            this.category = category;
+            SelectedCategoryId = selectedCategoryId;
+        }
+
+        public IEnumerable<ProductModel> product { get; set; }
+        public IEnumerable<CategoryEntity> category { get; set; }
+        public int SelectedCategoryId { get; set; }
     }
 }

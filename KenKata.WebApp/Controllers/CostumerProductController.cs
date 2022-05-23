@@ -46,6 +46,7 @@ namespace KenKata.WebApp.Controllers
                 {
                     category = categorys,
                     product = productByCategory,
+                    SelectedCategoryId=id,
                 };
                 return View(model);
             }
