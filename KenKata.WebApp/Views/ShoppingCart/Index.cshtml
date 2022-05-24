@@ -1,4 +1,6 @@
-﻿<div class="grey-banner-bg">
+﻿@model KenKata.Shared.Models.ShoppingCart
+
+<div class="grey-banner-bg">
     <div class="ken-container d-flex justify-content-center align-items-center h-100">
         <div><span class="text-turquoise">Shopping Cart &nbsp;</span> <span class="text-white">/&nbsp; Check Out</span><span class="text-white">&nbsp; / &nbsp; Complete</span></div>
     </div>
@@ -19,10 +21,27 @@
                 </tr>
             </thead>
             <tbody class="pt-5">
+            @* <tr> *@
+            @*     <td class="pt-4">x</td> *@
+            @*     <td class="pt-4">1</td> *@
+            @*     <td class="pt-4">2</td> *@
+            @*     <td class="pt-4"> *@
+            @*         <div class="me-4 d-flex w-25"> *@
+            @*             <button class="border-lightgrey bg-white px-2 button-minus">-</button> *@
+            @*             <span class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</span> *@
+            @*             <button class="bg-turquoise text-white no-border px-2 button-plus"> *@
+            @*                 + *@
+            @*             </button> *@
+            @*         </div> *@
+            @*     </td> *@
+            @*     <td class="pt-4">4</td> *@
+            @* </tr> *@
+            @foreach (var item in Model.Items)
+            {
                 <tr>
                     <td class="pt-4">x</td>
-                    <td class="pt-4">1</td>
-                    <td class="pt-4">2</td>
+                    <td class="pt-4">@item.Product.Name</td>
+                    <td class="pt-4">@item.Product.Price</td>
                     <td class="pt-4">
                         <div class="me-4 d-flex w-25">
                             <button class="border-lightgrey bg-white px-2 button-minus">-</button>
@@ -32,8 +51,9 @@
                             </button>
                         </div>
                     </td>
-                    <td class="pt-4">4</td>
+                    <td class="pt-4">@item.Product.Price * @item.Quantity</td>
                 </tr>
+            }
             </tbody>
         </table>
     </div>

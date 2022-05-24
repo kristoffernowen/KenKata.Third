@@ -16,7 +16,15 @@ namespace KenKata.WebApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var shoppingCart = new ShoppingCart();
+            var sessionCart = HttpContext.Session.GetString("ShoppingCart");
+
+            if (!string.IsNullOrEmpty(sessionCart))
+            {
+                shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
+            }
+
+            return View(shoppingCart);
         }
 
         public async Task<IActionResult> AddToCart(int id)
