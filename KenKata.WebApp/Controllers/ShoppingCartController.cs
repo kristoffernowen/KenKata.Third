@@ -49,5 +49,18 @@ namespace KenKata.WebApp.Controllers
             HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
+
+        public async Task<IActionResult> GetCart()
+        {
+            var shoppingCart = new ShoppingCart();
+            var sessionCart = HttpContext.Session.GetString("ShoppingCart");
+
+            if (!string.IsNullOrEmpty(sessionCart))
+            {
+                shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
+            }
+
+            return View(shoppingCart);
+        }
     }
 }
