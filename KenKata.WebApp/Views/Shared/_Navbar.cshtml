@@ -59,9 +59,15 @@
                     
 
                     <div class="d-flex justify-content-between pt-2">
-                        <a href=""><i class="fa-solid fa-heart"></i></a>
-                        <a><i class="fa-solid fa-shuffle"></i></a>
-                        <a asp-controller="ShoppingCart" asp-action="Index"> <i class="fa-solid fa-cart-shopping"></i></a>
+                        <div><a href=""><i class="fa-solid fa-heart"></i></a></div>
+                        <div><a><i class="fa-solid fa-shuffle"></i></a></div>
+                        <button class="btn position-relative ">
+                            <i class="fa-solid fa-cart-shopping position-relative">
+                                <span id="totalQuantity" class="position-absolute translate-middle badge rounded-pill theme-color" style="top: -10px"></span>
+                            </i> 
+                            <span id="totalPrice"></span>
+                        </button>
+                        @* <a asp-controller="ShoppingCart" asp-action="Index"> <i class="fa-solid fa-cart-shopping"></i></a> *@
                     </div>
                 </div>
             </div>
