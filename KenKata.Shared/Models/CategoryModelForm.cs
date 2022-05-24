@@ -12,7 +12,7 @@ namespace KenKata.Shared.Models
         public int Id { get; set; }
         [Display(Name = "Name")]
         [Required(ErrorMessage = "This field is required")]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public string ErrorM { get; set; } = "";
     }
 }

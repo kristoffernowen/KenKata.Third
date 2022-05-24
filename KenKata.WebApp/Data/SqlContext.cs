@@ -16,5 +16,6 @@ namespace KenKata.WebApp.Data
         public virtual DbSet<ProductEntity> Products { get; set; }
 
         public virtual DbSet<CategoryEntity> Categories { get; set; }
+        public virtual DbSet<ColorEntity> Colors { get; set; }
     }
 }

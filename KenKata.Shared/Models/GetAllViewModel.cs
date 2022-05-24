@@ -13,31 +13,13 @@ namespace KenKata.Shared.Models
         {
         }
 
-        public GetAllViewModel(IEnumerable<ProductModel> product)
-        {
-            this.product = product;
-        }
-
-        public GetAllViewModel(IEnumerable<CategoryEntity> category)
-        {
-            this.category = category;
-        }
-
-        public GetAllViewModel(IEnumerable<ProductModel> product, IEnumerable<CategoryEntity> category)
-        {
-            this.product = product;
-            this.category = category;
-        }
-
-        public GetAllViewModel(IEnumerable<ProductModel> product, IEnumerable<CategoryEntity> category, int selectedCategoryId)
-        {
-            this.product = product;
-            this.category = category;
-            SelectedCategoryId = selectedCategoryId;
-        }
+        
 
         public IEnumerable<ProductModel> product { get; set; }
         public IEnumerable<CategoryEntity> category { get; set; }
+        public IEnumerable<ColorEntity> colors { get; set; }
         public int SelectedCategoryId { get; set; }
+        public string SelectedColor { get; set; }
+
     }
 }

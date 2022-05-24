@@ -21,10 +21,6 @@ namespace KenKata.Shared.Models.Entities
         public string Description { get; set; } 
 
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
-        public string Color { get; set; } 
-
-        [Required]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
@@ -34,6 +30,10 @@ namespace KenKata.Shared.Models.Entities
 
         [Required]
         public int CategoryId { get; set; }
+
+        public int ColorId { get; set; }
+
+        public ColorEntity Color { get; set; }
 
         public CategoryEntity Category { get; set; }
     }

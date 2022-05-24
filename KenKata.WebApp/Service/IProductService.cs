@@ -14,44 +14,58 @@ namespace KenKata.WebApp.Service
         Task<Result> Update(int productId, ProductModelForm model);
         Task<Result> Delete(int productId);
         Task<IEnumerable<ProductModel>> GetProductByCategory(int CategoryId);
+        Task<IEnumerable<ProductModel>> GetProdúctByColor(string Color);
+        Task<IEnumerable<ColorEntity>> GetAllColors();
     }
 
     public class ProductService : IProductService
     {
         private readonly SqlContext _sqlContext;
+        private readonly ICategoryService _categoryService; //ta bort sen!
 
-        public ProductService(SqlContext sqlContext)
+        public ProductService(SqlContext sqlContext, ICategoryService categoryService)
         {
             _sqlContext = sqlContext;
+            _categoryService = categoryService;
         }
 
         public async Task<ProductModel> Get(int productId)
         {
             var product = new ProductModel();
-            var productEntity = await _sqlContext.Products.Include(x=>x.Category).FirstOrDefaultAsync(x=>x.Id == productId);
+            var productEntity = await _sqlContext.Products.Include(x=>x.Category).Include(x=>x.Color).FirstOrDefaultAsync(x=>x.Id == productId);
             if(productEntity != null)
             {
                 product.Id = productEntity.Id;
                 product.Name = productEntity.Name;
                 product.Description = productEntity.Description;
-                product.Color= productEntity.Color;
+                product.Color= productEntity.Color.Name;
                 product.Price = productEntity.Price;
                 product.ImgUrl = productEntity.ImgUrl;
                 product.Category = productEntity.Category.Name;
-                
             }
-
             return product;
         }
 
         public async Task<IEnumerable<ProductModel>> GetAll()
         {
-           
             //REMOVE START. (Only temporarly for making content in database under the development phase.)
-            var p1 = new ProductEntity() { Name = "Gold Rings", Description = "Jag är beskrivning för guld ringar", Color = "Guld", Price = 129, ImgUrl= "https://cdn.pixabay.com/photo/2018/08/16/19/56/wedding-rings-3611277_960_720.jpg", CategoryId=1};
-            var p2 = new ProductEntity() { Name = "Armband Silver", Description = "Jag är beskrivning för armband silver", Color = "Silver", Price = 69, ImgUrl= "https://cdn.pixabay.com/photo/2017/07/24/18/47/diamonds-2535677_960_720.jpg", CategoryId = 2 };
-            var p3 = new ProductEntity() { Name = "Pärlan väska", Description = "	beskrivning pärlan väskan", Color = "Black", Price = 99 ,ImgUrl= "https://cdn.pixabay.com/photo/2015/11/20/03/53/package-1052370_960_720.jpg", CategoryId = 2 };
-            var p4 = new ProductEntity() { Name = "Skor svarta", Description = "svarta skor description", Color = "Black", Price = 59, ImgUrl = "https://cdn.pixabay.com/photo/2017/09/15/13/28/black-shoes-2752226_960_720.jpg",CategoryId=1 };
+            var color1 = new ColorEntity() { Name = "Red" };
+            var color2 = new ColorEntity() { Name = "Black" };
+            var colorExist = await _sqlContext.Colors.FirstOrDefaultAsync(x => x.Name == color1.Name || x.Name == color2.Name);
+
+            if (colorExist == null)
+            {
+                _sqlContext.Colors.Add(color1);
+                _sqlContext.Colors.Add(color2);
+                await _sqlContext.SaveChangesAsync();
+            }
+            var initializeCategorys = await _categoryService.GetAll();
+
+
+            var p1 = new ProductEntity() { Name = "Gold Ring", Description = "Jag är beskrivning för guld ringar", ColorId = 1, Price = 129, ImgUrl = "https://cdn.pixabay.com/photo/2018/08/16/19/56/wedding-rings-3611277_960_720.jpg", CategoryId = 1 };
+            var p2 = new ProductEntity() { Name = "Armband", Description = "Jag är beskrivning för armband silver", ColorId = 1, Price = 69, ImgUrl = "https://cdn.pixabay.com/photo/2017/07/24/18/47/diamonds-2535677_960_720.jpg", CategoryId = 2 };
+            var p3 = new ProductEntity() { Name = "väska", Description = "	beskrivning pärlan väskan", ColorId = 2, Price = 99, ImgUrl = "https://cdn.pixabay.com/photo/2015/11/20/03/53/package-1052370_960_720.jpg", CategoryId = 2 };
+            var p4 = new ProductEntity() { Name = "Skor", Description = "svarta skor description", ColorId = 2, Price = 59, ImgUrl = "https://cdn.pixabay.com/photo/2017/09/15/13/28/black-shoes-2752226_960_720.jpg", CategoryId = 1 };
             var exist = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Name == p1.Name || x.Name == p2.Name || x.Name == p3.Name);
             if (exist == null)
             {
@@ -61,16 +75,19 @@ namespace KenKata.WebApp.Service
                 _sqlContext.Products.Add(p4);
                 await _sqlContext.SaveChangesAsync();
             }
-            
+
+            //REMOVE END
+
+
             var list = new List<ProductModel>();
                 //inkludera category
-                foreach(var product in await _sqlContext.Products.Include(x => x.Category).ToListAsync())
+                foreach(var product in await _sqlContext.Products.Include(x => x.Category).Include(x=>x.Color).ToListAsync())
             {
                 list.Add(new ProductModel(
                     product.Id,
                     product.Name,
                     product.Description,
-                    product.Color,
+                    product.Color.Name,
                     product.Price,
                     product.ImgUrl,
                     product.Category.Name
@@ -83,22 +100,26 @@ namespace KenKata.WebApp.Service
         public async Task<Result> Create(ProductModelForm form, int category)
         {
             var categorySelect = category;
-            //var category = form.categoryList;
-            //var category = await _sqlContext.Categories.FirstOrDefaultAsync(x=>x.Id=form.categoryList);
             var ProductNameExist = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Name == form.Name);
+
+            var colorExist = await _sqlContext.Colors.FirstOrDefaultAsync(x => x.Name == form.Color);
+            if (colorExist == null)
+            {
+                var ColorEntity = new ColorEntity { Name = form.Color };
+                _sqlContext.Colors.Add(ColorEntity);
+                await _sqlContext.SaveChangesAsync();   
+            }
+            var color = await _sqlContext.Colors.Where(x => x.Name == form.Color).FirstOrDefaultAsync();
             if (ProductNameExist == null)
             {
-                
                 var productEntity = new ProductEntity
                 {
                     Name = form.Name,
-                    Description = form.
-                    Description,
-                    Color = form.Color,
+                    Description = form.Description,
+                    ColorId = color.Id,
                     Price = form.Price,
                     ImgUrl = form.ImgUrl,
-                    CategoryId=category
-                    
+                    CategoryId=category 
                 };
                 _sqlContext.Products.Add(productEntity);
                 await _sqlContext.SaveChangesAsync();
@@ -112,13 +133,21 @@ namespace KenKata.WebApp.Service
 
         public async Task<Result> Update(int productId, ProductModelForm model)
         {
-            var product = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
-
+            var product = await _sqlContext.Products.Include(x=>x.Color).FirstOrDefaultAsync(x => x.Id == productId);
+            
+            var colorExist = await _sqlContext.Colors.FirstOrDefaultAsync(x => x.Name == model.Color);
+            if (colorExist == null)
+            {
+                var ColorEntity = new ColorEntity { Name = model.Color};
+                _sqlContext.Colors.Add(ColorEntity);
+                await _sqlContext.SaveChangesAsync();
+            }
+            var color = await _sqlContext.Colors.Where(x => x.Name == model.Color).FirstOrDefaultAsync();
             if (product != null)
             {
                 product.Name = model.Name;
                 product.Description = model.Description;
-                product.Color = model.Color;
+                product.ColorId = color.Id;
                 product.Price = model.Price;
                 product.ImgUrl = model.ImgUrl;
                 product.CategoryId = model.CategorySelected;
@@ -126,7 +155,6 @@ namespace KenKata.WebApp.Service
                 await _sqlContext.SaveChangesAsync();
                 return new Result { Success = true };
             }
-
             return new Result { Success = false };
         }
 
@@ -145,21 +173,43 @@ namespace KenKata.WebApp.Service
         public async Task<IEnumerable<ProductModel>> GetProductByCategory(int CategoryId)
         {
             var list = new List<ProductModel>();
-
-            foreach(var product in await _sqlContext.Products.Where(x => x.CategoryId == CategoryId).Include(x=>x.Category).ToListAsync())
+            foreach(var product in await _sqlContext.Products.Where(x => x.CategoryId == CategoryId).Include(x=>x.Category).Include(x=>x.Color).ToListAsync())
             {
                 list.Add(new ProductModel(
                     product.Id,
                     product.Name,
                     product.Description,
-                    product.Color,
+                    product.Color.Name,
                     product.Price,
                     product.ImgUrl,
                     product.Category.Name
                     ));
             } 
-
             return list;
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetProdúctByColor(string Color)
+        {
+            var productByColor = new List<ProductModel>();
+            foreach (var product in await _sqlContext.Products.Where(x => x.Color.Name== Color).Include(x => x.Category).ToListAsync())
+            {
+                productByColor.Add(new ProductModel(
+                    product.Id,
+                    product.Name,
+                    product.Description,
+                    product.Color.Name,
+                    product.Price,
+                    product.ImgUrl,
+                    product.Category.Name
+                    ));
+            }
+            return productByColor;
+        }
+
+        public async Task<IEnumerable<ColorEntity>> GetAllColors()
+        {
+            var colorEntity = await _sqlContext.Colors.Include(x=>x.products).ToListAsync();
+            return colorEntity;
         }
     }
 

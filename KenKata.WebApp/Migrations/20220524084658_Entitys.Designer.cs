@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220519091428_entity")]
-    partial class entity
+    [Migration("20220524084658_Entitys")]
+    partial class Entitys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,24 @@ namespace KenKata.WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoryEntity");
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
@@ -52,9 +69,8 @@ namespace KenKata.WebApp.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -74,6 +90,8 @@ namespace KenKata.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ColorId");
 
                     b.ToTable("Products");
                 });
@@ -284,7 +302,15 @@ namespace KenKata.WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("KenKata.Shared.Models.Entities.ColorEntity", "Color")
+                        .WithMany("products")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Color");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -339,6 +365,11 @@ namespace KenKata.WebApp.Migrations
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
                 {
                     b.Navigation("products");
                 });

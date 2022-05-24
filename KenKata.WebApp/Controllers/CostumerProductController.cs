@@ -18,43 +18,52 @@ namespace KenKata.WebApp.Controllers
         }
 
 
-
-
-        //function that will return alla products if no id is passed in.
-        //if category id is passed in return product in the category
         public async Task<IActionResult> GetAll(int id = -0)
         {
-            
+            var categorys = await _categoryService.GetAll();
+            var colorList = await _productService.GetAllColors();
             if (id == -0)
             {
-                var categorys = await _categoryService.GetAll();
-                var products = await _productService.GetAll();
-
-                var model = new GetAllViewModel()
-                {
+                 var products = await _productService.GetAll();
+                 var model = new GetAllViewModel()
+                 {
                     category = categorys,
                     product = products,
-                };
+                    colors = colorList
+                 };
 
-                return View(model);
-            }
-            else
+                    return View("GetAll", model);   
+            }else
             {
-                var categorys = await _categoryService.GetAll();
                 var productByCategory = await _productService.GetProductByCategory(id);
                 var model = new GetAllViewModel()
                 {
                     category = categorys,
                     product = productByCategory,
-                    SelectedCategoryId=id,
+                    colors = colorList,
+                    SelectedCategoryId = id,
+                    SelectedColor = ""
                 };
-                return View(model);
+                return View("GetAll", model);
             }
         }
 
-        
+        public async Task<IActionResult> GetAllColor(string value)
+        {
+            var colorList = await _productService.GetAllColors();
+            var categorys = await _categoryService.GetAll();
 
-       
+            var productByColor = await _productService.GetProdúctByColor(value);
+            var model = new GetAllViewModel()
+            {
+                category = categorys,
+                product = productByColor,
+                colors = colorList,
+                SelectedColor = value,
+                SelectedCategoryId = -0
+            };
+            return View("GetAll",model);
+        }
 
         public async Task<IActionResult> Details(int id)
         {

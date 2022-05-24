@@ -78,7 +78,7 @@ namespace KenKata.WebApp.Service
                 await _sqlContext.SaveChangesAsync();
             }
             //REMOVE END
-            return await _sqlContext.Categories.Include(x=>x.products).ToListAsync();
+            return await _sqlContext.Categories.Include(x=>x.products).ThenInclude(x=>x.Color).ToListAsync();
         }
 
         public async Task<Result> Update(int Id, CategoryModelForm model)

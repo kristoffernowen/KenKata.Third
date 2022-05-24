@@ -25,7 +25,6 @@
 
 
 <div class="d-flex justify-content-between ken-container">
-
     <div id="ProductFilter" class="align-self-start mt-5">
         <h6 class="text-turquoise mt-3">Filter by Category</h6>
         @foreach (var category in Model.category)
@@ -34,66 +33,52 @@
                 <a class="" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="@category.Id">@category.Name</a>
                 @if (category.products != null)
                 {
-                    if (Model.SelectedCategoryId ==category.Id)
+                    if (Model.SelectedCategoryId == category.Id)
                     {
-                        <p class="selected-Category text-white mb-1 pe-1 ps-1 border-round">@category.products.Count()</p>
-                    }else{
-                        <p class="text-black mb-1 pe-1 ps-1 border-round">@category.products.Count()</p>
+                        <p class="selected-Category text-white mb-1 pe-2 ps-2 border-round">@category.products.Count()</p>
+
+                    }else
+                    {
+                        <p class="text-black mb-1 pe-2 ps-2 border-round">@category.products.Count()</p>
                     }
-                    
-                }
-                else
+                }else
                 {
-
-                    <p class="text-black mb-1 pe-2 ps-1 border-round">0</p>
+                    <p class="text-black mb-1 pe-2 ps-2 border-round">0</p>
                 }
-
-
             </div>
         }
-
         <h6 class="text-turquoise mt-3">Filter by Price </h6>
         <div class="d-flex justify-content-between">
         </div>
         <h6 class="text-turquoise mt-3">Filter by color</h6>
-        <div class="d-flex justify-content-between">
-        </div>
+        @foreach (var color in Model.colors)
+        {
+            <div class="d-flex justify-content-between">
+                <a class="" asp-action="GetAllColor" asp-controller="CostumerProduct" asp-route-value="@color.Name">@color.Name</a>
+                @if (color != null)
+                {
+                    if (Model.SelectedColor == color.Name)
+                    {
+                        <p class="selected-Category text-white mb-1 pe-2 ps-2 border-round">@color.products.Count()</p>
+                    }
+                    else
+                    {
+                        <p class="text-black mb-1 pe-2 ps-2 border-round">@color.products.Count()</p>
+                    }
+                }
+                @*else
+                {
+                    <p class="text-black mb-1 pe-2 ps-2 border-round">0</p>
+                }*@
+            </div>
+        }
         <h6 class="text-turquoise mt-3">Filter by size </h6>
         <div class="d-flex justify-content-between">
         </div>
-        @*<div class="mb-3">
-        <h6 class="text-turquoise">Categories</h6>
-        <div class="d-flex justify-content-between align-content-stretch">
-        <div class="justify-content-center">
-        @foreach (var category in Model.category)
-        {
-        <div class="mb-2">
-        <a class="text-black" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="@category.Id">@category.Name</a>
-        </div>
-        }
-        </div>
-        <div class="justify-content-center">
-        @foreach (var category in Model.category)
-        {
-        @if (category.products != null)
-        {
-        <p class="text-black mb-2 pe-1 ps-1 border-lightgrey">@category.products.Count()</p>
-        }
-        else
-        {
-        {
-        <p class="text-black mb-2 pe-1 ps-1"> 0 </p>
-        }
-        }
-        }
-        </div>
-        </div>
-        </div>*@
-        @*<div><h6 class="text-turquoise">Price</h6> </div>
-        <div><h6 class="text-turquoise">Color</h6></div>*@
     </div>
-    <div id="AllProducts">
 
+
+    <div id="AllProducts">
         <div class="row row-cols-4 g-4 justify-content-center mt-5">
             @foreach (var product in Model.product)
             {
@@ -122,9 +107,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 @section Scripts {
     @{
