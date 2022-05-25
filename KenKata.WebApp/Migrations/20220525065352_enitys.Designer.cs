@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220524084658_Entitys")]
-    partial class Entitys
+    [Migration("20220525065352_enitys")]
+    partial class enitys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,13 +87,34 @@ namespace KenKata.WebApp.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
+                    b.Property<int>("ProductInventoryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("ColorId");
 
+                    b.HasIndex("ProductInventoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductsInventory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -308,9 +329,17 @@ namespace KenKata.WebApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("KenKata.Shared.Models.Entities.ProductInventoryEntity", "ProductInventory")
+                        .WithMany("products")
+                        .HasForeignKey("ProductInventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
                     b.Navigation("Color");
+
+                    b.Navigation("ProductInventory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,6 +399,11 @@ namespace KenKata.WebApp.Migrations
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
                 {
                     b.Navigation("products");
                 });

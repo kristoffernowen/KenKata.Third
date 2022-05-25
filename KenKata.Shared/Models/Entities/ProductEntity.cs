@@ -27,14 +27,17 @@ namespace KenKata.Shared.Models.Entities
         [Required]
         [Column(TypeName = "nvarchar(max)")]
         public string ImgUrl { get; set; }
-
+        
         [Required]
         public int CategoryId { get; set; }
-
         public int ColorId { get; set; }
+        //[Required]
+        public int ProductInventoryId { get; set; }
 
-        public ColorEntity Color { get; set; }
+        
 
         public CategoryEntity Category { get; set; }
+        public ColorEntity Color { get; set; }
+        public ProductInventoryEntity ProductInventory { get; set; }
     }
 }
