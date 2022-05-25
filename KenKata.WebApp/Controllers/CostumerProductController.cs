@@ -25,14 +25,14 @@ namespace KenKata.WebApp.Controllers
             if (id == -0)
             {
                  var products = await _productService.GetAll();
-                 var model = new GetAllViewModel()
-                 {
-                    category = categorys,
-                    product = products,
-                    colors = colorList
-                 };
-
-                    return View("GetAll", model);   
+                    var model = new GetAllViewModel()
+                    {
+                        category = categorys,
+                        product = products,
+                        colors = colorList
+                    };
+  
+                return View("GetAll", model);                  
             }else
             {
                 var productByCategory = await _productService.GetProductByCategory(id);

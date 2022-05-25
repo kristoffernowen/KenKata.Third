@@ -102,7 +102,7 @@ namespace KenKata.WebApp.Service
                     product.ProductInventory.Quantity
                     ));
             }
-
+            
             return list;
         }
         
