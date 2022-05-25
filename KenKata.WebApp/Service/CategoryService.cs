@@ -63,20 +63,18 @@ namespace KenKata.WebApp.Service
 
         public async Task<IEnumerable<CategoryEntity>> GetAll()
         {
+            
             //REMOVE START. (Only temporarly for making content in database under the development phase.)
-            var p1 = new CategoryEntity() { Name = "Skor" };
-            var p2 = new CategoryEntity() { Name = "Klänningar"};
-            var p3 = new CategoryEntity() { Name = "Accessoarer" };
-            var p4 = new CategoryEntity() { Name = "Tröjor"};
-            var exist = await _sqlContext.Categories.FirstOrDefaultAsync(x => x.Name == p1.Name || x.Name == p2.Name || x.Name == p3.Name);
-            if (exist == null)
-            {
-                _sqlContext.Categories.Add(p1);
-                _sqlContext.Categories.Add(p2);
-                _sqlContext.Categories.Add(p3);
-                _sqlContext.Categories.Add(p4);
-                await _sqlContext.SaveChangesAsync();
-            }
+            var p1 = new CategoryModelForm() { Name = "Men's" };
+            var p2 = new CategoryModelForm() { Name = "Women's"};
+            var p3 = new CategoryModelForm() { Name = "Kids" };
+            var p4 = new CategoryModelForm() { Name = "Hats"};
+          
+            await Create(p1);
+            await Create(p2);
+            await Create(p3);
+            await Create(p4);
+          
             //REMOVE END
             return await _sqlContext.Categories.Include(x=>x.products).ThenInclude(x=>x.Color).ToListAsync();
         }
