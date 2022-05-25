@@ -42,6 +42,18 @@ namespace KenKata.Shared.Models
             Category = category;
         }
 
+        public ProductModel(int id, string name, string description, string color, decimal price, string imgUrl, string category, int quantity)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Color = color;
+            Price = price;
+            ImgUrl = imgUrl;
+            Category = category;
+            Quantity = quantity;
+        }
+
         public int Id { get; set; } = 0;
 
         public string Name { get; set; } = "";
@@ -52,6 +64,6 @@ namespace KenKata.Shared.Models
         public decimal Price { get; set; } = 0;
         public string ImgUrl { get; set; } = "";
         public string Category { get; set; } = "";
-
+        public int Quantity { get; set; } = 0;
     }
 }
