@@ -100,6 +100,7 @@ namespace KenKata.WebApp.Controllers
                 Description = product.Description,
                 Price = product.Price,
                 Color = product.Color,
+                Quantity = product.Quantity,
                 ImgUrl = product.ImgUrl,
                 categoryList=list
                 

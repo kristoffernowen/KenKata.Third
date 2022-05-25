@@ -151,7 +151,7 @@ namespace KenKata.WebApp.Service
 
         public async Task<Result> Update(int productId, ProductModelForm model)
         {
-            var product = await _sqlContext.Products.Include(x=>x.Color).Include(x=>x.ProductInventory).FirstOrDefaultAsync(x => x.Id == productId);
+            var product = await _sqlContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
             
             var colorExist = await _sqlContext.Colors.FirstOrDefaultAsync(x => x.Name == model.Color);
             if (colorExist == null)
@@ -173,7 +173,7 @@ namespace KenKata.WebApp.Service
                 product.Description = model.Description;
                 product.ColorId = color.Id;
                 product.Price = model.Price;
-                product.ProductInventory.Id = inventory.Id;
+                product.ProductInventoryId = inventory.Id;
                 product.ImgUrl = model.ImgUrl;
                 product.CategoryId = model.CategorySelected;
                 _sqlContext.Update(product);
