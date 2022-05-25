@@ -31,6 +31,7 @@ namespace KenKata.WebApp.Service
 
         public async Task<ProductModel> Get(int productId)
         {
+
             var product = new ProductModel();
             var productEntity = await _sqlContext.Products.Include(x=>x.Category).Include(x=>x.Color).Include(x=>x.ProductInventory).FirstOrDefaultAsync(x=>x.Id == productId);
             if(productEntity != null)
