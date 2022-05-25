@@ -89,7 +89,13 @@
                         </div>
                         <div class="card-body">
                             <div class="card-menu">
-                                <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
+                                @if (@product.Quantity <= 0)
+                                {
+                                    <i data-bs-toggle="tooltip" data-bs-placement="left" title="Out of stock" class="OutOfstock"></i>
+                                }
+                                else{
+                                    <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
+                                }
                                 <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
                                 <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
                                 <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>

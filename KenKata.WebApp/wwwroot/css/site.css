@@ -339,7 +339,12 @@ a {
     background-color: #82D8C6;
     border-radius: 50%;
 }
-
+.OutOfstock {
+    height: 21px;
+    width: 21px;
+    background-color: #ff7676;
+    border-radius: 50%;
+}
 /*#AllProducts p, #AllProducts h5, #AllProducts h6 {
     color: #ffffff;
 }
@@ -409,9 +414,7 @@ a {
         #AllProducts .card .card-body .card-text {
             display: none;
         }*/
-
 /* ProductDetails */
-
 #productDetailsBigImg {
     height: 445px;
     width: 425px;
