@@ -150,10 +150,17 @@ a {
     text-decoration: none;
 }
 
-#navbarBottom select {
+#navbarBottom .dropdown-center a {
+    color: white;
+}
+
+#navbarBottom .dropdown-center {
+    display: flex;
+    align-items: center;
     border: none;
     background-color: #20D3C2;
     color: white;
+    padding: 0 10px 0 10px;
 }
 
 #navbarSpecialOffer {
@@ -433,6 +440,20 @@ a {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
 }
+
+.color-div-box {
+    height: 100px;
+    width: 100px;
+    background-color: #20D3C2;
+}
+
+
+.color-div-box-grey {
+    height: 100px;
+    width: 100px;
+    background-color: #EEEEEE;
+}
+
 
 /* FOOTER */
 #footer {
