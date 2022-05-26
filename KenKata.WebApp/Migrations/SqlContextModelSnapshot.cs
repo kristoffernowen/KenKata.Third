@@ -99,10 +99,7 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("Products");
                 });
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
-
-           
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,14 +107,12 @@ namespace KenKata.WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ProductsInventory");
-
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -4,7 +4,7 @@
 
 namespace KenKata.WebApp.Migrations
 {
-    public partial class enitys : Migration
+    public partial class productUpdated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
