@@ -1,4 +1,4 @@
-﻿@model IEnumerable<KenKata.Shared.Models.ProductModel>
+﻿@model KenKata.Shared.Models.GetAllViewModel
 
 @{
     ViewData["Title"] = "GetAll";
@@ -24,39 +24,98 @@
 
 
 
-<div id="AllProducts">
-    <div class="ken-container">
-        <div class="row row-cols-3 g-4 justify-content-center mt-3">
-        @foreach (var product in Model)
+<div class="d-flex justify-content-between ken-container">
+    <div id="ProductFilter" class="align-self-start mt-5">
+        <h6 class="text-turquoise mt-3">Filter by Category</h6>
+        @foreach (var category in Model.category)
         {
-            <div class="col">
-                <div class="card">
-                    <div class="card-top d-flex justify-content-center m-2">
-                        <img src="@product.ImgUrl" class="card-img-top" alt="@product.Name">
-                    </div>
-                    <div class="card-body">
-                         <div class="card-menu">
-                             <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
-                            <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
-                            <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
-                            <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                        </div>
-                        <div class="card-info">
-                            <a asp-controller="CostumerProduct"  asp-action="Details" asp-route-id="@product.Id">
-                            <h5 class="card-title">@product.Name</h5>
-                            <h6 class="card-subtitle">$ @product.Price</h6>
-                            </a>
-                        </div> 
-                    </div>
-                </div>
+            <div class="d-flex justify-content-between">
+                <a class="" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="@category.Id">@category.Name</a>
+                @if (category.products != null)
+                {
+                    if (Model.SelectedCategoryId == category.Id)
+                    {
+                        <p class="selected-Category text-white mb-1 pe-2 ps-2 border-round">@category.products.Count()</p>
+
+                    }else
+                    {
+                        <p class="text-black mb-1 pe-2 ps-2 border-round">@category.products.Count()</p>
+                    }
+                }else
+                {
+                    <p class="text-black mb-1 pe-2 ps-2 border-round">0</p>
+                }
             </div>
         }
+        <h6 class="text-turquoise mt-3">Filter by Price </h6>
+        <div class="d-flex justify-content-between">
+        </div>
+        <h6 class="text-turquoise mt-3">Filter by color</h6>
+        @foreach (var color in Model.colors)
+        {
+            <div class="d-flex justify-content-between">
+                <a class="" asp-action="GetAllColor" asp-controller="CostumerProduct" asp-route-value="@color.Name">@color.Name</a>
+                @if (color != null)
+                {
+                    if (Model.SelectedColor == color.Name)
+                    {
+                        <p class="selected-Category text-white mb-1 pe-2 ps-2 border-round">@color.products.Count()</p>
+                    }
+                    else
+                    {
+                        <p class="text-black mb-1 pe-2 ps-2 border-round">@color.products.Count()</p>
+                    }
+                }
+                @*else
+                {
+                    <p class="text-black mb-1 pe-2 ps-2 border-round">0</p>
+                }*@
+            </div>
+        }
+        <h6 class="text-turquoise mt-3">Filter by size </h6>
+        <div class="d-flex justify-content-between">
+        </div>
+    </div>
+
+
+    <div id="AllProducts">
+        <div class="row row-cols-4 g-4 justify-content-center mt-5">
+            @foreach (var product in Model.product)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-top d-flex justify-content-center m-2">
+                            <img src="@product.ImgUrl" class="card-img-top" alt="@product.ImgUrl">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-menu">
+                                @if (@product.Quantity <= 0)
+                                {
+                                    <i data-bs-toggle="tooltip" data-bs-placement="left" title="Out of stock" class="OutOfstock"></i>
+                                }
+                                else{
+                                    <i data-bs-toggle="tooltip" data-bs-placement="left" title="In stock" class="instock"></i>
+                                }
+                                <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
+                                <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
+                                <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            </div>
+                            <div class="card-info">
+                                <a asp-controller="CostumerProduct" asp-action="Details" asp-route-id="@product.Id">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <h6 class="card-subtitle">$ @product.Price</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

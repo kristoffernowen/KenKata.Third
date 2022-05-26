@@ -21,20 +21,23 @@ namespace KenKata.Shared.Models.Entities
         public string Description { get; set; } 
 
         [Required]
-        [Column(TypeName = "nvarchar(50)")]
-        public string Color { get; set; } 
-
-        [Required]
         [Column(TypeName = "money")]
         public decimal Price { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(max)")]
         public string ImgUrl { get; set; }
-
+        
         [Required]
         public int CategoryId { get; set; }
+        public int ColorId { get; set; }
+        //[Required]
+        public int ProductInventoryId { get; set; }
+
+        
 
         public CategoryEntity Category { get; set; }
+        public ColorEntity Color { get; set; }
+        public ProductInventoryEntity ProductInventory { get; set; }
     }
 }
