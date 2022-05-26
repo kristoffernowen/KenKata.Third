@@ -48,6 +48,9 @@ namespace KenKata.Shared.Models
         [Display(Name = "Image Url")]
         [Required]
         public string ImgUrl { get; set; } = "";
+        [Display(Name = "Quantity")]
+        [Required]
+        public int Quantity { get; set; } = 0;
         public int CategorySelected { get; set; }
 
         [Display(Name = "Category")]
