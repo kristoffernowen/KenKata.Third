@@ -3,6 +3,7 @@ using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
+
 namespace KenKata.WebApp.Controllers
 {
     public class ShoppingCartController : Controller
@@ -17,6 +18,7 @@ namespace KenKata.WebApp.Controllers
         public IActionResult Index()
         {
             var shoppingCart = new ShoppingCart();
+
             var sessionCart = HttpContext.Session.GetString("ShoppingCart");
 
             if (!string.IsNullOrEmpty(sessionCart))
@@ -24,8 +26,28 @@ namespace KenKata.WebApp.Controllers
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
             }
 
+            
+
             return View(shoppingCart);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Index([FromBody]ShoppingCart cart)
+        {
+            var shoppingCart = new ShoppingCart();
+            foreach (var product in cart.Items)
+            {
+                shoppingCart.Items.Add(product);
+            }
+
+
+
+            HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
+            return RedirectToAction("Index");
+
+        }
+
+        
 
         public async Task<IActionResult> AddToCart(int id)
         {
@@ -56,19 +78,6 @@ namespace KenKata.WebApp.Controllers
 
             HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
-        }
-
-        public async Task<IActionResult> GetCart()
-        {
-            var shoppingCart = new ShoppingCart();
-            var sessionCart = HttpContext.Session.GetString("ShoppingCart");
-
-            if (!string.IsNullOrEmpty(sessionCart))
-            {
-                shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
-            }
-
-            return View(shoppingCart);
         }
     }
 }

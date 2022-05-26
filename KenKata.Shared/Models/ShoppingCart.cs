@@ -9,7 +9,7 @@ namespace KenKata.Shared.Models
             Items = new List<CartItem>();
         }
         public List<CartItem>? Items { get; set; }
-
+       
         public int TotalQuantity
         {
             get

@@ -1,5 +1,6 @@
 ﻿@model KenKata.Shared.Models.ShoppingCart
 
+
 <div class="grey-banner-bg">
     <div class="ken-container d-flex justify-content-center align-items-center h-100">
         <div><span class="text-turquoise">Shopping Cart &nbsp;</span> <span class="text-white">/&nbsp; Check Out</span><span class="text-white">&nbsp; / &nbsp; Complete</span></div>
@@ -8,17 +9,20 @@
 
 <div class="bg-white w-100 m-5 p-2"></div>
 
+<button onclick="updateIndexCart()" class="link-item">update</button>
+
+
 <div class="navbar-container d-flex">
     <div class="w-75 me-5">
         <table class="w-100">
             <thead class="border-lightgrey-bottom">
-                <tr>
-                    <th class="pb-3"></th>
-                    <th class="pb-3">Product</th>
-                    <th class="pb-3">Price</th>
-                    <th class="pb-3">Quantity</th>
-                    <th class="pb-3">Subtotal</th>
-                </tr>
+            <tr>
+                <th class="pb-3"></th>
+                <th class="pb-3">Product</th>
+                <th class="pb-3">Price</th>
+                <th class="pb-3">Quantity</th>
+                <th class="pb-3">Subtotal</th>
+            </tr>
             </thead>
             <tbody class="pt-5">
             @* <tr> *@
@@ -86,3 +90,4 @@
         </div>
     </div>
 </div>
+

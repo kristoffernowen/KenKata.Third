@@ -22,7 +22,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(x =>
 {
-    x.IdleTimeout = TimeSpan.FromDays(5);
+    x.IdleTimeout = TimeSpan.FromDays(1);
     x.Cookie.IsEssential = true;
     x.Cookie.HttpOnly = true;
 });
