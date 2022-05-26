@@ -199,7 +199,7 @@ namespace KenKata.WebApp.Service
         public async Task<IEnumerable<ProductModel>> GetProductByCategory(int CategoryId)
         {
             var list = new List<ProductModel>();
-            foreach(var product in await _sqlContext.Products.Where(x => x.CategoryId == CategoryId).Include(x=>x.Category).Include(x=>x.Color).ToListAsync())
+            foreach(var product in await _sqlContext.Products.Where(x => x.CategoryId == CategoryId).Include(x=>x.Category).Include(x=>x.Color).Include(x=>x.ProductInventory).ToListAsync())
             {
                 list.Add(new ProductModel(
                     product.Id,
@@ -208,7 +208,8 @@ namespace KenKata.WebApp.Service
                     product.Color.Name,
                     product.Price,
                     product.ImgUrl,
-                    product.Category.Name
+                    product.Category.Name,
+                    product.ProductInventory.Quantity
                     ));
             } 
             return list;
