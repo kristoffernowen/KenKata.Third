@@ -98,7 +98,7 @@
                                 }
                                 <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
                                 <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
-                                <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                                <a onclick="addToCart(event)" data-product="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
                             </div>
                             <div class="card-info">
                                 <a asp-controller="CostumerProduct" asp-action="Details" asp-route-id="@product.Id">

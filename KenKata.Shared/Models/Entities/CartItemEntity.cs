@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace KenKata.Shared.Models.Entities
 {
-    public class TestEntity
+    public class CartItemEntity
     {
         [Key] public int Id { get; set; }
-        public string Name { get; set; }
+        public ProductEntity Product { get; set; } = null!;
+        public int Quantity { get; set; } = 1;
     }
 }

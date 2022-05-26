@@ -1,5 +1,4 @@
-﻿@model KenKata.Shared.Models.ShoppingCart
-
+﻿@model KenKata.Shared.Models.ShoppingCartModel
 
 <div class="grey-banner-bg">
     <div class="ken-container d-flex justify-content-center align-items-center h-100">
@@ -9,7 +8,7 @@
 
 <div class="bg-white w-100 m-5 p-2"></div>
 
-<button onclick="updateIndexCart()" class="link-item">update</button>
+
 
 
 <div class="navbar-container d-flex">
@@ -25,41 +24,45 @@
             </tr>
             </thead>
             <tbody class="pt-5">
-            @* <tr> *@
-            @*     <td class="pt-4">x</td> *@
-            @*     <td class="pt-4">1</td> *@
-            @*     <td class="pt-4">2</td> *@
-            @*     <td class="pt-4"> *@
-            @*         <div class="me-4 d-flex w-25"> *@
-            @*             <button class="border-lightgrey bg-white px-2 button-minus">-</button> *@
-            @*             <span class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</span> *@
-            @*             <button class="bg-turquoise text-white no-border px-2 button-plus"> *@
-            @*                 + *@
-            @*             </button> *@
-            @*         </div> *@
-            @*     </td> *@
-            @*     <td class="pt-4">4</td> *@
-            @* </tr> *@
-            @foreach (var item in Model.Items)
+          
+            @if (Model != null)
             {
-                <tr>
-                    <td class="pt-4">x</td>
-                    <td class="pt-4">@item.Product.Name</td>
-                    <td class="pt-4">@item.Product.Price</td>
-                    <td class="pt-4">
-                        <div class="me-4 d-flex w-25">
-                            <button class="border-lightgrey bg-white px-2 button-minus">-</button>
-                            <span class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</span>
-                            <button class="bg-turquoise text-white no-border px-2 button-plus">
-                                +
-                            </button>
-                        </div>
-                    </td>
-                    <td class="pt-4">@item.Product.Price * @item.Quantity</td>
-                </tr>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td class="pt-4">x</td>
+                        <td class="pt-4">@item.Product.Name</td>
+                        <td class="pt-4">@item.Product.Price</td>
+                        <td class="pt-4">
+                            <div class="me-4 d-flex w-25">
+                            
+                            
+                            
+
+                                @* Buttons not functionable *@
+
+
+
+
+                                <button class="border-lightgrey bg-white px-2 button-minus">-</button>
+                                <span class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">@item.Quantity</span>
+                                <button class="bg-turquoise text-white no-border px-2 button-plus">
+                                    +
+                                </button>
+                            </div>
+                        </td>
+                        <td class="pt-4">@item.SubTotal</td>
+                    </tr>
+                }
             }
+            
             </tbody>
         </table>
+        @if (Model == null)
+        {
+            <div class="m-3">Your shopping cart is empty</div>
+        }
+        <button class="m-2" onclick="removeShoppingCart()">Delete shopping cart from localstorage, must restart to begin new session on server side</button>
     </div>
     <div class="w-25">
         <div class="p-0 bg-darkblue">

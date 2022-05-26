@@ -18,23 +18,44 @@ namespace KenKata.WebApp.Controllers
         public IActionResult Index()
         {
             var shoppingCart = new ShoppingCart();
-
+            
             var sessionCart = HttpContext.Session.GetString("ShoppingCart");
 
             if (!string.IsNullOrEmpty(sessionCart))
             {
                 shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
+
+                var items = new List<CartItemModel>();
+
+                foreach (var item in shoppingCart.Items)
+                {
+                    var newItem = new CartItemModel
+                    {
+                        Product = item.Product,
+                        Quantity = item.Quantity,
+                    };
+                    items.Add(newItem);
+                }
+
+                var cartModel = new ShoppingCartModel
+                {
+                    Items = items,
+                };
+                return View(cartModel);
             }
 
             
 
-            return View(shoppingCart);
+            return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Index([FromBody]ShoppingCart cart)
         {
             var shoppingCart = new ShoppingCart();
+
+            
+
             foreach (var product in cart.Items)
             {
                 shoppingCart.Items.Add(product);

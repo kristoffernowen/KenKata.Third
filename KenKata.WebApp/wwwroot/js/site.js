@@ -8,15 +8,16 @@ function addToCart(event) {
     fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
         .then(res => res.text())
         .then(data => {
-            localStorage.setItem("shoppingCart", data)
-            getCart() 
-        })
-        
+            localStorage.setItem("shoppingCart", data);
+            getCart();
+            
+        });
+
 }
 
 function getCart() {
 
-    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"))
+    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
     
 
@@ -24,12 +25,12 @@ function getCart() {
         fetch(`https://localhost:7167/shoppingcart/addtocart/0`)
             .then(res => res.text())
             .then(data => {
-                localStorage.setItem("shoppingCart", data)
+                localStorage.setItem("shoppingCart", data);
 
-                shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"))
+                shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
                 document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
                 document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
-            })
+            });
     } else {
         document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
         document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
@@ -38,7 +39,8 @@ function getCart() {
     
 }
 
-getCart()
+getCart();
+
 
 
 async function updateIndexCart() {
@@ -85,11 +87,16 @@ async function updateIndexCart() {
 
     const content = await rawResponse.JSON;
 
-    localStorage.setItem("shoppingCart", content);
-
-    getCart();
-    // stopp för ikväll
+//    localStorage.setItem("shoppingCart", content);
+//
+//    getCart();
+    
 
 
 }
 
+updateIndexCart();
+
+function removeShoppingCart() {
+    localStorage.removeItem("shoppingCart");
+}
