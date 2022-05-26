@@ -218,7 +218,7 @@ namespace KenKata.WebApp.Service
         public async Task<IEnumerable<ProductModel>> GetProdúctByColor(string Color)
         {
             var productByColor = new List<ProductModel>();
-            foreach (var product in await _sqlContext.Products.Where(x => x.Color.Name== Color).Include(x => x.Category).ToListAsync())
+            foreach (var product in await _sqlContext.Products.Where(x => x.Color.Name== Color).Include(x => x.Category).Include(x=>x.ProductInventory).ToListAsync())
             {
                 productByColor.Add(new ProductModel(
                     product.Id,
@@ -227,7 +227,8 @@ namespace KenKata.WebApp.Service
                     product.Color.Name,
                     product.Price,
                     product.ImgUrl,
-                    product.Category.Name
+                    product.Category.Name,
+                    product.ProductInventory.Quantity
                     ));
             }
             return productByColor;
