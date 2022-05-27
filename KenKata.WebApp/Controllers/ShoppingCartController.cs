@@ -100,5 +100,12 @@ namespace KenKata.WebApp.Controllers
             HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
+
+        public IActionResult DeleteSession()
+        {
+            HttpContext.Session.Remove("ShoppingCart");
+
+            return Ok();
+        }
     }
 }
