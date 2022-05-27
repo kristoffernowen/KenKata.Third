@@ -19,7 +19,7 @@ namespace KenKata.WebApp.Controllers
         [Route("admin/Blog")]
         public async Task<IActionResult> Index()
         {
-            var post = await _sqlContext.Posts.ToListAsync();
+            var post = await _sqlContext.Posts.Include(x=>x.BlogCategory).ToListAsync();
             if (post != null)
             {
                 return View(post);
@@ -41,17 +41,15 @@ namespace KenKata.WebApp.Controllers
                 //kontrollera om rubrik finns redan
                 var post = await _sqlContext.Posts.FirstOrDefaultAsync(x => x.Rubrik == model.Rubrik);
 
-                if (post != null)
-                {
-                    return View();
-                }
-                else
+                if(post==null)
                 {
                     var postEntity = new PostEntity();
                     postEntity.Rubrik = model.Rubrik;
                     postEntity.Author = model.Author;
                     postEntity.Text = model.Text;
                     postEntity.Created = DateTime.Now;
+                    postEntity.Updated = DateTime.Now;
+                    postEntity.ImgUrl=model.ImgUrl;
 
                     //kontrollera om categori finns
                     var category = await _sqlContext.BlogCategories.FirstOrDefaultAsync(x => x.Name == model.category);
@@ -62,70 +60,78 @@ namespace KenKata.WebApp.Controllers
                     else
                     {
                         //skapa categori
-                        var categoryEntity = new CategoryEntity { Name = model.category };
-                        _sqlContext.Categories.Add(categoryEntity);
-                        //await _sqlContext.SaveChangesAsync();
+                        var categoryEntity = new BlogCategoryEntity { Name = model.category };
+                        _sqlContext.BlogCategories.Add(categoryEntity);
+                        await _sqlContext.SaveChangesAsync();
                         postEntity.BlogCategoryId = categoryEntity.Id;
                     }
+
+                    try
+                    {
+                        _sqlContext.Posts.Add(postEntity);
+                        await _sqlContext.SaveChangesAsync();
+                    }
+                    catch
+                    {
+                        var posty = postEntity;
+                    }
+                    
+
+
 
                     //kontrollera taggs, annars lägg in nya
                     var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
                     var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
+
+                    var postTag1 = new PostTagsEntity();
+                    var postTag2 = new PostTagsEntity();
+
                     if (tag1 == null)
                     {
                         var tagsentity = new TagEntity { Name = model.Tag1 };
                         _sqlContext.Tags.Add(tagsentity);
-                        //await _sqlContext.SaveChangesAsync();
+                        await _sqlContext.SaveChangesAsync();
+                        postTag1.TagId=tagsentity.Id;
+                        postTag1.PostId = postEntity.Id;
+
                     }
+                    else
+                    {
+                        postTag1.TagId = tag1.Id;
+                        postTag1.PostId = postEntity.Id;
+                    }
+
                     if (tag2 == null)
                     {
                         var tagsentity = new TagEntity { Name = model.Tag2 };
                         _sqlContext.Tags.Add(tagsentity);
+                        await _sqlContext.SaveChangesAsync();
+                        postTag2.TagId=tagsentity.Id;
+                        postTag2.PostId = postEntity.Id;
 
                     }
-
-                    var postTag1 = new PostTagsEntity { PostId = post.Id,TagId=tag1.Id };
-                    var postTag2 = new PostTagsEntity { PostId = post.Id,TagId=tag2.Id };
-                    _sqlContext.PostTags.Add(postTag1);
-                    _sqlContext.PostTags.Add(postTag2);
-                    await _sqlContext.SaveChangesAsync();
-
-                    //Om Post.id och något av
-                    //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x=>x.PostId==post.Id && x.TagId==tag1.Id || x.TagId==tag2.Id);
-                    //x => x.TagId == tag1.Id && x.PostId == post.Id
-                    //if(postTags == null)
-                    //{
-                    //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag1.Id });
-                    //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag2.Id });
-                    //}
-
-                    // await _sqlContext.SaveChangesAsync();
-
-                    //var tagEntity = await _sqlContext.Tags.FirstOrDefaultAsync(x=>x.Name=);
-
-                    //foreach (var tag in model.tags)
-                    //{
-                    //    var tags = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == tag.TagName);
-                    //    if (tags ==null)
-                    //    {
-                    //        var tagsentity = new TagEntity { Name = tag.TagName };
-                    //        _sqlContext.Tags.Add(tagsentity);
-                    //        await _sqlContext.SaveChangesAsync();
-                    //    }
-                    //    //kollar om det finns posttags med samma tag id och postid
-                    //    if(! await _sqlContext.PostTags.AnyAsync(x=>x.TagId.ToString() == tag.Id && x.PostId==post.Id))
-                    //    {
-                    //        //om det inte existerar skapa ny...Blir fel här!!!
-                    //        _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tags.Id });
-                    //    }
-                    //}
-
-                    //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x => x.PostId == post.Id && x.TagId ==);
+                    else
+                    {
+                        postTag2.TagId = tag2.Id;
+                        postTag2.PostId = postEntity.Id;
+                    }
+                    try
+                    {
+                        _sqlContext.PostTags.Add(postTag1);
+                        _sqlContext.PostTags.Add(postTag2);
+                        await _sqlContext.SaveChangesAsync();
+                    }
+                    catch
+                    {
+                        var posttags = postTag1;
+                    }
+                    
                     return RedirectToAction("Index");
                 }
-                             
-                    
-            }else
+
+                    return View();
+            }
+            else
             return View();
 
          }
