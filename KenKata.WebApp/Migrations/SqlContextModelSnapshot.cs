@@ -36,7 +36,7 @@ namespace KenKata.WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
@@ -53,7 +53,7 @@ namespace KenKata.WebApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
@@ -96,13 +96,10 @@ namespace KenKata.WebApp.Migrations
 
                     b.HasIndex("ProductInventoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
-
-           
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,14 +107,12 @@ namespace KenKata.WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductsInventory");
-
+                    b.ToTable("ProductsInventory", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
