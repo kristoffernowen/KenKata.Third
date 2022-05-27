@@ -66,30 +66,30 @@ namespace KenKata.WebApp.Controllers
                     //}
 
                     //kontrollera taggs
-                    var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
-                    var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
-                    if (tag1 == null) 
-                    {
-                        var tagsentity = new TagEntity { Name = model.Tag1};
-                        _sqlContext.Tags.Add(tagsentity);
-                        await _sqlContext.SaveChangesAsync();
-                    }
-                    if (tag2 == null)
-                    {
-                        var tagsentity = new TagEntity { Name = model.Tag2 };
-                        _sqlContext.Tags.Add(tagsentity);
+                    //var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
+                    //var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
+                    //if (tag1 == null) 
+                    //{
+                    //    var tagsentity = new TagEntity { Name = model.Tag1};
+                    //    _sqlContext.Tags.Add(tagsentity);
+                    //    await _sqlContext.SaveChangesAsync();
+                    //}
+                    //if (tag2 == null)
+                    //{
+                    //    var tagsentity = new TagEntity { Name = model.Tag2 };
+                    //    _sqlContext.Tags.Add(tagsentity);
                         
-                    }
-                    //kontrollera om postTags har en rad med tagId & postId
-                    var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x => x.TagId == tag1.Id && x.PostId == post.Id);
+                    //}
+                    ////kontrollera om postTags har en rad med tagId & postId
+                    //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x => x.TagId == tag1.Id && x.PostId == post.Id);
                     
-                    if(postTags == null)
-                    {
-                        _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag1.Id });
-                        _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag2.Id });
-                    }
+                    //if(postTags == null)
+                    //{
+                    //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag1.Id });
+                    //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag2.Id });
+                    //}
                     
-                     await _sqlContext.SaveChangesAsync();
+                    // await _sqlContext.SaveChangesAsync();
 
                     //var tagEntity = await _sqlContext.Tags.FirstOrDefaultAsync(x=>x.Name=);
 

@@ -12,6 +12,10 @@ namespace KenKata.WebApp.Data
         {
         }
 
+        protected SqlContext()
+        {
+        }
+
         public virtual DbSet<IdentityUser> Users { get; set; }
         public virtual DbSet<ProductEntity> Products { get; set; }
 

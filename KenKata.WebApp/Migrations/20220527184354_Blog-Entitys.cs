@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KenKata.WebApp.Migrations
 {
-    public partial class Blogdatabasecreated : Migration
+    public partial class BlogEntitys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
