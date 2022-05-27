@@ -28,12 +28,12 @@
                     <span>By <a class="text-white " href="../BlogPost.html"> @post.Author </a></span>
                     <p class="text-turquoise">Description of the post here. like 20 first words??</p>
                     <div class="d-flex">
-                        <div class="taggs">
-                            <a href="#">max två</a>
-                        </div>
-                        <div class="taggs">
-                            <a href="#">hhkkkkkkbbb</a>
-                        </div>
+                        @foreach ( var tag in post.tags)
+                        {
+                           <div class="taggs">
+                            <a href="#">@tag.TagName</a>
+                        </div> 
+                        }
                     </div>
                     <div class="mt-4">
                         <a class="white-button p-2 pe-4 ps-4" href="./BlogPost.html"> Read more </a>

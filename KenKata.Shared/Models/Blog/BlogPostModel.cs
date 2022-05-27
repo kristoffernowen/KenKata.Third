@@ -12,8 +12,6 @@ namespace KenKata.Shared.Models
         public int Id { get; set; }
         public string Rubrik { get; set; }
         public string ImgUrl { get; set; }
-        public string SecundImgUrl { get; set; }
-        public string ThirdImgUrl { get; set; }
         public string Text { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
