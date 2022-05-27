@@ -1,7 +1,13 @@
-﻿
+﻿@using KenKata.Shared.Models
+@model IEnumerable<BlogPostModel>
 @{
     ViewData["Title"] = "Blog";
 }
 
-<h1>Blog</h1>
+<div class="page-border">
+    <div class="ken-container d-flex justify-content-between align-items-center h-100">
+        <div class="text-turquoise"><h4>Blog</h4></div>
+        <div><span><a class="text-turquoise" href="#">Home /</a></span><span class="text-white"> Blog</span></div>
+    </div>
+</div>
 
