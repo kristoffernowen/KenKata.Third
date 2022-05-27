@@ -9,7 +9,7 @@ namespace KenKata.WebApp.Controllers
             return View();
         }
 
-        public IActionResult Post()
+        public IActionResult Post(int id)
         {
             return View();
         }
