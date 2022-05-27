@@ -29,12 +29,12 @@ namespace KenKata.WebApp.Controllers
         
         public IActionResult Create()
         {
-            var model = new BlogPostModel();
+            var model = new CreateBlogPostModel();
 
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(BlogPostModel model)
+        public async Task<IActionResult> Create(CreateBlogPostModel model)
         {
             if (ModelState.IsValid)
             {
@@ -50,45 +50,55 @@ namespace KenKata.WebApp.Controllers
                     var postEntity = new PostEntity();
                     postEntity.Rubrik = model.Rubrik;
                     postEntity.Author = model.Author;
+                    postEntity.Text = model.Text;
+                    postEntity.Created = DateTime.Now;
 
                     //kontrollera om categori finns
-                    //var category = await _sqlContext.BlogCategories.FirstOrDefaultAsync(x => x.Name == model.category);
-                    //if (category != null)
-                    //{
-                    //    postEntity.BlogCategoryId = category.Id;
-                    //}
-                    //else
-                    //{
-                    //    var categoryEntity = new CategoryEntity { Name = model.category };
-                    //    _sqlContext.Categories.Add(categoryEntity);
-                    //    await _sqlContext.SaveChangesAsync();
-                    //    postEntity.BlogCategoryId = categoryEntity.Id;
-                    //}
+                    var category = await _sqlContext.BlogCategories.FirstOrDefaultAsync(x => x.Name == model.category);
+                    if (category != null)
+                    {
+                        postEntity.BlogCategoryId = category.Id;
+                    }
+                    else
+                    {
+                        //skapa categori
+                        var categoryEntity = new CategoryEntity { Name = model.category };
+                        _sqlContext.Categories.Add(categoryEntity);
+                        //await _sqlContext.SaveChangesAsync();
+                        postEntity.BlogCategoryId = categoryEntity.Id;
+                    }
 
-                    //kontrollera taggs
-                    //var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
-                    //var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
-                    //if (tag1 == null) 
-                    //{
-                    //    var tagsentity = new TagEntity { Name = model.Tag1};
-                    //    _sqlContext.Tags.Add(tagsentity);
-                    //    await _sqlContext.SaveChangesAsync();
-                    //}
-                    //if (tag2 == null)
-                    //{
-                    //    var tagsentity = new TagEntity { Name = model.Tag2 };
-                    //    _sqlContext.Tags.Add(tagsentity);
-                        
-                    //}
-                    ////kontrollera om postTags har en rad med tagId & postId
-                    //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x => x.TagId == tag1.Id && x.PostId == post.Id);
-                    
+                    //kontrollera taggs, annars lägg in nya
+                    var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
+                    var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
+                    if (tag1 == null)
+                    {
+                        var tagsentity = new TagEntity { Name = model.Tag1 };
+                        _sqlContext.Tags.Add(tagsentity);
+                        //await _sqlContext.SaveChangesAsync();
+                    }
+                    if (tag2 == null)
+                    {
+                        var tagsentity = new TagEntity { Name = model.Tag2 };
+                        _sqlContext.Tags.Add(tagsentity);
+
+                    }
+
+                    var postTag1 = new PostTagsEntity { PostId = post.Id,TagId=tag1.Id };
+                    var postTag2 = new PostTagsEntity { PostId = post.Id,TagId=tag2.Id };
+                    _sqlContext.PostTags.Add(postTag1);
+                    _sqlContext.PostTags.Add(postTag2);
+                    await _sqlContext.SaveChangesAsync();
+
+                    //Om Post.id och något av
+                    //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x=>x.PostId==post.Id && x.TagId==tag1.Id || x.TagId==tag2.Id);
+                    //x => x.TagId == tag1.Id && x.PostId == post.Id
                     //if(postTags == null)
                     //{
                     //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag1.Id });
                     //    _sqlContext.PostTags.Add(new PostTagsEntity { PostId = post.Id, TagId = tag2.Id });
                     //}
-                    
+
                     // await _sqlContext.SaveChangesAsync();
 
                     //var tagEntity = await _sqlContext.Tags.FirstOrDefaultAsync(x=>x.Name=);
@@ -111,7 +121,7 @@ namespace KenKata.WebApp.Controllers
                     //}
 
                     //var postTags = await _sqlContext.PostTags.FirstOrDefaultAsync(x => x.PostId == post.Id && x.TagId ==);
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
                              
                     
