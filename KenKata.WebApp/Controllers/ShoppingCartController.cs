@@ -17,56 +17,11 @@ namespace KenKata.WebApp.Controllers
 
         public IActionResult Index()
         {
-            var shoppingCart = new ShoppingCart();
-            
-            var sessionCart = HttpContext.Session.GetString("ShoppingCart");
-
-            if (!string.IsNullOrEmpty(sessionCart))
-            {
-                shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(sessionCart);
-
-                var items = new List<CartItemModel>();
-
-                foreach (var item in shoppingCart.Items)
-                {
-                    var newItem = new CartItemModel
-                    {
-                        Product = item.Product,
-                        Quantity = item.Quantity,
-                    };
-                    items.Add(newItem);
-                }
-
-                var cartModel = new ShoppingCartModel
-                {
-                    Items = items,
-                };
-                return View(cartModel);
-            }
-
-            
 
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Index([FromBody]ShoppingCart cart)
-        {
-            var shoppingCart = new ShoppingCart();
-
-            
-
-            foreach (var product in cart.Items)
-            {
-                shoppingCart.Items.Add(product);
-            }
-
-
-
-            HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
-            return RedirectToAction("Index");
-
-        }
+        
 
         
 
@@ -101,11 +56,6 @@ namespace KenKata.WebApp.Controllers
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
 
-        public IActionResult DeleteSession()
-        {
-            HttpContext.Session.Remove("ShoppingCart");
-
-            return Ok();
-        }
+       
     }
 }

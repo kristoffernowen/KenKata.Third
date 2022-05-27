@@ -36,7 +36,7 @@ function getCart() {
         document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
     }
 
-    console.log(shoppingCart);
+    
 }
 
 getCart();
@@ -45,53 +45,21 @@ updateIndexCart();
 
 async function updateIndexCart() {
 
-    //   This was test   
-    //    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-    // 
-    //
-    //    var products = [];
-    //    var productIds = [];
-    //    const sendProducts = [];
-    //    
-    //
-    //
-    //
-    //    for (let i = 0; i < shoppingCart.Items.length; i++) {
-    //        products.push(shoppingCart.Items[i]);
-    //        console.log(shoppingCart.Items[i]);
-    //    }
-    //
-    //    for (let i = 0; i < products.length; i++) {
-    //        productIds.push(products[i].Product.Id);
-    //        console.log(products[i].Product.Id);
-    //
-    //        sendProducts.push(products[i]);
-    //
-    //    }
-    //
-    //
-    //    console.log(sendProducts[1].Quantity);
+    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    //      This was test
+    document.querySelector("#cartBody").innerHTML = "";
 
-    const rawResponse = await fetch("https://localhost:7167/shoppingcart/index",
-        {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: localStorage.getItem("shoppingCart")
-        });
+    for (let i = 0; i < shoppingCart.Items.length; i ++) {
+        let productName = shoppingCart.Items[i].Product.Name;
+        let productPrice = shoppingCart.Items[i].Product.Price;
+        let productQuantity = shoppingCart.Items[i].Quantity;
+        let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
 
-
-    const content = await rawResponse.JSON;
-
-    //    localStorage.setItem("shoppingCart", content);
-    //
-    //    getCart();
-
-
+        document.querySelector("#cartBody").innerHTML +=
+            `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td>${productQuantity} <button onclick="subtractQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}"            >-</button> 
+</td><td>${productSubTotal}</td> </tr>`
+            ;
+    }
 
 }
 
@@ -103,49 +71,32 @@ function addQuantity(event) {
 function subtractQuantity(event) {
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    let items = [];
-    let products = [];
+    console.log(event.currentTarget.dataset.product);
 
     for (let i = 0; i < shoppingCart.Items.length; i++) {
-        items.push(shoppingCart.Items[i]);
-    }
-
-    for (let i = 0; i < items.length; i++) {
-        
-        
-        products.push(items[i]);
-
-        
-    }
-    for (let i = 0; i < products.length; i++) {
-        console.log(products[i].Product.Id);
-
-        var testIf = products[i].Product.Id.toString();
-        if ( testIf === event.currentTarget.dataset.product) {
-            products[i].Quantity--;
-
-
-            // make a loop through shoppingCart to replace Item.Quantity with products[i].Quantity
-
-            //  This probably decreases the wrong value or must be sent elsewhere
-
-
-
+        var ifTest = `${shoppingCart.Items[i].Product.Id}`;
+        if (ifTest === event.currentTarget.dataset.product) {
+            shoppingCart.Items[i].Quantity--;
+            shoppingCart.TotalQuantity--;
+            shoppingCart.TotalPrice = 0;
             
         }
-        
+    }
+    for (let i = 0; i < shoppingCart.Items.length; i++) {
+        shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
     }
 
-    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+
+    
+
 
     console.log(shoppingCart);
-
+    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+    updateIndexCart();
     getCart();
-    
 
-    location.reload();
-    
 
+    // quantity mixup on addtoCart now
 }
 
 

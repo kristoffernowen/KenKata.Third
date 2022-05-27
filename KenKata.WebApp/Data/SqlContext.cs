@@ -18,8 +18,7 @@ namespace KenKata.WebApp.Data
         public virtual DbSet<CategoryEntity> Categories { get; set; }
         public virtual DbSet<ColorEntity> Colors { get; set; }
         public virtual DbSet<ProductInventoryEntity> ProductsInventory { get; set; }
-        public virtual DbSet<ShoppingCartEntity> ShoppingCarts { get; set; }
-        public virtual DbSet<CartItemEntity> CartItems { get; set; }
+       
 
     }
 }
