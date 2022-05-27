@@ -36,7 +36,7 @@ function getCart() {
         document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
     }
 
-
+    console.log(shoppingCart);
 }
 
 getCart();
@@ -111,7 +111,7 @@ function subtractQuantity(event) {
     }
 
     for (let i = 0; i < items.length; i++) {
-        console.log(items[i]);
+        
         
         products.push(items[i]);
 
@@ -125,17 +125,22 @@ function subtractQuantity(event) {
             products[i].Quantity--;
 
 
+            // make a loop through shoppingCart to replace Item.Quantity with products[i].Quantity
+
             //  This probably decreases the wrong value or must be sent elsewhere
 
 
 
-            console.log("if");
+            
         }
-        console.log("utanför if");
+        
     }
 
-    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart)) ;
-   
+    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
+
+    console.log(shoppingCart);
+
+    getCart();
     
 
     location.reload();
@@ -154,3 +159,5 @@ function removeShoppingCart() {
 
     location.reload();
 }
+
+console.log("Eh");
