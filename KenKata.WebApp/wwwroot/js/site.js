@@ -4,29 +4,53 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 getCart();
 updateSession();
-updateIndexCart();
+//updateIndexCart();     it is run as updateThisIndexCart directly in view as a script element
 
 
 function addToCart(event) {
 
-    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    for (let i = 0; i < shoppingCart.Items.length; i++) {
-        var ifTest = `${shoppingCart.Items[i].Product.Id}`;
-        if (ifTest === event.currentTarget.dataset.product) {
-            addOneToQuantity(event);
+    // There must be something if or so to prevent trying to loop Items if there are no products
 
-        } else {
-            event.stopPropagation()
-            fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
-                .then(res => res.text())
-                .then(data => {
-                    localStorage.setItem("shoppingCart", data);
-                    getCart();
+    
 
-                });
-        }
-    }
+//    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+//    if (shoppingCart.TotalQuantity === 0) {
+//
+//        event.stopPropagation()
+//        fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
+//            .then(res => res.text())
+//            .then(data => {
+//                localStorage.setItem("shoppingCart", data);
+//                getCart();
+//
+//            });
+//
+//    } else {
+//
+//        for (let i = 0; i < shoppingCart.Items.length; i++) {
+//            var ifTest = `${shoppingCart.Items[i].Product.Id}`;
+//            if (ifTest === event.currentTarget.dataset.product) {
+//                addOneToQuantity(event);
+
+
+                event.stopPropagation()
+                fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
+                    .then(res => res.text())
+                    .then(data => {
+                        localStorage.setItem("shoppingCart", data);
+                        getCart();
+
+                    });
+
+//            }
+//        }
+//
+//    }
+     
+        
+
+    
 }
 
 function updateSession() {
@@ -46,9 +70,14 @@ function updateSession() {
 
 function getCart() {
 
-    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+   
+        let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    if (shoppingCart === undefined) {
+       
+    
+   
+
+    if (shoppingCart === null) {
         fetch(`https://localhost:7167/shoppingcart/addtocart/0`)
             .then(res => res.text())
             .then(data => {
@@ -62,6 +91,8 @@ function getCart() {
         document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
         document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
     }
+
+    
 }
 
 
@@ -70,17 +101,21 @@ async function updateIndexCart() {
 
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    document.querySelector("#cartBody").innerHTML = null;
+    if (shoppingCart.Items[0] !== undefined) {
+        let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-    for (let i = 0; i < shoppingCart.Items.length; i ++) {
-        let productName = shoppingCart.Items[i].Product.Name;
-        let productPrice = shoppingCart.Items[i].Product.Price;
-        let productQuantity = shoppingCart.Items[i].Quantity;
-        let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+        document.querySelector("#cartBody").innerHTML = "<p></p>";
 
-        document.querySelector("#cartBody").innerHTML +=
-            `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
+        for (let i = 0; i < shoppingCart.Items.length; i++) {
+            let productName = shoppingCart.Items[i].Product.Name;
+            let productPrice = shoppingCart.Items[i].Product.Price;
+            let productQuantity = shoppingCart.Items[i].Quantity;
+            let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+
+            document.querySelector("#cartBody").innerHTML +=
+                `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
 </td><td>${productSubTotal}</td> </tr>`;
+        }
     }
 
 }                       

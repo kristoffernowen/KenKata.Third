@@ -64,3 +64,25 @@
     </div>
 </div>
 
+<script>
+
+    function updateThisIndexCart() {
+        let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+        document.querySelector("#cartBody").innerHTML = "<p></p>";
+
+        for (let i = 0; i < shoppingCart.Items.length; i ++) {
+            let productName = shoppingCart.Items[i].Product.Name;
+            let productPrice = shoppingCart.Items[i].Product.Price;
+            let productQuantity = shoppingCart.Items[i].Quantity;
+            let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+
+            document.querySelector("#cartBody").innerHTML +=
+                `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
+</td><td>${productSubTotal}</td> </tr>`;
+        }
+    }
+
+    updateThisIndexCart();
+
+</script>
