@@ -7,6 +7,7 @@
                     <div class="d-flex p-0">
                         <select class="bg-transparent" name="" id="">
                             <option value="">ENG</option>
+                            
                         </select>
                         <select class="bg-transparent" name="" id="">
                             <option value="">USD</option>
@@ -58,9 +59,15 @@
                     
 
                     <div class="d-flex justify-content-between pt-2">
-                        <a href=""><i class="fa-solid fa-heart"></i></a>
-                        <a><i class="fa-solid fa-shuffle"></i></a>
-                        <a> <i class="fa-solid fa-lock"></i></a>
+                        <div><a href=""><i class="fa-solid fa-heart"></i></a></div>
+                        <div><a><i class="fa-solid fa-shuffle"></i></a></div>
+                        <a asp-controller="ShoppingCart" asp-action="Index"><button class="btn position-relative ">
+                            <i class="fa-solid fa-cart-shopping position-relative">
+                                <span id="totalPrice" class="position-absolute translate-middle badge rounded-pill theme-color" style="top: -10px"></span>
+                            </i> 
+                            <span id="totalQuantity"></span>
+                        </button></a>
+                        @* <a asp-controller="ShoppingCart" asp-action="Index"> <i class="fa-solid fa-cart-shopping"></i></a> *@
                     </div>
                 </div>
             </div>

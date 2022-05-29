@@ -39,8 +39,9 @@
                 <p class="border-lightgrey w-100 h-100 d-flex align-items-center px-2">3</p>
                 <button id="details-button-plus" class="bg-turquoise text-white no-border px-2">+</button>
             </div>
-            <button class="button-turquoise-halfcircleend px-4"><i id="productDetailsCart" class="fa-solid fa-cart-shopping pe-2"></i> Add to cart</button>
-        </div>
+            <button class="button-turquoise-halfcircleend px-4 link-item" onclick="addToCart(event)" data-product="@Model.Id"  ><i id="productDetailsCart" class="fa-solid fa-cart-shopping pe-2"></i> Add to cart</button>
+            
+            </div>
         <div>
             <span>Category:</span>
             <span class="text-turquoise">@Model.Category</span>

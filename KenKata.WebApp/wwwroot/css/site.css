@@ -44,6 +44,8 @@ a {
     color: white;
 }
 
+
+
 .white-button {
     border-radius: 30px;
     border: none;
@@ -540,3 +542,14 @@ a {
     border-radius: 9999px;
 }
 
+/* Shopping cart */
+
+.button-minus {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.button-plus {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
