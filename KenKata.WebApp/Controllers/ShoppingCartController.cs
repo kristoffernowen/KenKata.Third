@@ -21,9 +21,9 @@ namespace KenKata.WebApp.Controllers
             return View();
         }
 
-        
 
-        
+
+
 
         public async Task<IActionResult> AddToCart(int id)
         {
@@ -48,7 +48,7 @@ namespace KenKata.WebApp.Controllers
                 }
                 else
                 {
-                    shoppingCart.Items.Add(new CartItem { Product = await _productService.Get(id)});
+                    shoppingCart.Items.Add(new CartItem { Product = await _productService.Get(id) });
                 }
             }
 
@@ -56,6 +56,24 @@ namespace KenKata.WebApp.Controllers
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
 
-       
+        public IActionResult UpdateSession([FromBody] ShoppingCart incomingShoppingCart)
+        {
+            var shoppingCart = new ShoppingCart();
+            
+
+
+
+            
+               
+                HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(incomingShoppingCart));
+
+                return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
+            
+
+
+
+
+            
+        }
     }
 }
