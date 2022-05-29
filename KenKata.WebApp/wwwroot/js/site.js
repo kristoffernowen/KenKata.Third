@@ -2,12 +2,14 @@
 
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
+const azureApiUrl = `https://kenkatathirddevelop.azurewebsites.net/`;
+const localApiUrl = `https://localhost:7167/`;
+
 getCart();
 updateSession();
 //updateIndexCart();     it is run as updateThisIndexCart directly in view as a script element
 
-const azureApiUrl = `https://kenkatathirddevelop.azurewebsites.net/`;
-const localApiUrl = `https://localhost:7167/`;
+
 
 function addToCart(event) {
 
