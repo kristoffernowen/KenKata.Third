@@ -39,8 +39,8 @@
         <div class="border p-3">
 
             <div class="d-flex justify-content-between w-100 border-bottom pb-4">
-                <span>Subtotal</span>
-                <span>99</span>
+                <span >Subtotal</span>
+                <span id="cartTotalsSubTotal">0</span>
             </div>
             <p class="text-end mt-4">Flat rate</p>
             <p class="text-end">Free shipping</p>
@@ -53,7 +53,7 @@
             <div class="d-flex justify-content-between w-100 mt-4">
                 <span class="fs-3">Total</span>
 
-                <span class="fs-3">0</span>
+                <span id="cartTotalsTotal" class="fs-3">0</span>
 
             </div>
             <div class="d-flex justify-content-center">
@@ -69,7 +69,7 @@
     function updateThisIndexCart() {
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-        document.querySelector("#cartBody").innerHTML = "<p></p>";
+        document.querySelector("#cartBody").innerHTML = "";
 
         for (let i = 0; i < shoppingCart.Items.length; i ++) {
             let productName = shoppingCart.Items[i].Product.Name;
@@ -81,6 +81,8 @@
                 `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
 </td><td>${productSubTotal}</td> </tr>`;
         }
+
+        document.querySelector("#cartTotalsSubTotal").innerText = `${shoppingCart.TotalPrice}`;
     }
 
     updateThisIndexCart();
