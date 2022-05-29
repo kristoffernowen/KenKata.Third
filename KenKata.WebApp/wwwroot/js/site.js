@@ -108,7 +108,7 @@ async function updateIndexCart() {
     if (shoppingCart.Items[0] !== undefined) {
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-        document.querySelector("#cartBody").innerHTML = "<p></p>";
+        document.querySelector("#cartBody").innerHTML = "";
 
         for (let i = 0; i < shoppingCart.Items.length; i++) {
             let productName = shoppingCart.Items[i].Product.Name;
@@ -120,6 +120,8 @@ async function updateIndexCart() {
                 `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
 </td><td>${productSubTotal}</td> </tr>`;
         }
+
+        document.querySelector("#cartTotalsSubTotal").innerText = `${shoppingCart.TotalPrice}`;
     }
 
 }
