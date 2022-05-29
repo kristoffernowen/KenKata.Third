@@ -6,63 +6,65 @@ getCart();
 updateSession();
 //updateIndexCart();     it is run as updateThisIndexCart directly in view as a script element
 
+const azureApiUrl = `https://kenkatathirddevelop.azurewebsites.net/`;
+const localApiUrl = `https://localhost:7167/`;
 
 function addToCart(event) {
 
 
     // There must be something if or so to prevent trying to loop Items if there are no products
 
-    
-
-//    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-//    if (shoppingCart.TotalQuantity === 0) {
-//
-//        event.stopPropagation()
-//        fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
-//            .then(res => res.text())
-//            .then(data => {
-//                localStorage.setItem("shoppingCart", data);
-//                getCart();
-//
-//            });
-//
-//    } else {
-//
-//        for (let i = 0; i < shoppingCart.Items.length; i++) {
-//            var ifTest = `${shoppingCart.Items[i].Product.Id}`;
-//            if (ifTest === event.currentTarget.dataset.product) {
-//                addOneToQuantity(event);
 
 
-                event.stopPropagation()
-                fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
-                    .then(res => res.text())
-                    .then(data => {
-                        localStorage.setItem("shoppingCart", data);
-                        getCart();
+    //    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+    //    if (shoppingCart.TotalQuantity === 0) {
+    //
+    //        event.stopPropagation()
+    //        fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
+    //            .then(res => res.text())
+    //            .then(data => {
+    //                localStorage.setItem("shoppingCart", data);
+    //                getCart();
+    //
+    //            });
+    //
+    //    } else {
+    //
+    //        for (let i = 0; i < shoppingCart.Items.length; i++) {
+    //            var ifTest = `${shoppingCart.Items[i].Product.Id}`;
+    //            if (ifTest === event.currentTarget.dataset.product) {
+    //                addOneToQuantity(event);
 
-                    });
 
-//            }
-//        }
-//
-//    }
-     
-        
+    event.stopPropagation();
+    fetch(`${azureApiUrl}shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
+        .then(res => res.text())
+        .then(data => {
+            localStorage.setItem("shoppingCart", data);
+            getCart();
 
-    
+        });
+
+    //            }
+    //        }
+    //
+    //    }
+
+
+
+
 }
 
 function updateSession() {
 
-    fetch(`https://localhost:7167/shoppingcart/updateSession`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: localStorage.getItem("shoppingCart")
-            })
+    fetch(`${azureApiUrl}shoppingcart/updateSession`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: localStorage.getItem("shoppingCart")
+        })
         .then(res => res.text())
         .then(data => {
         });
@@ -70,15 +72,15 @@ function updateSession() {
 
 function getCart() {
 
-   
-        let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
-       
-    
-   
+    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+
+
+
 
     if (shoppingCart === null) {
-        fetch(`https://localhost:7167/shoppingcart/addtocart/0`)
+        fetch(`${azureApiUrl}shoppingcart/addtocart/0`)
             .then(res => res.text())
             .then(data => {
                 localStorage.setItem("shoppingCart", data);
@@ -92,7 +94,7 @@ function getCart() {
         document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
     }
 
-    
+
 }
 
 
@@ -118,7 +120,7 @@ async function updateIndexCart() {
         }
     }
 
-}                       
+}
 
 
 
