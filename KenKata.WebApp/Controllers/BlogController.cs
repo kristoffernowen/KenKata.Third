@@ -38,6 +38,8 @@ namespace KenKata.WebApp.Controllers
                     Id = post.Id,
                     Author = post.Author,
                     Rubrik = post.Rubrik,
+                    DateCreated=post.Created,
+                    Text = post.Text.Substring(0,10),
                     ImgUrl = post.ImgUrl,
                     tags = taggs,
                 });
