@@ -577,14 +577,20 @@ a {
         }
 
 #graphicDesign {
-    margin: 0;
+    /* margin: 0; */
     padding: 0;
+    border: none;
+}
+
+#graphicDesign {
+    margin: 0;
 }
 
     #graphicDesign .cards {
-        max-width: 560px;
-        max-height: 560px;
-       
+        width: 480px;
+        height: 480px;
+        position: relative;
+        
     }
 
         #graphicDesign .cards img {
@@ -592,9 +598,10 @@ a {
         }
 
         #graphicDesign .cards:hover {
-            z-index: 2;
+            
             background-color: #0e153ddf;
             border-radius: 7px;
+            
         }
 
             #graphicDesign .cards:hover img {
@@ -614,3 +621,38 @@ a {
             background-color: #292F51
         }
 
+    #graphicDesign .cards .design-info {
+        position: absolute;
+        /* overflow: hidden; */
+        display: none;
+        z-index: 2;
+    }
+
+    #graphicDesign .cards:hover .design-info {
+        display: block;
+        top: 360px;
+        left: 30px;
+    }
+
+        #graphicDesign .cards:hover .design-info h5 {
+            color: #20D3C2;
+            font-size: 24px;
+        }
+
+        #graphicDesign .cards:hover .design-info h6 {
+            color: white;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+    #graphicDesign .cards .more-info img {
+        position: absolute;
+        display: none;
+        border: #20D3C2;
+    }
+
+    #graphicDesign .cards:hover .more-info img {
+        display: block;
+        top: 30px;
+        right: 30px;
+    }
