@@ -9,6 +9,23 @@ namespace KenKata.Shared.Models
 {
     public class BlogPostModel
     {
+        public BlogPostModel()
+        {
+        }
+
+        public BlogPostModel(int id, string rubrik, string imgUrl, string text, DateTime dateCreated, DateTime dateUpdated, string author, string category, IEnumerable<TagModel> tags)
+        {
+            Id = id;
+            Rubrik = rubrik;
+            ImgUrl = imgUrl;
+            Text = text;
+            DateCreated = dateCreated;
+            DateUpdated = dateUpdated;
+            Author = author;
+            this.category = category;
+            this.tags = tags;
+        }
+
         public int Id { get; set; }
         public string Rubrik { get; set; }
         public string ImgUrl { get; set; }

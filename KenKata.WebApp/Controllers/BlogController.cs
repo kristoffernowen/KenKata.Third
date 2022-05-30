@@ -47,9 +47,65 @@ namespace KenKata.WebApp.Controllers
             return View(list);
         }
 
-        public IActionResult Post(int id)
+        public async Task<IActionResult> Post(int id)
         {
-            return View();
+            var model = new BlogPostViewModel();
+
+            var post = await _sqlContext.Posts.Where(x => x.Id == id).Include(x=>x.BlogCategory).FirstOrDefaultAsync(); //.Include(x=>x.PostTags.Where(x=>x.PostId==id))
+            var postaggs= await _sqlContext.PostTags.Where(x => x.PostId == id).FirstOrDefaultAsync();
+            var taggs = await _sqlContext.Tags.ToListAsync();
+
+            //Create list to store the posts taggs
+            var taggList = new List<TagModel>();
+            foreach ( var tag in taggs.Where(x => x.Id == postaggs.Id)) 
+            {
+                taggList.Add(new TagModel {TagName=tag.Name});
+            };
+
+            // Skapa en Blogpost
+            if (post != null) 
+            {
+                var blogpost = new BlogPostModel
+                {
+                    Id = post.Id,
+                    Rubrik = post.Rubrik,
+                    ImgUrl = post.ImgUrl,
+                    Text = post.Text,
+                    DateCreated = post.Created,
+                    DateUpdated = post.Updated,
+                    Author = post.Author,
+                    category = post.BlogCategory.Name,
+                    tags = taggList
+                };
+                model.BlogPost = blogpost;
+
+                //List all Blogg posts/ Get alla posts  id and images to display in View.
+                var allPosts = await _sqlContext.Posts.Include(x => x.BlogCategory).ToListAsync();
+                var bloggList = new List<BlogsModel>();
+                var categoryList = new List<CategoryModel>();
+                foreach (var i in allPosts)
+                {
+                    bloggList.Add(new BlogsModel { Id = i.Id, ImgUrl = i.ImgUrl });
+                    categoryList.Add(new CategoryModel { Id = i.BlogCategory.Id, Name = i.BlogCategory.Name });
+                }
+
+                model.Blogs = bloggList;
+                model.Categories = categoryList;
+
+                //List all taggs
+                var allTaggList = new List<TagModel>();
+                foreach (var tag in taggs)
+                {
+                    allTaggList.Add(new TagModel { Id=tag.Id, TagName = tag.Name });
+                };
+                model.Tags=allTaggList;
+
+                return View(model);
+            } 
+            return View(model);
+
+            
+            
         }
     }
 }

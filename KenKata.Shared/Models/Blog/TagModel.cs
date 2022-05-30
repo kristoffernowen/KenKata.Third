@@ -8,7 +8,7 @@ namespace KenKata.Shared.Models.Blog
 {
     public class TagModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string TagName { get; set; }
     }
 }
