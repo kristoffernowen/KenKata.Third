@@ -83,24 +83,36 @@
                         
                     </ul>
                 </div>
+
                 <div class="navbarBottomDiv">
                     <a asp-controller="Home" asp-action="Index">Home</a>
                 </div>
+
                 <div class="navbarBottomDiv">
                     <a asp-controller="CostumerProduct" asp-action="GetAll">Shop</a>
                 </div >
+
                 <div class="navbarBottomDiv">
                     <a href="">Products</a>
                 </div>
+
                 <div class="navbarBottomDiv">
                     <a href="">Categories</a>
                 </div>
+
                 <div class="navbarBottomDiv">
-                    <a href="">Pages</a>
+                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="" aria-expanded="false">
+                        Pages
+                    </a>
+                    <ul class="dropdown-menu bg-turquoise ">
+                        <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
+                    </ul>
                 </div>
+
                <div class="navbarBottomDiv">
                 <a href="">Blog</a>
                </div>
+
                 <a href="" id="navbarSpecialOffer">Special Offer</a>
             </div>
         </div>

@@ -540,3 +540,77 @@ a {
     border-radius: 9999px;
 }
 
+/* Portfolio */
+
+.gallery {
+    text-align: center;
+    height: 348px;
+    padding-top: 120px;
+}
+
+    .gallery h1 {
+        padding-bottom: 26px;
+        font-weight: bold;
+    }
+
+        .gallery h1 span {
+            color: #20D3C2;
+        }
+
+.mainBody .portfolio-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .mainBody .portfolio-links .link {
+        padding: 14px;
+        box-sizing: border-box;
+        font-size: 16px;
+        border-bottom: 2px solid #EEEEEE;
+        color: #0E153D;
+    }
+
+        .mainBody .portfolio-links .link:hover {
+            border-bottom-color: #20D3C2;
+            color: #20D3C2;
+        }
+
+#graphicDesign {
+    margin: 0;
+    padding: 0;
+}
+
+    #graphicDesign .cards {
+        max-width: 560px;
+        max-height: 560px;
+       
+    }
+
+        #graphicDesign .cards img {
+            border-radius: 7px;
+        }
+
+        #graphicDesign .cards:hover {
+            z-index: 2;
+            background-color: #0e153ddf;
+            border-radius: 7px;
+        }
+
+            #graphicDesign .cards:hover img {
+                display: none;
+            }
+
+    #graphicDesign .btn {
+        border-radius: 9999px;
+        border: none;
+        background-color: #20D3C2;
+        color: white;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+        #graphicDesign .btn:hover {
+            background-color: #292F51
+        }
+
