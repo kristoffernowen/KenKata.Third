@@ -16,6 +16,7 @@ namespace KenKata.Shared.Models.Blog
         public DateTime DateCreated { get; set; }
         public IEnumerable<TagModel> Tags { get; set; }
         public string ImgUrl { get; set; }
+        public string CategoryName { get; set; }
         
     }
 }

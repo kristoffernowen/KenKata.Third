@@ -55,7 +55,7 @@ namespace KenKata.WebApp.Controllers
             var postaggs= await _sqlContext.PostTags.ToListAsync();
             var taggs = await _sqlContext.Tags.ToListAsync();
 
-            //Create list to store the posts taggs
+            //Create list to store the parameters id posts taggs
             var taggList = new List<TagModel>();
             foreach (var posttag in postaggs.Where(x => x.PostId == post.Id))
             {
@@ -65,7 +65,7 @@ namespace KenKata.WebApp.Controllers
                 }
             }
 
-            // Skapa en Blogpost
+            // create a Blogpost
             if (post != null) 
             {
                 var blogpost = new BlogPostModel
@@ -85,11 +85,17 @@ namespace KenKata.WebApp.Controllers
                 //List all Blogg posts/ Get alla posts  id and images to display in View.
                 var allPosts = await _sqlContext.Posts.Include(x => x.BlogCategory).ToListAsync();
                 var bloggList = new List<BlogsModel>();
-                var categoryList = new List<CategoryModel>();
                 foreach (var i in allPosts)
                 {
-                    bloggList.Add(new BlogsModel { Id = i.Id,Rubrik=i.Rubrik, ImgUrl = i.ImgUrl ,DateCreated=i.Created});
-                    categoryList.Add(new CategoryModel { Id = i.BlogCategory.Id, Name = i.BlogCategory.Name });
+                    bloggList.Add(new BlogsModel { Id = i.Id,Rubrik=i.Rubrik, ImgUrl = i.ImgUrl ,DateCreated=i.Created, CategoryName=i.BlogCategory.Name});
+                    
+                }
+                //List all categorys
+                var categorys = await _sqlContext.BlogCategories.Include(x=>x.Post).ToListAsync();
+                var categoryList = new List<CategoryModel>();
+                foreach (var blogCategory in categorys)
+                {
+                    categoryList.Add(new CategoryModel { Id = blogCategory.Id, Name = blogCategory.Name,});
                 }
 
                 model.Blogs = bloggList;

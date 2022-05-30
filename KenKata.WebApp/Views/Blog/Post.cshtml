@@ -102,11 +102,20 @@
                 <h4 class="text-turquoise pb-3">Categories</h4>
                 @foreach(var category in @Model.Categories)
                 {
+                    var count =0;
                    <div class="d-flex justify-content-start">
                     <a href="#" class="text-black pe-2"><p>@category.Name</p></a>
-                    <p class="">(5)</p>
+                        @foreach( var post in Model.Blogs)
+                        {
+                            if (post.CategoryName == category.Name)
+                            {
+                                count++;
+                            }
+                        }
+                        
+                        <p class="">(@count)</p>
 
-                </div> 
+                    </div> 
                 }
             </div>
 
