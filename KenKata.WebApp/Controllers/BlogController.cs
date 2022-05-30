@@ -88,7 +88,7 @@ namespace KenKata.WebApp.Controllers
                 var categoryList = new List<CategoryModel>();
                 foreach (var i in allPosts)
                 {
-                    bloggList.Add(new BlogsModel { Id = i.Id,Rubrik=i.Rubrik, ImgUrl = i.ImgUrl });
+                    bloggList.Add(new BlogsModel { Id = i.Id,Rubrik=i.Rubrik, ImgUrl = i.ImgUrl ,DateCreated=i.Created});
                     categoryList.Add(new CategoryModel { Id = i.BlogCategory.Id, Name = i.BlogCategory.Name });
                 }
 

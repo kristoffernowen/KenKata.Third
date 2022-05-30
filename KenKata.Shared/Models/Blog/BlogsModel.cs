@@ -13,7 +13,7 @@ namespace KenKata.Shared.Models.Blog
         public string Rubrik { get; set; }
         public string ShortText { get; set; }
         public string Arthur { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateCreated { get; set; }
         public IEnumerable<TagModel> Tags { get; set; }
         public string ImgUrl { get; set; }
         
