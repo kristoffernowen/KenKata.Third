@@ -52,15 +52,18 @@ namespace KenKata.WebApp.Controllers
             var model = new BlogPostViewModel();
 
             var post = await _sqlContext.Posts.Where(x => x.Id == id).Include(x=>x.BlogCategory).FirstOrDefaultAsync(); //.Include(x=>x.PostTags.Where(x=>x.PostId==id))
-            var postaggs= await _sqlContext.PostTags.Where(x => x.PostId == id).FirstOrDefaultAsync();
+            var postaggs= await _sqlContext.PostTags.ToListAsync();
             var taggs = await _sqlContext.Tags.ToListAsync();
 
             //Create list to store the posts taggs
             var taggList = new List<TagModel>();
-            foreach ( var tag in taggs.Where(x => x.Id == postaggs.Id)) 
+            foreach (var posttag in postaggs.Where(x => x.PostId == post.Id))
             {
-                taggList.Add(new TagModel {TagName=tag.Name});
-            };
+                foreach (var tag in taggs.Where(x => x.Id == posttag.TagId))
+                {
+                    taggList.Add(new TagModel {Id=tag.Id, TagName = tag.Name });
+                }
+            }
 
             // Skapa en Blogpost
             if (post != null) 
@@ -85,7 +88,7 @@ namespace KenKata.WebApp.Controllers
                 var categoryList = new List<CategoryModel>();
                 foreach (var i in allPosts)
                 {
-                    bloggList.Add(new BlogsModel { Id = i.Id, ImgUrl = i.ImgUrl });
+                    bloggList.Add(new BlogsModel { Id = i.Id,Rubrik=i.Rubrik, ImgUrl = i.ImgUrl });
                     categoryList.Add(new CategoryModel { Id = i.BlogCategory.Id, Name = i.BlogCategory.Name });
                 }
 

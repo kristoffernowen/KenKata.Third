@@ -1,4 +1,7 @@
-﻿@{
+﻿@using KenKata.Shared.Models.Blog
+@model BlogPostViewModel
+
+@{
     ViewData["Title"] = "Post";
 }
 
@@ -12,4 +15,112 @@
         </div>
     </div>
 </div>
+
+<div class="ken-container">
+    <div class="row row-cols-2">
+        <!--Left side Page-->
+        <div class="col blog-details-left mt-5">
+            <h1 class="text-turquoise mt-5 mb-5">@Model.BlogPost.Rubrik</h1>
+            <p>By <a class="text-turquoise">@Model.BlogPost.Author</a>, date:<span class="text-turquoise">  Juli 2020</span>, Category: <span class="text-turquoise">@Model.BlogPost.category</span></p>
+            <img class="img-fluid rounded mt-3" src="@Model.BlogPost.ImgUrl">
+            <p class="mt-5">
+                @Model.BlogPost.Text
+            </p>
+            <!--IMG multiple, section / Can change the database to colect more img-->
+            @*<div class="blog-img-flex mt-5 mb-5">
+                <img src="https://cdn.pixabay.com/photo/2015/03/27/13/16/maine-coon-694730_960_720.jpg">
+                <img src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+            </div>*@
+
+            <!--Taggs-->
+            <div class="d-flex">
+                <h6 class="me-3">Tags: </h6>
+                @foreach( var tag in @Model.BlogPost.tags)
+                {
+                    <div class="taggs">
+                    <a href="#">@tag.TagName</a>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!--Right side of page-->
+        <div class="col blog-details-right mt-5">
+            <div class="mt-5">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search here">
+                <i class="fa-solid fa-magnifying-glass text-dark"></i>
+            </div>
+            <!--Recent posts-->
+            <div class="mt-5">
+                <h4 class="text-turquoise pb-3">Recent Post</h4>
+                 <!--Change to for loop ore use another function to only return x.last posts-->
+                @foreach(var lastPost in @Model.Blogs)
+                {
+                    <div class="d-flex mt-3">
+                    <img class="me-2" src="@lastPost.ImgUrl">
+                    <div>
+                        <h6>18 Juli 2020</h6>
+                        <p>@lastPost.Rubrik</p> <!--Can change to lastPost.Shorttext and only take like 10 first word like its done in Blog() View-->
+                    </div>
+                </div>
+                }
+
+            </div>
+            <!--Taggs-->
+            <div class="mt-5">
+                <h4 class="text-turquoise pb-3">Tags </h4>
+                <div class="row row-cols-3 ps-1">
+                    @foreach(var tag in @Model.Tags)
+                    {
+                        <div class="taggs col mt-2">
+                        <a href="#">@tag.TagName</a>
+                    </div>
+                    }
+                </div>
+            </div>
+            <!--Recent Instagaram //Not connected!-->
+            <div class="mt-5">
+                <h4 class="text-turquoise pb-3">Recent instagram </h4>
+                <div class="row ps-1">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                    <img class="p-1" src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg">
+                </div>
+            </div>
+
+            <!--Category-->
+            <div class="mt-5 ">
+                <h4 class="text-turquoise pb-3">Categories</h4>
+                @foreach(var category in @Model.Categories)
+                {
+                   <div class="d-flex justify-content-start">
+                    <a href="#" class="text-black pe-2"><p>@category.Name</p></a>
+                    <p class="">(5)</p>
+
+                </div> 
+                }
+            </div>
+
+            <!-- <div class="mt-5">
+                <h4 class="text-turquoise pb-3">Categories </h4>
+                <p>category.name</p>
+                <p>category.name</p>
+                <p>category.name</p>
+                <p>category.name</p>
+
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
 
