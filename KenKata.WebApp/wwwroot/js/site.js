@@ -93,6 +93,7 @@ async function updateIndexCart() {
             let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
 
             document.querySelector("#cartBody").innerHTML +=
+
                 `<tr>
                     <td><i onclick="removeFromCart(${shoppingCart.Items[i].Product.Id})" class="fa-solid fa-circle-xmark text-secondary"></i></td> <td>${productName}</td>
                     <td>${productPrice}</td>
@@ -105,6 +106,7 @@ async function updateIndexCart() {
                     </td>
                     <td>${productSubTotal}</td> 
                 </tr>`;
+
         }
 
         document.querySelector("#cartTotalsSubTotal").innerText = `${shoppingCart.TotalPrice}`;
