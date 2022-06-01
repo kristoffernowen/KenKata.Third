@@ -13,31 +13,6 @@ updateSession();
 
 function addToCart(event) {
 
-
-    // There must be something if or so to prevent trying to loop Items if there are no products
-
-
-
-    //    let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-    //    if (shoppingCart.TotalQuantity === 0) {
-    //
-    //        event.stopPropagation()
-    //        fetch(`https://localhost:7167/shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
-    //            .then(res => res.text())
-    //            .then(data => {
-    //                localStorage.setItem("shoppingCart", data);
-    //                getCart();
-    //
-    //            });
-    //
-    //    } else {
-    //
-    //        for (let i = 0; i < shoppingCart.Items.length; i++) {
-    //            var ifTest = `${shoppingCart.Items[i].Product.Id}`;
-    //            if (ifTest === event.currentTarget.dataset.product) {
-    //                addOneToQuantity(event);
-
-
     event.stopPropagation();
     fetch(`${azureApiUrl}shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
         .then(res => res.text())
@@ -46,15 +21,6 @@ function addToCart(event) {
             getCart();
 
         });
-
-    //            }
-    //        }
-    //
-    //    }
-
-
-
-
 }
 
 function updateSession() {
@@ -74,12 +40,7 @@ function updateSession() {
 
 function getCart() {
 
-
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-
-
-
-
 
     if (shoppingCart === null) {
         fetch(`${azureApiUrl}shoppingcart/addtocart/0`)
@@ -87,16 +48,28 @@ function getCart() {
             .then(data => {
                 localStorage.setItem("shoppingCart", data);
 
-                shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
-                document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
-                document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
+                if (shoppingCart.TotalQuantity !== 0) {
+                    shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+                    document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
+                    document.getElementById('totalQuantity').classList.add('bg-turquoise');
+                    document.getElementById('totalPrice').innerText = `${shoppingCart.TotalPrice}:-`;
+                } else {
+                    document.getElementById('totalQuantity').innerHTML = "";
+                    document.getElementById('totalQuantity').classList.remove("bg-turquoise");
+                    document.getElementById('totalPrice').innerText = "";
+                }
             });
     } else {
-        document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
-        document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
+        if (shoppingCart.TotalQuantity !== 0) {
+            document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
+            document.getElementById('totalQuantity').classList.add("bg-turquoise");
+            document.getElementById('totalPrice').innerText = `${shoppingCart.TotalPrice}:-`;
+        } else {
+            document.getElementById('totalQuantity').innerHTML = "";
+            document.getElementById('totalQuantity').classList.remove("bg-turquoise");
+            document.getElementById('totalPrice').innerText = "";
+        }
     }
-
-
 }
 
 
@@ -104,6 +77,9 @@ function getCart() {
 async function updateIndexCart() {
 
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+    document.querySelector("#cartBody").innerHTML = "";
+    document.querySelector("#cartTotalsSubTotal").innerText = "0";
 
     if (shoppingCart.Items[0] !== undefined) {
         let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -117,9 +93,20 @@ async function updateIndexCart() {
             let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
 
             document.querySelector("#cartBody").innerHTML +=
-                `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>
-                ${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
-                </td><td>${productSubTotal}</td> </tr>`;
+
+                `<tr>
+                    <td><i onclick="removeFromCart(${shoppingCart.Items[i].Product.Id})" class="fa-solid fa-circle-xmark text-secondary"></i></td> <td>${productName}</td>
+                    <td>${productPrice}</td>
+                    <td>
+                        <div class="d-flex">
+                            <div class="button-minus border-lightgrey bg-white text-secondary h-50 px-2" onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</div>
+                        <div class="border-lightgrey px-2 h-50">${productQuantity}</div> 
+                         <div class="button-plus bg-turquoise text-white border-turquoise h-50 px-2 " onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</div>
+                        </div>
+                    </td>
+                    <td>${productSubTotal}</td> 
+                </tr>`;
+
         }
 
         document.querySelector("#cartTotalsSubTotal").innerText = `${shoppingCart.TotalPrice}`;
@@ -127,7 +114,19 @@ async function updateIndexCart() {
 
 }
 
+function removeFromCart(id) {
 
+    fetch(`${azureApiUrl}shoppingcart/deleteitemcart/${id}`)
+        .then(res => res.text())
+        .then(data => {
+            localStorage.setItem("shoppingCart", data);
+            
+            updateIndexCart();
+            getCart();
+        });
+
+
+}
 
 function subtractOneFromQuantity(event) {
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -137,14 +136,24 @@ function subtractOneFromQuantity(event) {
     for (let i = 0; i < shoppingCart.Items.length; i++) {
         var ifTest = `${shoppingCart.Items[i].Product.Id}`;
         if (ifTest === event.currentTarget.dataset.product) {
-            shoppingCart.Items[i].Quantity--;
-            shoppingCart.TotalQuantity--;
-            shoppingCart.TotalPrice = 0;
+            if (shoppingCart.Items[i].Quantity > 0) {
+                shoppingCart.Items[i].Quantity--;
+                shoppingCart.TotalQuantity--;
+                shoppingCart.TotalPrice = 0;
+                if (shoppingCart.Items[i].Quantity === 0) {
+
+                    removeFromCart(shoppingCart.Items[i].Product.Id);
+                }
+            }
         }
     }
+
     for (let i = 0; i < shoppingCart.Items.length; i++) {
-        shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+        if (shoppingCart.Items[i].Quantity > 0) {
+            shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+        }
     }
+
     localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
     updateIndexCart();
     getCart();
@@ -171,16 +180,5 @@ function addOneToQuantity(event) {
 }
 
 
-// not yet implemented removeShoppingCart
 
-//function removeShoppingCart() {
-//    localStorage.removeItem("shoppingCart");
-//
-//    fetch(`https://localhost:7167/shoppingcart/deletesession`)
-//        .then(res => res.text());
-//
-//    console.log("shoppingCart should have been removed by now");
-//
-//    location.reload();
-//}
 

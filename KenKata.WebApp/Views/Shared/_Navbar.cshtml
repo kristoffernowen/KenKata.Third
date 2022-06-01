@@ -1,4 +1,6 @@
-﻿
+﻿@using Newtonsoft.Json
+@using KenKata.Shared.Models
+
 
 <section id="navbarSection" class="">
         <div id="navbarTop">
@@ -38,9 +40,9 @@
                 <div class="d-flex justify-content-between" id="navbarMyAccountDiv">
                     @if (_signInManager.IsSignedIn(User))
                     {
-                        <div class="dropdown">
-                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                @User.Identity.Name
+                        <div class="dropdown d-flex align-items-center">
+                            <a class="btn dropdown-toggle text-turquoise" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="text-black">@User.Identity.Name</span>
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -52,22 +54,24 @@
                     }
                     else
                     {
-                        <div class="pt-2">
+                        <div class="pt-2 d-flex align-items-center">
                             <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
                         </div>
                     }
                     
 
                     <div class="d-flex justify-content-between pt-2">
-                        <div><a href=""><i class="fa-solid fa-heart"></i></a></div>
-                        <div><a><i class="fa-solid fa-shuffle"></i></a></div>
-                        <a asp-controller="ShoppingCart" asp-action="Index"><button class="btn position-relative ">
-                            <i class="fa-solid fa-cart-shopping position-relative">
-                                <span id="totalPrice" class="position-absolute translate-middle badge rounded-pill theme-color" style="top: -10px"></span>
-                            </i> 
-                            <span id="totalQuantity"></span>
-                        </button></a>
-                        @* <a asp-controller="ShoppingCart" asp-action="Index"> <i class="fa-solid fa-cart-shopping"></i></a> *@
+                        <div class="d-flex align-items-center"><a href=""><i class="fa-solid fa-heart"></i></a></div>
+                        <div class="d-flex align-items-center"><a><i class="fa-solid fa-shuffle"></i></a></div>
+                        <div>
+                            <a asp-controller="ShoppingCart" asp-action="Index" class="btn position-relative ">
+                                <i class="fa-solid fa-cart-shopping position-relative">
+                                </i> 
+                                <span id="totalQuantity" ></span>
+                                <span id="totalPrice"  ></span>
+                            </a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
