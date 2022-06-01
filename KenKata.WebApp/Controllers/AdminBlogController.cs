@@ -136,6 +136,11 @@ namespace KenKata.WebApp.Controllers
 
          }
 
+        public IActionResult Delete(int id)
+        {
+            return View();
+        }
+
 
     }
 }
