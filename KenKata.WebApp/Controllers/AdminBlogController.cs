@@ -136,8 +136,16 @@ namespace KenKata.WebApp.Controllers
 
          }
 
-        public IActionResult Delete(int id)
+        public async  Task<IActionResult> Delete(int id)
         {
+            var deleteBlogPost = await _sqlContext.Posts.Include(x=>x.PostTags).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (deleteBlogPost != null)
+            {
+                _sqlContext.Remove(deleteBlogPost);
+                await _sqlContext.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
