@@ -135,6 +135,7 @@ namespace KenKata.WebApp.Controllers
             return View();
 
          }
+        [HttpGet]
         [Route("admin/Blog/Update/{id}")]
         public async Task<IActionResult> Update(int id)
         {
@@ -168,6 +169,79 @@ namespace KenKata.WebApp.Controllers
             }
 
             return BadRequest("post Not found");
+        }
+        [Route("admin/Blog/Update/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> Update(int id,UpdateBlogPostModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var categoryExist = await _sqlContext.BlogCategories.FirstOrDefaultAsync(x => x.Name == model.Category);
+                var postEntity = await _sqlContext.Posts.Include(x=>x.PostTags).FirstOrDefaultAsync(x => x.Id == model.Id);
+
+                
+                if (postEntity != null)
+                {
+                    if (categoryExist == null)
+                    {
+                        var categoryEntity = new BlogCategoryEntity { Name = model.Category };
+                        _sqlContext.BlogCategories.Add(categoryEntity);
+                        await _sqlContext.SaveChangesAsync();
+                        postEntity.BlogCategoryId = categoryEntity.Id;
+                    }else
+                        postEntity.BlogCategoryId = categoryExist.Id;
+
+
+                    var tag1 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag1);
+                    var tag2 = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Name == model.Tag2);
+
+                    var postTag1 = postEntity.PostTags.First();
+                    var postTag2 = postEntity.PostTags.Last();
+
+
+                    if (tag1 == null)
+                    {
+                        var tagsentity = new TagEntity { Name = model.Tag1 };
+                        _sqlContext.Tags.Add(tagsentity);
+                        await _sqlContext.SaveChangesAsync();
+                        postTag1.TagId = tagsentity.Id;
+                        postTag1.PostId = postEntity.Id;
+
+                    }else
+                    {
+                        postTag1.TagId = tag1.Id;
+                        postTag1.PostId = postEntity.Id;
+                    }
+
+                    if (tag2 == null)
+                    {
+                        var tagsentity = new TagEntity { Name = model.Tag2 };
+                        _sqlContext.Tags.Add(tagsentity);
+                        await _sqlContext.SaveChangesAsync();
+                        postTag2.TagId = tagsentity.Id;
+                        postTag2.PostId = postEntity.Id;
+                    }else
+                    {
+                        postTag2.TagId = tag2.Id;
+                        postTag2.PostId = postEntity.Id;
+                    }
+
+                    postEntity.Author = model.Author;
+                    postEntity.Rubrik = model.Rubrik;
+                    postEntity.Text = model.Text;
+                    postEntity.Updated= DateTime.Now;
+                    postEntity.ImgUrl = model.ImgUrl;
+
+                    _sqlContext.Posts.Update(postEntity);
+                    await _sqlContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+
+                    
+                }
+                
+            }
+
+            return View(model);
         }
 
 
