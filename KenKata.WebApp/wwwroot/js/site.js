@@ -117,7 +117,7 @@ async function updateIndexCart() {
             let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
 
             document.querySelector("#cartBody").innerHTML +=
-                `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
+                `<tr><td><i onclick="removeFromCart()" class="fa-solid fa-circle-xmark text-secondary"></i></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
 </td><td>${productSubTotal}</td> </tr>`;
         }
 
@@ -126,7 +126,9 @@ async function updateIndexCart() {
 
 }
 
-
+function removeFromCart() {
+    console.log("remove");
+}
 
 function subtractOneFromQuantity(event) {
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
@@ -143,13 +145,13 @@ function subtractOneFromQuantity(event) {
             }
         }
     }
-     
+
     for (let i = 0; i < shoppingCart.Items.length; i++) {
         if (shoppingCart.Items[i].Quantity > 0) {
             shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
         }
-        }
-    
+    }
+
     localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
     updateIndexCart();
     getCart();

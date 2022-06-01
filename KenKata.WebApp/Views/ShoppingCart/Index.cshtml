@@ -19,7 +19,7 @@
         <table class="w-100">
             <thead class="border-lightgrey-bottom">
                 <tr>
-                    <th class="pb-3"></th>
+                    <th class="pb-3">&nbsp;</th>
                     <th class="pb-3">Product</th>
                     <th class="pb-3">Price</th>
                     <th class="pb-3">Quantity</th>
@@ -78,7 +78,7 @@
             let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
 
             document.querySelector("#cartBody").innerHTML +=
-                `<tr><td></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
+                `<tr><td><i onclick="removeFromCart()" class="fa-solid fa-circle-xmark text-secondary"></i></td> <td>${productName}</td><td>${productPrice}</td><td><button onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</button>${productQuantity}  <button onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</button>
 </td><td>${productSubTotal}</td> </tr>`;
         }
 
