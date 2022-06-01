@@ -135,11 +135,41 @@ namespace KenKata.WebApp.Controllers
             return View();
 
          }
-        public IActionResult Update()
+        [Route("admin/Blog/Update/{id}")]
+        public async Task<IActionResult> Update(int id)
         {
-            var model = new UpdateBlogPostModel();
-            return View(model);
+            var postEntity = await _sqlContext.Posts.Include(x=>x.PostTags).Include(x=>x.BlogCategory).FirstOrDefaultAsync(x => x.Id == id);
+
+            if(postEntity != null)
+            {
+                var List = new List<String>();
+                foreach (var postTag in postEntity.PostTags)
+                {
+                    var tag = await _sqlContext.Tags.FirstOrDefaultAsync(x => x.Id == postTag.TagId);
+                    if (tag != null)
+                    {
+                        List.Add(tag.Name);
+                    }
+                    
+                }
+                var model = new UpdateBlogPostModel()
+                {
+                    Rubrik = postEntity.Rubrik,
+                    Author= postEntity.Author,
+                    ImgUrl=postEntity.ImgUrl,
+                    Text = postEntity.Text,
+                    Tag1= List.First(),
+                    Tag2 = List.Last(),
+                    Category=postEntity.BlogCategory.Name
+
+
+                };
+                return View(model);
+            }
+
+            return BadRequest("post Not found");
         }
+
 
         public async  Task<IActionResult> Delete(int id)
         {
