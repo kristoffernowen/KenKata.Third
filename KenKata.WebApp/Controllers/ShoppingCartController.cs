@@ -56,6 +56,24 @@ namespace KenKata.WebApp.Controllers
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
 
+        public IActionResult DeleteItemCart(int id)
+        {
+
+                var shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(HttpContext.Session.GetString("ShoppingCart"));
+
+                var removeItem = shoppingCart.Items.Where(x => x.Product.Id == id).ToList();
+                
+
+                
+
+                shoppingCart.Items.Remove(removeItem[0]);
+                
+            
+
+                HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
+                return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
+        }
+
         public IActionResult UpdateSession([FromBody] ShoppingCart incomingShoppingCart)
         {
             var shoppingCart = new ShoppingCart();

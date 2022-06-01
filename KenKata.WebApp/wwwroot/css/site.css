@@ -88,6 +88,10 @@ a {
     border: 1px solid lightgrey;
 }
 
+.border-turquoise {
+    border: 1px solid #20D3C2;
+}
+
 /* navbar */
 
 #navbarTop {
@@ -193,7 +197,7 @@ a {
 }
 
 #totalQuantity {
-    background-color: #20D3C2;
+    /* background-color: #20D3C2; */
     border-radius: 50%;
     padding: 0px 7px 2px 7px;
     color: white;
@@ -563,4 +567,5 @@ a {
 .button-plus {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
+    height: 100%;
 }
