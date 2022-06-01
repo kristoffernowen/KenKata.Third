@@ -56,6 +56,54 @@ namespace KenKata.WebApp.Controllers
             return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
         }
 
+        public async Task<IActionResult> AddManyToCart([FromBody] List<int> data)
+        {
+            var shoppingCart = new ShoppingCart();
+            var session = HttpContext.Session.GetString("ShoppingCart");
+
+            if (data[0] != 0)
+            {
+                if (!string.IsNullOrEmpty(session))
+                {
+                    shoppingCart = JsonConvert.DeserializeObject<ShoppingCart>(session);
+                    int index = shoppingCart.Items.FindIndex(x => x.Product.Id == data[0]);
+
+                    if (index != -1)
+                    {
+                        for (var i = 0; i < data[1]; i++)
+                        {
+                            shoppingCart.Items[index].Quantity += 1;
+                        }
+                    }
+                    else
+                    {
+                        shoppingCart.Items.Add(new CartItem { Product = await _productService.Get(data[0]) });
+                        var thisIndex = shoppingCart.Items.FindIndex(x => x.Product.Id == data[0]);
+
+                        for (var i = 0; i < data[1]-1; i++)
+                        {
+                            
+                            shoppingCart.Items[thisIndex].Quantity += 1;
+                        }
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < data[1]; i++)
+                    {
+                        shoppingCart.Items.Add(new CartItem { Product = await _productService.Get(data[0]) });
+                    }
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCart));
+            return new OkObjectResult(HttpContext.Session.GetString("ShoppingCart"));
+        }
+
         public IActionResult DeleteItemCart(int id)
         {
 

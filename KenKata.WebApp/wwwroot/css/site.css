@@ -458,6 +458,10 @@ a {
     border-top-right-radius: 5px;
 }
 
+#detailsQuantity {
+    width: 25px;
+}
+
 .color-div-box {
     height: 100px;
     width: 100px;

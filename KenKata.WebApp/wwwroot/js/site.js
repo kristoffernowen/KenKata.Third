@@ -23,6 +23,35 @@ function addToCart(event) {
         });
 }
 
+function addManyToCart(event) {
+
+    let sendData = [parseInt(event.currentTarget.dataset.product), parseInt(document.querySelector("#detailsQuantity").innerHTML)];
+
+    event.stopPropagation();
+    fetch(`${azureApiUrl}shoppingcart/addmanytocart`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(sendData)
+})
+        .then(res => res.text())
+        .then(data => {
+            localStorage.setItem("shoppingCart", data);
+            getCart();
+        });
+}
+
+function increaseDetailsQuantity() {
+    document.querySelector("#detailsQuantity").innerHTML++;
+}
+
+function decreaseDetailsQuantity() {
+    document.querySelector("#detailsQuantity").innerHTML--;
+}
+
+
 function updateSession() {
 
     fetch(`${azureApiUrl}shoppingcart/updateSession`,
