@@ -89,11 +89,11 @@ function getCart() {
 
                 shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
                 document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
-                document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
+                document.getElementById('totalPrice').innerText = `${shoppingCart.TotalPrice}:-`;
             });
     } else {
         document.getElementById('totalQuantity').innerText = shoppingCart.TotalQuantity;
-        document.getElementById('totalPrice').innerText = shoppingCart.TotalPrice;
+        document.getElementById('totalPrice').innerText = `${shoppingCart.TotalPrice}:-`;
     }
 
 
