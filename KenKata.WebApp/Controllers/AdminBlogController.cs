@@ -135,6 +135,11 @@ namespace KenKata.WebApp.Controllers
             return View();
 
          }
+        public IActionResult Update()
+        {
+            var model = new UpdateBlogPostModel();
+            return View(model);
+        }
 
         public async  Task<IActionResult> Delete(int id)
         {
