@@ -136,14 +136,20 @@ function subtractOneFromQuantity(event) {
     for (let i = 0; i < shoppingCart.Items.length; i++) {
         var ifTest = `${shoppingCart.Items[i].Product.Id}`;
         if (ifTest === event.currentTarget.dataset.product) {
-            shoppingCart.Items[i].Quantity--;
-            shoppingCart.TotalQuantity--;
-            shoppingCart.TotalPrice = 0;
+            if (shoppingCart.Items[i].Quantity > 0) {
+                shoppingCart.Items[i].Quantity--;
+                shoppingCart.TotalQuantity--;
+                shoppingCart.TotalPrice = 0;
+            }
         }
     }
+     
     for (let i = 0; i < shoppingCart.Items.length; i++) {
-        shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
-    }
+        if (shoppingCart.Items[i].Quantity > 0) {
+            shoppingCart.TotalPrice += shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+        }
+        }
+    
     localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
     updateIndexCart();
     getCart();
