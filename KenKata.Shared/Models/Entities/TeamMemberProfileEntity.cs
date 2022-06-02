@@ -26,7 +26,7 @@ namespace KenKata.Shared.Models.Entities
 
         [Required] public string Title { get; set; } = null!;
 
-        public string ProfilePhotoFileName { get; set; } = null!;
+        public string ProfilePhotoFileName { get; set; } = string.Empty;
         [Required] public string UserId { get; set; } = null!;
 
     }
