@@ -1,21 +1,72 @@
 ﻿
+using KenKata.WebApp.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KenKata.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration _configuration;
+        private readonly SqlContext _sqlContext;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(IConfiguration configuration)
+        public HomeController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _configuration = configuration;
+            _sqlContext = sqlContext;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewData["MyDemo"] = _configuration["TestValue"];
-            ViewData["MySql"] = _configuration["Sql"];
+            var adminExists = await _sqlContext.Roles.FirstOrDefaultAsync(x => x.Name == "admin");
+
+            if (adminExists == null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole("admin"));
+
+                var user = new IdentityUser
+                {
+                    Email = "admin@admin.se",
+                    UserName = "adminTeam"
+                };
+
+                var result = await _userManager.CreateAsync(user, "Admin123&");
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "admin");
+                }
+                else
+                {
+                    return Conflict("Registration of hardcoded admin failed");
+                }
+            }
+            else
+            {
+                var userAsAdmin = await _sqlContext.UserRoles.FirstOrDefaultAsync(x => x.RoleId == adminExists.Id);
+
+                if (userAsAdmin == null)
+                {
+                    var user = new IdentityUser
+                    {
+                        Email = "admin@admin.se",
+                        UserName = "adminTeam"
+                    };
+
+                    var result = await _userManager.CreateAsync(user, "Admin123&");
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "admin");
+                    }
+                    else
+                    {
+                        return Conflict("Registration of hardcoded admin failed");
+                    }
+                }
+            }
+
 
             return View();
         }
