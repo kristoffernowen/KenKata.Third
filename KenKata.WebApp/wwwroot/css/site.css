@@ -596,9 +596,6 @@ a {
     display: block;
 }
 
-
-
-
 .teamBox {
     height: 505px;
     width: 255px;
@@ -628,16 +625,28 @@ a {
     width: 100%;
 }
 
-.team-blue-item {
+.team-profile-bottom-div {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
-    background-color: #0E153D;
-    height: 40px;
-    width: 75%;
-    border-radius: 9999px;
-    padding: 0 8px;
+    
 }
+
+.team-profile-bottom-div p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.team-blue-item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #0E153D;
+        height: 40px;
+        width: 75%;
+        border-radius: 9999px;
+        padding: 0 8px;
+    }
 
 .team-white-little-square {
     border: 1px solid white;

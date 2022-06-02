@@ -15,24 +15,23 @@
 </div>
 
 <h2 class="text-turquoise text-center m-5 pt-5">Behind in every successful business,</h2>
-<p class="text-center mb-3">
+<p class="text-center mb-5">
     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
     has been the <br /> industry's standard dummy text ever since the 1500s, when an unknown printer took.
 </p>
 
 <div id="teamGrid" class="ken-container">
-     @for (var i = 0; i < 8; i++) 
+    @for (var i = 0; i < 8; i++)
     {
 
-        
-            <a asp-controller="Home" asp-action="Index" class="teamBox">
-                <div class="h-100 team-box-background">
-                    <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo" />
 
-                    <div class="">
-                        <p class="text-white text-center fs-3">John Doe</p>
-                        <p class="text-white text-center fs-5">Managing director</p>
-                    </div>
+        <a asp-controller="Home" asp-action="Index" class="teamBox">
+            <div class="h-100 team-box-background">
+                <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo" />
+
+                <div class="team-profile-bottom-div">
+                    <p class="text-white text-center fs-3 pt-2">John Doe</p>
+                    <p class="text-white text-center fs-6 pb-3">Managing director</p>
                     <div class="d-flex justify-content-center">
                         <div class="team-blue-item">
                             <div class="team-white-little-square"></div>
@@ -43,8 +42,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
-       
+
+            </div>
+        </a>
+
 
     }
 </div>
