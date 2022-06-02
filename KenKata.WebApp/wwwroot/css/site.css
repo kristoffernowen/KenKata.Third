@@ -605,8 +605,18 @@ a {
 }
 
 .team-blue-item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     background-color: #0E153D;
     height: 40px;
     width: 75%;
     border-radius: 9999px;
+    padding: 0 8px;
+}
+
+.team-white-little-square {
+    border: 1px solid white;
+    height: 10px;
+    width: 10px;
 }
