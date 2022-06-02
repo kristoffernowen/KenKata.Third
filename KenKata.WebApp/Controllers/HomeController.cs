@@ -21,6 +21,10 @@ namespace KenKata.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+            /* This a hardcoded admin, if there is none in the system already. If there already is an admin this section can be commented out, only leave return view(); */
+
+
             var adminExists = await _sqlContext.Roles.FirstOrDefaultAsync(x => x.Name == "admin");
 
             if (adminExists == null)
