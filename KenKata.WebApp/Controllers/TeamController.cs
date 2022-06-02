@@ -1,6 +1,7 @@
 ﻿using KenKata.Shared.Models;
 using KenKata.Shared.Models.Entities;
 using KenKata.WebApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,11 +26,14 @@ namespace KenKata.WebApp.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> RegisterTeamMember()
         {
             
             return View();
         }
+
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> RegisterTeamMember(RegisterTeamMemberViewModel model)
         {
