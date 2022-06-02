@@ -596,11 +596,31 @@ a {
     display: block;
 }
 
+
+
+
 .teamBox {
     height: 505px;
     width: 255px;
-    border: 2px solid turquoise;
+    border: 2px solid #20D3C2;
+    background-color: #20D3C2;
     border-radius: 5px;
+}
+
+.teamBox:hover {
+    border: 2px solid #0E153D;
+}
+
+.teamBox:hover > .team-box-background {
+    background-color: #0E153D;
+}
+
+.teamBox:hover .team-blue-item {
+    background-color: white;
+}
+
+.teamBox:hover .team-white-little-square {
+    border: 1px solid black;
 }
 
 .teamBox img {
