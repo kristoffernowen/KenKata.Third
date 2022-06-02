@@ -603,3 +603,10 @@ a {
     height: auto;
     width: 100%;
 }
+
+.team-blue-item {
+    background-color: #0E153D;
+    height: 40px;
+    width: 75%;
+    border-radius: 9999px;
+}
