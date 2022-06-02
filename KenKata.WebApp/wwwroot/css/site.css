@@ -592,6 +592,10 @@ a {
     grid-row-gap: 30px;
 }
 
+#teamGrid a {
+    display: block;
+}
+
 .teamBox {
     height: 505px;
     width: 255px;
