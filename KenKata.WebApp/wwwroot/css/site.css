@@ -584,3 +584,22 @@ a {
     font-weight: bold;
 }
 
+#teamGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 30px;
+}
+
+.teamBox {
+    height: 505px;
+    width: 255px;
+    border: 2px solid turquoise;
+    border-radius: 5px;
+}
+
+.teamBox img {
+    height: auto;
+    width: 100%;
+}

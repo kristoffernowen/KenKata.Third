@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Team";
 }
 
@@ -16,5 +15,26 @@
 </div>
 
 <h2 class="text-turquoise text-center m-5 pt-5">Behind in every successful business,</h2>
-<p class="text-center mb-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-    has been the <br /> industry's standard dummy text ever since the 1500s, when an unknown printer took. </p>
+<p class="text-center mb-3">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+    has been the <br /> industry's standard dummy text ever since the 1500s, when an unknown printer took.
+</p>
+
+<div id="teamGrid" class="ken-container">
+     @for (var i = 0; i < 8; i++) 
+    {
+
+    <div class="teamBox">
+        <div class="h-100 bg-turquoise">
+            <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo" />
+
+            <div class="bg-turquoise">
+                <p class="text-white text-center fs-3">John Doe</p>
+                <p class="text-white text-center fs-5">Managing director</p>
+            </div>
+
+        </div>
+    </div>
+
+    }
+</div>
