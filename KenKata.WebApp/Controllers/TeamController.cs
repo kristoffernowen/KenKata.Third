@@ -8,5 +8,22 @@ namespace KenKata.WebApp.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> RegisterTeamMember()
+        {
+
+            /* Reg user
+             *
+             * assign role
+             *
+             * reg profile attach to user
+             *
+             *
+             */
+
+
+
+            return View();
+        }
     }
 }
