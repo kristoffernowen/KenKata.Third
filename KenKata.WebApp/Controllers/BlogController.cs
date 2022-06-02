@@ -44,7 +44,7 @@ namespace KenKata.WebApp.Controllers
                     tags = taggs,
                 });
             }
-            return View(list);
+                return View(list);
         }
 
         public async Task<IActionResult> Post(int id)

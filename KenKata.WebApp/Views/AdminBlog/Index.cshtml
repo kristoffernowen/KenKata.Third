@@ -4,34 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="ken-container mt-5">
+    <h1>Blog</h1>
 
-<p>
+<p class="mt-4 text-turquoise">
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<div class="table-responsive mt-3">
+    <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="col-2">
                 @Html.DisplayNameFor(model => model.Rubrik)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImgUrl)
-            </th>
-            <th>
+            <th class="col-2">
                 @Html.DisplayNameFor(model => model.Author)
             </th>
-            <th>
+            <th class="col-2">
                 @Html.DisplayNameFor(model => model.Created)
             </th>
-            <th>
+            <th class="col-2">
                 @Html.DisplayNameFor(model => model.Updated)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BlogCategory)
+            <th class="col-2">
+                Category
             </th>
             <th></th>
         </tr>
@@ -41,12 +37,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Rubrik)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
@@ -62,10 +52,13 @@
             </td>
             <td>
                 <a asp-action="Update" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+</div>
+</div>
