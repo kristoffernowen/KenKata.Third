@@ -574,3 +574,13 @@ a {
     height: 100%;
 }
 
+/* team */
+
+#teamBanner {
+    height: 400px;
+    background-color: #50546E;
+    width: 100%;
+    font-size: 36px;
+    font-weight: bold;
+}
+
