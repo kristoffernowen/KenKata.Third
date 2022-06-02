@@ -9,7 +9,7 @@ namespace KenKata.Shared.Models
 {
     public class RegisterTeamMemberViewModel
     {
-        public RegisterUserModel registerUserModel { get; set; }
+        public RegisterUserModel RegisterUserModel { get; set; }
 
         [Required(ErrorMessage = "You must submit a firstname")]
         [Display(Name = "First name")]
