@@ -4,6 +4,7 @@ using KenKata.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,30 +12,25 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220527185355_Changed entity")]
+    partial class Changedentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.BlogCategoryEntity", b =>
-
-          
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -43,9 +39,7 @@ namespace KenKata.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BlogCategories");
-
                 });
-
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
                 {
@@ -203,41 +197,7 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("ProductsInventory");
                 });
 
-
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.TeamMemberProfileEntity", b =>
-              {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-            
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfilePhotoFileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeamMemberProfiles");
-                });
-
-modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -452,8 +412,6 @@ modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.PostEntity", b =>
                 {
                     b.HasOne("KenKata.Shared.Models.Entities.BlogCategoryEntity", "BlogCategory")
@@ -482,9 +440,7 @@ modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-
                 });
-
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
                 {
@@ -589,14 +545,10 @@ modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                     b.Navigation("products");
                 });
 
-
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                 {
                     b.Navigation("PostTags");
-
                 });
-
 #pragma warning restore 612, 618
         }
     }
