@@ -21,9 +21,16 @@ namespace KenKata.WebApp.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var teamProfiles = await _sqlContext.TeamMemberProfiles.ToListAsync();
+            if (teamProfiles.Count > 8)
+            {
+                var profilesForView = teamProfiles.GetRange(0, 8);
+                return View(profilesForView);
+            }
+
+            return View(teamProfiles);
         }
 
         [Authorize(Roles = "admin")]
