@@ -48,13 +48,11 @@ namespace KenKata.WebApp.Controllers
 
             if (teamMemberExists == null)
             {
-
                 await _roleManager.CreateAsync(new IdentityRole("teamMember"));
             }
 
             if (ModelState.IsValid)
             {
-                
                 var user = new IdentityUser
                 {
                     Email = model.RegisterUserModel.Email,
@@ -77,30 +75,17 @@ namespace KenKata.WebApp.Controllers
                     var resultForProfile = _sqlContext.TeamMemberProfiles.Add(teamMemberProfile);
                     await _sqlContext.SaveChangesAsync();
 
-                    
-
-
                     return RedirectToAction("Index", "Home");
                 }
-
                 return Conflict("Registration failed");
-
             }
 
-            
-
-            /* Reg user
-             *
-             * assign role
-             *
-             * reg profile attach to user
-             *
-             *
-             */
-
-
-
             return View(model);
+        }
+
+        public IActionResult AddProfilePhoto()
+        {
+            return View();
         }
     }
 }
