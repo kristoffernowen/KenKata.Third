@@ -4,6 +4,7 @@ using KenKata.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220527184354_Blog-Entitys")]
+    partial class BlogEntitys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,18 +24,13 @@ namespace KenKata.WebApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.BlogCategoryEntity", b =>
-
-          
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -42,7 +39,6 @@ namespace KenKata.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BlogCategories");
-
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
@@ -201,16 +197,13 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("ProductsInventory");
                 });
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -219,7 +212,6 @@ namespace KenKata.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -420,7 +412,6 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.PostEntity", b =>
                 {
                     b.HasOne("KenKata.Shared.Models.Entities.BlogCategoryEntity", "BlogCategory")
@@ -449,7 +440,6 @@ namespace KenKata.WebApp.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("Tag");
-
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
@@ -555,11 +545,9 @@ namespace KenKata.WebApp.Migrations
                     b.Navigation("products");
                 });
 
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
                 {
                     b.Navigation("PostTags");
-
                 });
 #pragma warning restore 612, 618
         }
