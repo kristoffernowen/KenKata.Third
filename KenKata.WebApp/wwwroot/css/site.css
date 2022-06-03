@@ -44,6 +44,8 @@ a {
     color: white;
 }
 
+
+
 .white-button {
     border-radius: 30px;
     border: none;
@@ -84,6 +86,10 @@ a {
 
 .border-lightgrey {
     border: 1px solid lightgrey;
+}
+
+.border-turquoise {
+    border: 1px solid #20D3C2;
 }
 
 /* navbar */
@@ -190,6 +196,17 @@ a {
     padding: 0.5rem 1rem;
 }
 
+#totalQuantity {
+    /* background-color: #20D3C2; */
+    border-radius: 50%;
+    padding: 0px 7px 2px 7px;
+    color: white;
+    position: absolute;
+    top: -8px;
+    left: 55px;
+    font-size: 12px;
+    
+}
 
 
 /*SHOPPING-BANNER*/
@@ -441,6 +458,10 @@ a {
     border-top-right-radius: 5px;
 }
 
+#detailsQuantity {
+    width: 25px;
+}
+
 .color-div-box {
     height: 100px;
     width: 100px;
@@ -539,6 +560,7 @@ a {
 .my-account-button {
     border-radius: 9999px;
 }
+
 
 
 
@@ -673,3 +695,18 @@ a {
         padding: 5px;
         border-radius: 10px;
     }
+
+/* Shopping cart */
+
+.button-minus {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.button-plus {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 100%;
+}
+
+

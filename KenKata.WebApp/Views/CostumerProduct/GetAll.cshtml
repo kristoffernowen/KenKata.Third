@@ -30,7 +30,15 @@
         @foreach (var category in Model.category)
         {
             <div class="d-flex justify-content-between">
-                <a class="" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="@category.Id">@category.Name</a>
+                @if (Model.SelectedCategoryId == category.Id)
+                {
+                    <a class="" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="0">@category.Name</a>
+                }
+                @if (Model.SelectedCategoryId != category.Id)
+                {
+                    <a class="" asp-action="GetAll" asp-controller="CostumerProduct" asp-route-id="@category.Id">@category.Name</a>
+                }
+                
                 @if (category.products != null)
                 {
                     if (Model.SelectedCategoryId == category.Id)
@@ -54,7 +62,14 @@
         @foreach (var color in Model.colors)
         {
             <div class="d-flex justify-content-between">
-                <a class="" asp-action="GetAllColor" asp-controller="CostumerProduct" asp-route-value="@color.Name">@color.Name</a>
+                @if (Model.SelectedColor == color.Name){
+                    <a class="" asp-action="GetAll" asp-controller="CostumerProduct">@color.Name</a>
+                }
+                @if (Model.SelectedColor != color.Name)
+                {
+                    <a class="" asp-action="GetAllColor" asp-controller="CostumerProduct" asp-route-value="@color.Name">@color.Name</a>
+                }
+                
                 @if (color != null)
                 {
                     if (Model.SelectedColor == color.Name)
@@ -98,7 +113,7 @@
                                 }
                                 <a asp-controller="Products" asp-action="AddToWishList" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></a>
                                 <a asp-controller="Products" asp-action="AddToCompare" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Compare"><i class="fa-solid fa-shuffle"></i></a>
-                                <a asp-controller="Products" asp-action="AddToCart" asp-route-id="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                                <a onclick="addToCart(event)" data-product="@product.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></a>
                             </div>
                             <div class="card-info">
                                 <a asp-controller="CostumerProduct" asp-action="Details" asp-route-id="@product.Id">

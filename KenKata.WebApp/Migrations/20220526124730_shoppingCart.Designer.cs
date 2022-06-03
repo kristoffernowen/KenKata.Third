@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20220513121721_maythirteen")]
-    partial class maythirteen
+    [Migration("20220526124730_shoppingCart")]
+    partial class shoppingCart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,6 +24,66 @@ namespace KenKata.WebApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CartItemEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShoppingCartEntityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartEntityId");
+
+                    b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+                });
+
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -32,11 +92,17 @@ namespace KenKata.WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -47,9 +113,47 @@ namespace KenKata.WebApp.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
+                    b.Property<int>("ProductInventoryId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("ProductInventoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductsInventory");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ShoppingCartEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -250,6 +354,48 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CartItemEntity", b =>
+                {
+                    b.HasOne("KenKata.Shared.Models.Entities.ProductEntity", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KenKata.Shared.Models.Entities.ShoppingCartEntity", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartEntityId");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
+                {
+                    b.HasOne("KenKata.Shared.Models.Entities.CategoryEntity", "Category")
+                        .WithMany("products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KenKata.Shared.Models.Entities.ColorEntity", "Color")
+                        .WithMany("products")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KenKata.Shared.Models.Entities.ProductInventoryEntity", "ProductInventory")
+                        .WithMany("products")
+                        .HasForeignKey("ProductInventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("ProductInventory");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -299,6 +445,26 @@ namespace KenKata.WebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ColorEntity", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ShoppingCartEntity", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
