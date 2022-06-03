@@ -23,6 +23,8 @@ namespace KenKata.WebApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+
+
         public async Task<IActionResult> Index()
         {
             var teamProfiles = await _sqlContext.TeamMemberProfiles.ToListAsync();
@@ -35,12 +37,15 @@ namespace KenKata.WebApp.Controllers
             return View(teamProfiles);
         }
 
+
+
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> RegisterTeamMember()
+        public IActionResult RegisterTeamMember()
         {
-            
             return View();
         }
+
+
 
         [Authorize(Roles = "admin")]
         [HttpPost]
@@ -74,7 +79,7 @@ namespace KenKata.WebApp.Controllers
                         UserId = user.Id
                     };
 
-                    var resultForProfile = _sqlContext.TeamMemberProfiles.Add(teamMemberProfile);
+                    _sqlContext.TeamMemberProfiles.Add(teamMemberProfile);
                     await _sqlContext.SaveChangesAsync();
 
                     return RedirectToAction("Index", "Home");
@@ -84,19 +89,46 @@ namespace KenKata.WebApp.Controllers
 
             return View(model);
         }
+
+
+
         [Authorize(Roles = "teamMember")]
         public IActionResult AddProfilePhoto()
         {
             return View();
         }
 
+
+
         [HttpPost]
         [Authorize(Roles = "teamMember")]
-        public IActionResult AddProfilePhoto<T>(T model)
+        public async Task<IActionResult> AddProfilePhoto(PhotoUpload form)
         {
+            var user = await _sqlContext.Users.FirstOrDefaultAsync(x => x.UserName == User.Identity!.Name);
 
-            return View();
+
+            if (!ModelState.IsValid)
+                return View();
+
+            var wwwrootPath = _webHostEnvironment.WebRootPath;
+
+            var profile = await _sqlContext.TeamMemberProfiles.FirstOrDefaultAsync(x => x.UserId == user!.Id);
+
+
+
+            profile!.ProfilePhotoFileName = $"{user!.Id}_{form.File.FileName}";
+
+            var filePath = Path.Combine($"{wwwrootPath}/profilePhoto", profile.ProfilePhotoFileName);
+
+            await using (var fs = new FileStream(filePath, FileMode.Create))
+            {
+                await form.File.CopyToAsync(fs);
+            }
+
+            _sqlContext.TeamMemberProfiles.Update(profile);
+            await _sqlContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
-
     }
 }

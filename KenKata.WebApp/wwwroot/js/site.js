@@ -2,8 +2,8 @@
 
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-const azureApiUrl = `https://kenkatathirddevelop.azurewebsites.net/`;
-const localApiUrl = `https://localhost:7167/`;
+const apiUrl = `https://kenkatathirddevelop.azurewebsites.net/`;
+// Kristoffer localUrl:  https://localhost:7167/;
 
 getCart();
 updateSession();
@@ -14,7 +14,7 @@ updateSession();
 function addToCart(event) {
 
     event.stopPropagation();
-    fetch(`${azureApiUrl}shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
+    fetch(`${apiUrl}shoppingcart/addtocart/${event.currentTarget.dataset.product}`)
         .then(res => res.text())
         .then(data => {
             localStorage.setItem("shoppingCart", data);
@@ -28,7 +28,7 @@ function addManyToCart(event) {
     let sendData = [parseInt(event.currentTarget.dataset.product), parseInt(document.querySelector("#detailsQuantity").innerHTML)];
 
     event.stopPropagation();
-    fetch(`${azureApiUrl}shoppingcart/addmanytocart`,
+    fetch(`${apiUrl}shoppingcart/addmanytocart`,
         {
             method: "POST",
             headers: {
@@ -54,7 +54,7 @@ function decreaseDetailsQuantity() {
 
 function updateSession() {
 
-    fetch(`${azureApiUrl}shoppingcart/updateSession`,
+    fetch(`${apiUrl}shoppingcart/updateSession`,
         {
             method: "POST",
             headers: {
@@ -72,7 +72,7 @@ function getCart() {
     let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
 
     if (shoppingCart === null) {
-        fetch(`${azureApiUrl}shoppingcart/addtocart/0`)
+        fetch(`${apiUrl}shoppingcart/addtocart/0`)
             .then(res => res.text())
             .then(data => {
                 localStorage.setItem("shoppingCart", data);
@@ -145,7 +145,7 @@ async function updateIndexCart() {
 
 function removeFromCart(id) {
 
-    fetch(`${azureApiUrl}shoppingcart/deleteitemcart/${id}`)
+    fetch(`${apiUrl}shoppingcart/deleteitemcart/${id}`)
         .then(res => res.text())
         .then(data => {
             localStorage.setItem("shoppingCart", data);

@@ -29,8 +29,17 @@
     {
         <a asp-controller="Home" asp-action="Index" class="teamBox">
             <div class="h-100 team-box-background">
-                <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo"/>
-    
+                
+                @if (item.ProfilePhotoFileName != string.Empty)
+                {
+                    <img src="@("~/profilePhoto/"+item.ProfilePhotoFileName)" asp-append-version="true" alt="profile photo should go here 1"/>
+                }
+                else
+                {
+                    <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo should go here 2"/>
+                }
+                
+
                 <div class="team-profile-bottom-div">
                     <p class="text-white text-center fs-3 pt-2">@item.FirstName @item.LastName</p>
                     <p class="text-white text-center fs-6 pb-3">@item.Title</p>
@@ -44,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         </a>
     }
