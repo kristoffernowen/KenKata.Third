@@ -790,3 +790,12 @@ a {
     width: 10px;
 }
 
+/* add photo */
+
+#addPhotoBanner {
+    height: 250px;
+    background-color: #50546E;
+    width: 100%;
+    font-size: 36px;
+    font-weight: bold;
+}
