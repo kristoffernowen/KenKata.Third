@@ -13,12 +13,14 @@ namespace KenKata.WebApp.Controllers
         private readonly SqlContext _sqlContext;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public TeamController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public TeamController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
         {
             _sqlContext = sqlContext;
             _userManager = userManager;
             _roleManager = roleManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -82,10 +84,19 @@ namespace KenKata.WebApp.Controllers
 
             return View(model);
         }
-
+        [Authorize(Roles = "teamMember")]
         public IActionResult AddProfilePhoto()
         {
             return View();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "teamMember")]
+        public IActionResult AddProfilePhoto<T>(T model)
+        {
+
+            return View();
+        }
+
     }
 }
