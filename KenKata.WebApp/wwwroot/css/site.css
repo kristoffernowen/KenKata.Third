@@ -710,3 +710,83 @@ a {
 }
 
 
+/* team */
+
+#teamBanner {
+    height: 400px;
+    background-color: #50546E;
+    width: 100%;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+#teamGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 30px;
+}
+
+#teamGrid a {
+    display: block;
+}
+
+.teamBox {
+    height: 505px;
+    width: 255px;
+    border: 2px solid #20D3C2;
+    background-color: #20D3C2;
+    border-radius: 5px;
+}
+
+.teamBox:hover {
+    border: 2px solid #0E153D;
+}
+
+.teamBox:hover > .team-box-background {
+    background-color: #0E153D;
+}
+
+.teamBox:hover .team-blue-item {
+    background-color: white;
+}
+
+.teamBox:hover .team-white-little-square {
+    border: 1px solid black;
+}
+
+.teamBox img {
+    height: auto;
+    width: 100%;
+}
+
+.team-profile-bottom-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+
+.team-profile-bottom-div p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.team-blue-item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #0E153D;
+        height: 40px;
+        width: 75%;
+        border-radius: 9999px;
+        padding: 0 8px;
+    }
+
+.team-white-little-square {
+    border: 1px solid white;
+    height: 10px;
+    width: 10px;
+}
+

@@ -1,7 +1,4 @@
-﻿@using Newtonsoft.Json
-@using KenKata.Shared.Models
-
-
+﻿
 <section id="navbarSection" class="">
         <div id="navbarTop">
             <div class="navbar-container ">
@@ -42,13 +39,17 @@
                     {
                         <div class="dropdown d-flex align-items-center">
                             <a class="btn dropdown-toggle text-turquoise" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="text-black">@User.Identity.Name</span>
+                                <span class="text-black">@User.Identity!.Name</span>
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" asp-controller="User" asp-action="SignOut">Sign out</a></li>
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Team" asp-action="RegisterTeamMember">Register Team Member</a></li>
+                                }
                             </ul>
                         </div>
                     }
@@ -114,7 +115,7 @@
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuPages">
-                        <li><a class="dropdown-item" href="#">The team</a></li>
+                        <li><a class="dropdown-item" asp-controller="Team" asp-action="Index">The team</a></li>
                         <li><a class="dropdown-item" href="#">Portfolio</a></li>
                         <li><a class="dropdown-item" href="#">Contact us</a></li>
                     </ul>
