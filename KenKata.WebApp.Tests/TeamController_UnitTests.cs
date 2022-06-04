@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using KenKata.Shared.Models.Entities;
 using KenKata.WebApp.Controllers;
 using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
+
 
 namespace KenKata.WebApp.Tests
 {
@@ -60,6 +63,10 @@ namespace KenKata.WebApp.Tests
             // Assert
 
             var isViewResult = Assert.IsType<ViewResult>(result);
+
+            var model = Assert.IsAssignableFrom<IEnumerable<TeamMemberProfileEntity>>(isViewResult.ViewData.Model);
+
+            Assert.NotEmpty(model);
         }
     }
 }
