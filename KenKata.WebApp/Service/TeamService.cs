@@ -12,6 +12,12 @@ namespace KenKata.WebApp.Service
     public class TeamService : ITeamService
     {
         private readonly SqlContext _sqlContext;
+
+        public TeamService(SqlContext sqlContext)
+        {
+            _sqlContext = sqlContext;
+        }
+
         public async Task<List<TeamMemberProfileEntity>> GetAllAsync()
         {
             return await _sqlContext.TeamMemberProfiles.ToListAsync();
