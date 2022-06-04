@@ -562,6 +562,279 @@ a {
 }
 
 
+/* Portfolio */
+
+.gallery {
+    text-align: center;
+    height: 348px;
+    padding-top: 120px;
+}
+
+    .gallery h1 {
+        padding-bottom: 26px;
+        font-weight: bold;
+    }
+
+        .gallery h1 span {
+            color: #20D3C2;
+        }
+
+.mainBody .portfolio-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .mainBody .portfolio-links .link {
+        padding: 14px;
+        box-sizing: border-box;
+        font-size: 16px;
+        border-bottom: 2px solid #EEEEEE;
+        color: #0E153D;
+    }
+
+        .mainBody .portfolio-links .link:hover {
+            border-bottom-color: #20D3C2;
+            color: #20D3C2;
+        }
+
+#graphicDesign {
+    /* margin: 0; */
+    padding: 0;
+    border: none;
+}
+
+#graphicDesign {
+    margin: 0;
+}
+
+    #graphicDesign .cards {
+        width: 480px;
+        height: 480px;
+        position: relative;
+        
+    }
+
+        #graphicDesign .cards img {
+            border-radius: 7px;
+        }
+
+        #graphicDesign .cards:hover {
+            
+            background-color: #0e153ddf;
+            border-radius: 7px;
+            
+        }
+
+            #graphicDesign .cards:hover img {
+                display: none;
+            }
+
+    #graphicDesign .btn {
+        border-radius: 9999px;
+        border: none;
+        background-color: #20D3C2;
+        color: white;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+        #graphicDesign .btn:hover {
+            background-color: #292F51
+        }
+
+    #graphicDesign .cards .design-info {
+        position: absolute;
+        /* overflow: hidden; */
+        display: none;
+        z-index: 2;
+    }
+
+    #graphicDesign .cards:hover .design-info {
+        display: block;
+        top: 360px;
+        left: 30px;
+    }
+
+        #graphicDesign .cards:hover .design-info h5 {
+            color: #20D3C2;
+            font-size: 24px;
+        }
+
+        #graphicDesign .cards:hover .design-info h6 {
+            color: white;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+    #graphicDesign .cards .more-info img {
+        position: absolute;
+        display: none;
+        border: #20D3C2;
+    }
+
+    #graphicDesign .cards:hover .more-info img {
+        display: block;
+        top: 30px;
+        right: 30px;
+    }
+
+/* SECOND PAGE */
+
+.inner-text {
+    border-left: 6px solid #0E153D;
+    padding-left: 20px;
+    margin-top: 34px;
+    margin-bottom: 34px;
+}
+
+.section-one {
+    margin-top: 120px;
+    margin-bottom: 20px;
+}
+
+.text-section-one {
+    margin-right: 38px;
+    line-height: 1.7;
+}
+
+.section-one .text-section-one h3 {
+    font-size: 36px;
+    font-weight: bold;
+    padding-bottom: 22px;
+}
+
+.section-one .text-section-one h6 {
+    font-size: 14px;
+    font-weight: normal;
+    padding-bottom: 22px;
+}
+
+.section-two {
+    margin-top: 20px;
+}
+
+.text-section-two {
+    margin-left: 30px;
+    line-height: 1.7;
+}
+
+
+
+.social-icons {
+    width: 40%;
+    margin-left: 280px;
+    margin-top: 39px;
+    margin-bottom: 39px;
+}
+
+    .social-icons a {
+        display: block;
+        text-align: center;
+        padding: 11px 22px;
+        transition: all 0.3s ease;
+        color: white;
+        font-size: 16px;
+    }
+
+    .social-icons span {
+        text-align: center;
+        padding: 11px 22px;
+        color: white;
+        font-size: 16px;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+    }
+
+    .social-icons a:hover {
+        opacity: 0.7;
+    }
+
+.share-on {
+    background: #20D3C2;
+}
+
+.facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.twitter {
+    background: #55ACEE;
+    color: white;
+}
+
+.pinterest {
+    background: #BD081C;
+}
+
+.instagram {
+    background: #E4405F;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+
+.tags-links p {
+    border: 1px solid #AAAAAA;
+    margin-right: 10px;
+    padding: 6px 13px;
+}
+
+    .tags-links p:hover {
+        border: 1px solid #20D3C2;
+    }
+
+    .tags-links p:first-child {
+        border: none;
+        margin-right: 12px;
+        padding-left: 0;
+    }
+
+.other-projects {
+    background: #0E153D;
+    width: 100%;
+    height: 140px;
+    margin-top: 120px;
+}
+
+.previous {
+    margin-left: 15px;
+}
+
+    .previous p {
+        color: white;
+        margin-bottom: 0;
+    }
+
+        .previous p img {
+            padding-right: 15px;
+        }
+
+        .previous p:nth-child(2) {
+            font-size: 14px;
+        }
+
+
+.next-project {
+    color: #EEEEEE;
+    text-align: end;
+    margin-right: 15px;
+}
+
+    .next-project p {
+        margin-bottom: 0;
+    }
+
+        .next-project p:nth-child(2) {
+            font-size: 14px;
+        }
+
+        .next-project p img {
+            padding-left: 15px;
+        }
+
+
 
 
 /*Blog*/
@@ -799,3 +1072,4 @@ a {
     font-size: 36px;
     font-weight: bold;
 }
+
