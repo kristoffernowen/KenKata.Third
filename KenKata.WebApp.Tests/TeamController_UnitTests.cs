@@ -8,6 +8,7 @@ using KenKata.WebApp.Controllers;
 using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -25,7 +26,7 @@ namespace KenKata.WebApp.Tests
         [Fact]
         public async Task TeamController_Index_Should_Return_ViewResult_With_A_List_Of_TeamMemberProfileEntities()
         {
-            //Arrange
+            // Arrange
 
             await using var context = _fixture.CreateContext();
 
@@ -52,13 +53,13 @@ namespace KenKata.WebApp.Tests
 
             var sut = new TeamController(context, userManager, roleManager, mockIWeb.Object, teamService.Object);
 
-            //Action
+            // Action
 
-            var result = sut.Index();
+            var result = await sut.Index();
 
+            // Assert
 
-
-
+            var isViewResult = Assert.IsType<ViewResult>(result);
         }
     }
 }
