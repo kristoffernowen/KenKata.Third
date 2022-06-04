@@ -50,6 +50,10 @@
                                 {
                                     <li><a class="dropdown-item" asp-controller="Team" asp-action="RegisterTeamMember">Register Team Member</a></li>
                                 }
+                                @if (User.IsInRole("teamMember"))
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Team" asp-action="AddProfilePhoto">Add profile photo</a></li>
+                                }
                             </ul>
                         </div>
                     }
