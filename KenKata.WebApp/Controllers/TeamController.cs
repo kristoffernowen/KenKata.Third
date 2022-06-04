@@ -1,6 +1,7 @@
 ﻿using KenKata.Shared.Models;
 using KenKata.Shared.Models.Entities;
 using KenKata.WebApp.Data;
+using KenKata.WebApp.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,14 @@ namespace KenKata.WebApp.Controllers
         }
 
 
-
         public async Task<IActionResult> Index()
         {
             var teamProfiles = await _sqlContext.TeamMemberProfiles.ToListAsync();
+
+            
+
+            
+
             if (teamProfiles.Count > 8)
             {
                 var profilesForView = teamProfiles.GetRange(0, 8);
