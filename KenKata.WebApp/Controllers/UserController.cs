@@ -37,11 +37,11 @@ namespace KenKata.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(RegisterUserModel model)
         {
-            var roles = _sqlContext.Roles.Any();
+            var customerExists = await _sqlContext.Roles.FirstOrDefaultAsync(x => x.Name == "customer");
 
-            if (roles == false)
+            if (customerExists == null)
             {
-                await _roleManager.CreateAsync(new IdentityRole("admin"));
+                
                 await _roleManager.CreateAsync(new IdentityRole("customer"));
             }
 

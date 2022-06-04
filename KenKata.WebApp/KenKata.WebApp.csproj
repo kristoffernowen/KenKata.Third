@@ -4,23 +4,24 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>01d923db-7055-4965-8f68-e081332b13d3</UserSecretsId>
+    <UserSecretsId>0d44317f-f206-463c-8ed4-03a42cae6243</UserSecretsId>
     
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\profilePhoto\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.aspnetcore.identity.entityframeworkcore" Version="6.0.4" />
-    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="6.0.4" />
-    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="6.0.4">
+    <PackageReference Include="microsoft.aspnetcore.identity.entityframeworkcore" Version="6.0.5" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="6.0.5" />
+    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>

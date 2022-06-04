@@ -1,0 +1,60 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model List<KenKata.Shared.Models.Entities.TeamMemberProfileEntity>
+
+@{
+    ViewData["Title"] = "Team";
+}
+
+<div id="teamBanner">
+    <div class="ken-container d-flex justify-content-start align-items-center h-100">
+        <div>
+            <div><span class="text-white">An</span><span class="text-turquoise">&nbsp; Awesome Team</span> </div>
+
+
+
+            <div> <span class="text-white">Behind Our Online Store</span></div>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-turquoise text-center m-5 pt-5">Behind in every successful business,</h2>
+<p class="text-center mb-5">
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+    has been the <br /> industry's standard dummy text ever since the 1500s, when an unknown printer took.
+</p>
+
+<div id="teamGrid" class="ken-container">
+  
+    @foreach (var item in Model)
+    {
+        <a asp-controller="Home" asp-action="Index" class="teamBox">
+            <div class="h-100 team-box-background">
+                
+                @if (item.ProfilePhotoFileName != string.Empty)
+                {
+                    <img src="@("~/profilePhoto/"+item.ProfilePhotoFileName)" asp-append-version="true" alt="profile photo should go here 1"/>
+                }
+                else
+                {
+                    <img src="/images/Team thumb.svg" asp-append-version="true" alt="profile photo should go here 2"/>
+                }
+                
+
+                <div class="team-profile-bottom-div">
+                    <p class="text-white text-center fs-3 pt-2">@item.FirstName @item.LastName</p>
+                    <p class="text-white text-center fs-6 pb-3">@item.Title</p>
+                    <div class="d-flex justify-content-center">
+                        <div class="team-blue-item">
+                            <div class="team-white-little-square"></div>
+                            <div class="team-white-little-square"></div>
+                            <div class="team-white-little-square"></div>
+                            <div class="team-white-little-square"></div>
+                            <div class="team-white-little-square"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </a>
+    }
+</div>

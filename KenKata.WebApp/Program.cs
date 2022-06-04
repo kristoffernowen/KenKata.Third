@@ -18,6 +18,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
 }).AddEntityFrameworkStores<SqlContext>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(x =>
+{
+    x.IdleTimeout = TimeSpan.FromDays(1);
+    x.Cookie.IsEssential = true;
+    x.Cookie.HttpOnly = true;
+});
+
+
 builder.Services.ConfigureApplicationCookie(x =>
 {
     x.LoginPath = "/authentication/signin";
@@ -33,6 +43,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -40,6 +52,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

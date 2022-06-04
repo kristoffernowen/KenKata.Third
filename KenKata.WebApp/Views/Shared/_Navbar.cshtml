@@ -1,5 +1,4 @@
 ﻿
-
 <section id="navbarSection" class="">
         <div id="navbarTop">
             <div class="navbar-container ">
@@ -7,6 +6,7 @@
                     <div class="d-flex p-0">
                         <select class="bg-transparent" name="" id="">
                             <option value="">ENG</option>
+                            
                         </select>
                         <select class="bg-transparent" name="" id="">
                             <option value="">USD</option>
@@ -37,30 +37,46 @@
                 <div class="d-flex justify-content-between" id="navbarMyAccountDiv">
                     @if (_signInManager.IsSignedIn(User))
                     {
-                        <div class="dropdown">
-                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                @User.Identity.Name
+                        <div class="dropdown d-flex align-items-center">
+                            <a class="btn dropdown-toggle text-turquoise" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="text-black">@User.Identity!.Name</span>
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" asp-controller="User" asp-action="SignOut">Sign out</a></li>
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Team" asp-action="RegisterTeamMember">Register Team Member</a></li>
+                                }
+                                @if (User.IsInRole("teamMember"))
+                                {
+                                    <li><a class="dropdown-item" asp-controller="Team" asp-action="AddProfilePhoto">Add profile photo</a></li>
+                                }
                             </ul>
                         </div>
                     }
                     else
                     {
-                        <div class="pt-2">
+                        <div class="pt-2 d-flex align-items-center">
                             <a asp-controller="User" asp-action="Index"><i class="fa-solid fa-user me-2"></i><span>My account</span></a>
                         </div>
                     }
                     
 
                     <div class="d-flex justify-content-between pt-2">
-                        <a href=""><i class="fa-solid fa-heart"></i></a>
-                        <a><i class="fa-solid fa-shuffle"></i></a>
-                        <a> <i class="fa-solid fa-lock"></i></a>
+                        <div class="d-flex align-items-center"><a href=""><i class="fa-solid fa-heart"></i></a></div>
+                        <div class="d-flex align-items-center"><a><i class="fa-solid fa-shuffle"></i></a></div>
+                        <div>
+                            <a asp-controller="ShoppingCart" asp-action="Index" class="btn position-relative ">
+                                <i class="fa-solid fa-cart-shopping position-relative">
+                                </i> 
+                                <span id="totalQuantity" ></span>
+                                <span id="totalPrice"  ></span>
+                            </a>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -100,17 +116,26 @@
                     <a href="">Categories</a>
                 </div>
 
-                <div class="navbarBottomDiv">
-                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="" aria-expanded="false">
-                        Pages
+                <div class="navbarBottomDiv dropdown">
+
+                    <a class="btn dropdown-toggle text-turquoise" href="#" role="button" id="dropDownMenuPages" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <span class="text-black">Pages</span>
                     </a>
-                    <ul class="dropdown-menu bg-turquoise ">
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuPages">
+                        <li><a class="dropdown-item" asp-controller="Team" asp-action="Index">The team</a></li>
                         <li><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
+                        <li><a class="dropdown-item" href="#">Contact us</a></li>
                     </ul>
+
+
                 </div>
 
                <div class="navbarBottomDiv">
-                    <a href="">Blog</a>
+
+                <a asp-action="Blog" asp-controller="Blog">Blog</a>
+
                </div>
 
                 <a href="" id="navbarSpecialOffer">Special Offer</a>

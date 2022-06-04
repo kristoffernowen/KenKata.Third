@@ -1,0 +1,49 @@
+﻿@using KenKata.Shared.Models
+@model IEnumerable<BlogPostModel>
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<div class="page-border">
+    <div class="ken-container d-flex justify-content-between align-items-center h-100">
+        <div class="text-turquoise"><h4>Blog</h4></div>
+        <div><span><a class="text-turquoise" asp-controller="Home" asp-action="Index">Home /</a></span><span class="text-white"> Blog</span></div>
+    </div>
+</div>
+
+
+
+<div class="ken-container mt-5" id="Blog">
+    <div class="row row-cols-2 g-4">
+        @foreach (var post in Model)
+        {
+            <div class="col d-flex justify-content-between align-items-center">
+                <img src="@post.ImgUrl">
+                <div class="blog-details">
+                    <div class="d-flex flex-column blog-created justify-content-center align-items-center">
+                        <h2>@post.DateCreated.Day</h2>
+                        <h5>@post.DateCreated.ToString("MMM")</h5>
+                    </div>
+                    <div class="blog-content text-white">
+                        <span>By <a class="text-white " href="../BlogPost.html"> @post.Author </a></span>
+                        <p class="text-turquoise">@post.Rubrik</p>
+                        <div class="d-flex">
+                            @foreach (var tag in post.tags)
+                            {
+                                <div class="taggs">
+                                    <a href="#">@tag.TagName</a>
+                                </div>
+                            }
+                        </div>
+                        <div class="mt-4">
+                            <a class="white-button p-2 pe-4 ps-4" asp-action="Post" asp-route-id="@post.Id"> Read more </a>
+                        </div>
+                        <!-- <a class="white-button p-2 pe-4 ps-4" href="./BlogPost.html"> Read more </a> -->
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+

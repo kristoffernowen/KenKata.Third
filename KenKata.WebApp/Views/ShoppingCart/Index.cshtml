@@ -1,0 +1,100 @@
+﻿@model KenKata.Shared.Models.ShoppingCartModel
+
+
+
+
+<div class="grey-banner-bg">
+    <div class="ken-container d-flex justify-content-center align-items-center h-100">
+        <div><span class="text-turquoise">Shopping Cart &nbsp;</span> <span class="text-white">/&nbsp; Check Out</span><span class="text-white">&nbsp; / &nbsp; Complete</span></div>
+    </div>
+</div>
+
+<div class="bg-white w-100 m-5 p-2"></div>
+
+
+
+
+<div class="navbar-container d-flex">
+    <div class="w-75 me-5">
+        <table class="w-100">
+            <thead class="border-lightgrey-bottom">
+                <tr>
+                    <th class="pb-3">&nbsp;</th>
+                    <th class="pb-3">Product</th>
+                    <th class="pb-3">Price</th>
+                    <th class="pb-3">Quantity</th>
+                    <th class="pb-3">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cartBody" class="pt-5">
+            
+            </tbody>
+        </table>
+
+    </div>
+    <div class="w-25">
+        <div class="p-0 bg-darkblue">
+            <p class="text-turquoise text-center p-0 m-0 fs-4 fw-bold">CART TOTALS</p>
+        </div>
+        <div class="border p-3">
+
+            <div class="d-flex justify-content-between w-100 border-bottom pb-4">
+                <span >Subtotal</span>
+                <span id="cartTotalsSubTotal">0</span>
+            </div>
+            <p class="text-end mt-4">Flat rate</p>
+            <p class="text-end">Free shipping</p>
+            <div class="d-flex justify-content-between w-100">
+                <span>Shipping</span>
+                <span>Local pickup</span>
+            </div>
+            <p class="text-end ">Shipping to </p>
+            <div class="d-flex justify-content-end border-bottom pb-4"><a>Change address</a></div>
+            <div class="d-flex justify-content-between w-100 mt-4">
+                <span class="fs-3">Total</span>
+
+                <span id="cartTotalsTotal" class="fs-3">0</span>
+
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="button-turquoise-halfcircleend px-3 py-2 my-4 fs-6 fw-bold">PROCEED TO CHECKOUT</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function updateThisIndexCart() {
+        let shoppingCart = JSON.parse(localStorage.getItem("shoppingCart"));
+
+        document.querySelector("#cartBody").innerHTML = "";
+
+        for (let i = 0; i < shoppingCart.Items.length; i ++) {
+            let productName = shoppingCart.Items[i].Product.Name;
+            let productPrice = shoppingCart.Items[i].Product.Price;
+            let productQuantity = shoppingCart.Items[i].Quantity;
+            let productSubTotal = shoppingCart.Items[i].Product.Price * shoppingCart.Items[i].Quantity;
+
+            document.querySelector("#cartBody").innerHTML +=
+                `<tr>
+                    <td><i onclick="removeFromCart(${shoppingCart.Items[i].Product.Id})" class="fa-solid fa-circle-xmark text-secondary"></i></td> <td>${productName}</td>
+                    <td>${productPrice}</td>
+                    <td>
+                        <div class="d-flex">
+                            <div class="button-minus border-lightgrey bg-white text-secondary h-50 px-2" onclick="subtractOneFromQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">-</div>
+                        <div class="border-lightgrey px-2 h-50">${productQuantity}</div> 
+                         <div class="button-plus bg-turquoise text-white border-turquoise h-50 px-2 " onclick="addOneToQuantity(event)" data-product="${shoppingCart.Items[i].Product.Id}">+</div>
+                        </div>
+                    </td>
+                    <td>${productSubTotal}</td> 
+                </tr>`;
+        }
+
+        document.querySelector("#cartTotalsSubTotal").innerText = `${shoppingCart.TotalPrice}`;
+    }
+
+    updateThisIndexCart();
+
+</script>

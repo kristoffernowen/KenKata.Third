@@ -4,6 +4,7 @@ using KenKata.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,18 +12,19 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KenKata.WebApp.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220526124730_shoppingCart")]
+    partial class shoppingCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.BlogCategoryEntity", b =>
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CartItemEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,13 +32,22 @@ namespace KenKata.WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShoppingCartEntityId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlogCategories");
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartEntityId");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
@@ -71,69 +82,6 @@ namespace KenKata.WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
-                });
-
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.PostEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("BlogCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rubrik")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogCategoryId");
-
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.PostTagsEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTags");
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
@@ -195,7 +143,7 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("ProductsInventory");
                 });
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ShoppingCartEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,46 +151,9 @@ namespace KenKata.WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(20)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.TeamMemberProfileEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfilePhotoFileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TeamMemberProfiles");
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -443,34 +354,19 @@ namespace KenKata.WebApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.PostEntity", b =>
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.CartItemEntity", b =>
                 {
-                    b.HasOne("KenKata.Shared.Models.Entities.BlogCategoryEntity", "BlogCategory")
-                        .WithMany("Post")
-                        .HasForeignKey("BlogCategoryId")
+                    b.HasOne("KenKata.Shared.Models.Entities.ProductEntity", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BlogCategory");
-                });
+                    b.HasOne("KenKata.Shared.Models.Entities.ShoppingCartEntity", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartEntityId");
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.PostTagsEntity", b =>
-                {
-                    b.HasOne("KenKata.Shared.Models.Entities.PostEntity", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KenKata.Shared.Models.Entities.TagEntity", "Tag")
-                        .WithMany("PostTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("Tag");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductEntity", b =>
@@ -551,11 +447,6 @@ namespace KenKata.WebApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.BlogCategoryEntity", b =>
-                {
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.CategoryEntity", b =>
                 {
                     b.Navigation("products");
@@ -566,19 +457,14 @@ namespace KenKata.WebApp.Migrations
                     b.Navigation("products");
                 });
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.PostEntity", b =>
-                {
-                    b.Navigation("PostTags");
-                });
-
             modelBuilder.Entity("KenKata.Shared.Models.Entities.ProductInventoryEntity", b =>
                 {
                     b.Navigation("products");
                 });
 
-            modelBuilder.Entity("KenKata.Shared.Models.Entities.TagEntity", b =>
+            modelBuilder.Entity("KenKata.Shared.Models.Entities.ShoppingCartEntity", b =>
                 {
-                    b.Navigation("PostTags");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

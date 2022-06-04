@@ -1,0 +1,47 @@
+﻿
+
+
+
+@model KenKata.WebApp.Data.PhotoUpload
+
+@{
+    ViewData["Title"] = "ProfilePhotoUpload";
+    
+}
+
+<div id="addPhotoBanner" class="mb-5">
+    <div class="ken-container d-flex justify-content-center align-items-center h-100">
+        <div>
+            <div><span class="text-white">Would you like to</span><span class="text-turquoise">&nbsp; upload your Profile Photo?</span> </div>
+
+
+
+            @* <div> <span class="text-white">Behind Our Online Store</span></div> *@
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row mt-5">
+    <div class="col-6 offset-3">
+        <form asp-action="AddProfilePhoto" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="mb-3">
+                @* <label asp-for="File" class="form-label"></label> *@
+                <input asp-for="File" class="form-control" type="file">
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" value="Upload Image" class="button-turquoise-halfcircleend px-5 py-3 fs-4" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="col-6 offset-3">
+    <a class="text-turquoise fs-4 ms-3" asp-controller="Home" asp-action="Index">Continue</a>
+</div>
