@@ -52,6 +52,13 @@ namespace KenKata.WebApp.Tests
 
             var sut = new TeamController(context, userManager, roleManager, mockIWeb.Object, teamService.Object);
 
+            //Action
+
+            var result = sut.Index();
+
+
+
+
         }
     }
 }
