@@ -15,23 +15,21 @@ namespace KenKata.WebApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ITeamService _teamService;
 
-        public TeamController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
+        public TeamController(SqlContext sqlContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, ITeamService teamService)
         {
             _sqlContext = sqlContext;
             _userManager = userManager;
             _roleManager = roleManager;
             _webHostEnvironment = webHostEnvironment;
+            _teamService = teamService;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var teamProfiles = await _sqlContext.TeamMemberProfiles.ToListAsync();
-
-            
-
-            
+            var teamProfiles = await _teamService.GetAllAsync();
 
             if (teamProfiles.Count > 8)
             {

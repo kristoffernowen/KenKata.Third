@@ -18,6 +18,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(x =>
 }).AddEntityFrameworkStores<SqlContext>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(x =>
@@ -26,7 +27,6 @@ builder.Services.AddSession(x =>
     x.Cookie.IsEssential = true;
     x.Cookie.HttpOnly = true;
 });
-
 
 builder.Services.ConfigureApplicationCookie(x =>
 {
