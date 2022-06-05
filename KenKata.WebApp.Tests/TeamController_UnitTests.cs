@@ -67,6 +67,11 @@ namespace KenKata.WebApp.Tests
             var model = Assert.IsAssignableFrom<IEnumerable<TeamMemberProfileEntity>>(isViewResult.ViewData.Model);
 
             Assert.NotEmpty(model);
+
+
+            //  I want a maximum of 8 profiles sent to the view, so count here should be 8, when there are totally 9 teammembers
+
+            Assert.Equal(8, model.Count());
         }
     }
 }
